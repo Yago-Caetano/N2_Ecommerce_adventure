@@ -12,5 +12,8 @@ namespace N2_Ecommerce_adventure.Models
         public int Numero { get; set; }
         public string CEP { get; set; }
         public string Cidade { get; set; }
+        public bool Ativo { get; set; } = true;
+        public string NomeUsuario { get; set; }
+        public int IDUsuario_logado { get; set; }
     }
 }

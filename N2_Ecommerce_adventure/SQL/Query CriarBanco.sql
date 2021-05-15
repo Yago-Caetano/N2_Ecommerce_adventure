@@ -28,6 +28,7 @@ create table tbEnderecos(
 	numero int not null,
 	Cep varchar(10) not null,
 	Cidade varchar(15) not null,
+	statusEnd BIT default 1, -- indica se o endereço está ativo ou não
 	primary key (id)
 );
 

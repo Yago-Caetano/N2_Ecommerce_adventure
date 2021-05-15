@@ -25,7 +25,7 @@ namespace N2_Ecommerce_adventure.Controllers
             if (user != null)
             {
                 HttpContext.Session.SetString("Logado", user.Id.ToString());
-                return RedirectToAction("index", "Usuario");
+                return RedirectToAction("index", "Endereco");
             }
             else
             {

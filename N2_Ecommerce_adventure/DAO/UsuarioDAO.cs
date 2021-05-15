@@ -63,7 +63,7 @@ namespace N2_Ecommerce_adventure.DAO
             var tabela = HelperDAO.ExecutaProcSelect("spConsultaEnderecosUsuario", p);
 
             foreach (DataRow table in tabela.Rows)
-                lista.Add(endDao.Consulta(Convert.ToInt32(table["id_endereco"])));
+                lista.Add(endDao.Consulta(Convert.ToInt32(table["id"])));
 
             return lista;
 
@@ -76,9 +76,9 @@ namespace N2_Ecommerce_adventure.DAO
         public override void Delete(int id)
         {
             var p = new SqlParameter[]
-          {
-                 new SqlParameter("idUsuario", id),
-          };
+              {
+                  new SqlParameter("idUsuario", id),
+              };
             HelperDAO.ExecutaProc("spDelete_Usuario", p);
         }
         public virtual UsuarioViewModel VerificaUsuario(string login, string senha)
@@ -93,6 +93,19 @@ namespace N2_Ecommerce_adventure.DAO
                 return null;
             else
                 return MontaModel(tabela.Rows[0]);
+        }
+        public string GetNome(int idUsuario)
+        {
+            var p = new SqlParameter[]
+              {
+                 new SqlParameter("idUsuario", idUsuario),
+              };
+            var tabela = HelperDAO.ExecutaProcSelect("spConsultaNomeUsuario", p);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return tabela.Rows[0]["Nome"].ToString();
+
         }
     }
 }
