@@ -1,0 +1,30 @@
+﻿@model List<TipoUsuarioViewModel>
+
+<h2>Relação de Tipos de Usuario</h2>
+
+<br />
+<a href="/TipoUsuario/Create">Novo Registro</a>
+<br />
+
+
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>Ações</th>
+        <th>Id</th>
+        <th>Tipo</th>
+    </tr>
+
+    @foreach (TipoUsuarioViewModel a in Model)
+    {
+        <tr>
+            <td>
+                <a href="TipoUsuario/Edit?id=@a.Id" class="btn-info">Editar</a>
+                <a href="javascript:apagarRegistro(@a.Id, 'TipoUsuario')" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@a.Id</td>
+            <td>@a.Tipo</td>
+        </tr>
+    }
+
+
+</table>

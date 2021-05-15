@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace N2_Ecommerce_adventure.Controllers
 {
@@ -14,6 +15,8 @@ namespace N2_Ecommerce_adventure.Controllers
         protected bool GeraProximoId { get; set; }
         protected string NomeViewIndex { get; set; } = "index";
         protected string NomeViewForm { get; set; } = "form";
+
+        protected bool ExibeAutenticacao { get; set; } = true;
 
 
         public virtual IActionResult Index()
@@ -114,6 +117,16 @@ namespace N2_Ecommerce_adventure.Controllers
             catch (Exception erro)
             {
                 return View("Error", new ErrorViewModel(erro.ToString()));
+            }
+        }
+        public override void OnActionExecuting(ActionExecutingContext context)
+        {
+            if (ExibeAutenticacao && !HelperControllers.VerificaUserLogado(HttpContext.Session))
+                context.Result = RedirectToAction("Index", "Login");
+            else
+            {
+                ViewBag.Logado = true;
+                base.OnActionExecuting(context);
             }
         }
     }
