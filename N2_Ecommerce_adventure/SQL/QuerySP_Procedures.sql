@@ -10,6 +10,18 @@ begin
 	Tipo=@Tipo
 	where id=@id
 end
+create procedure spInsert_tbCategoriaProdutos(@id int, @Categoria varchar(20))as  --as SP podem receber parametros
+begin
+	insert into tbCategoriaProdutos(Categoria) 
+	values (@Categoria)
+end
+
+create procedure spUpdate_tbCategoriaProdutos(@id int, @Categoria varchar(20))as
+begin
+	update tbCategoriaProdutos set
+	Categoria=@Categoria
+	where id=@id
+end
 
 create procedure spInsert_tbUsuario
 (	@id int, 

@@ -1,0 +1,34 @@
+﻿@model List<ProdutosViewModel>
+
+<h2>Relação de Produtos</h2>
+
+<br />
+<a href="/Produtos/Create">Novo Registro</a>
+<br />
+Endereços do usuario: @ViewBag.NomeUsuario
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>Ações</th>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Categoria</th>
+    </tr>
+
+    @foreach (ProdutosViewModel a in Model)
+    {
+        <tr>
+            <td>
+                <a href="Produtos/Edit?id=@a.Id" class="btn-info">Editar</a>
+                <a href="javascript:apagarRegistro(@a.Id, 'Produtos')" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@a.Id</td>
+            <td>@a.Nome</td>
+            <td>@a.Preço</td>
+            <td>@a.Categoria_Produto.Categoria</td>
+
+        </tr>
+    }
+
+
+</table>
