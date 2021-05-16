@@ -22,7 +22,38 @@ begin
 	Categoria=@Categoria
 	where id=@id
 end
+create procedure spInsert_tbProdutos
+(	@id int, 
+	@Nome varchar(20),
+	@Preco decimal(7,2) ,
+	@Descricao varchar(100),
+	@Foto varbinary(max),
+	@idCategoria int
+)as  --as SP podem receber parametros
+begin
+	
+	insert into tbProdutos(Nome,Preco,Descricao,Foto,idCategoria) 
+	values (@Nome,@Preco,@Descricao,@Foto,@idCategoria) 
+end
 
+create procedure spUpdate_tbProdutos
+(	@id int, 
+	@Nome varchar(20),
+	@Preco decimal(7,2) ,
+	@Descricao varchar(100),
+	@Foto varbinary(max),
+	@idCategoria int
+)as  --as SP podem receber parametros
+begin
+	update tbProdutos set
+	Nome =@Nome,
+	Preco =@Preco ,
+	Descricao =@Descricao,
+	Foto =@Foto,
+	idCategoria=@idCategoria
+	where id =@id
+
+end
 create procedure spInsert_tbUsuario
 (	@id int, 
 	@Nome varchar(20),
