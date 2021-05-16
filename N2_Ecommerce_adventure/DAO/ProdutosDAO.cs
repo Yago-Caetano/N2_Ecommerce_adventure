@@ -17,13 +17,15 @@ namespace N2_Ecommerce_adventure.DAO
             if (imgByte == null)
                 imgByte = DBNull.Value;
 
-            SqlParameter[] parametros = new SqlParameter[6];
+            SqlParameter[] parametros = new SqlParameter[8];
             parametros[0] = new SqlParameter("id", model.Id);
             parametros[1] = new SqlParameter("Nome", model.Nome);
             parametros[2] = new SqlParameter("Preco ", model.Preço);
             parametros[3] = new SqlParameter("Descricao ", model.Descricao);
             parametros[4] = new SqlParameter("Foto ", imgByte);
-            parametros[5] = new SqlParameter("idCategoria ", model.idCategoria);
+            parametros[5] = new SqlParameter("Quantidade ", model.Quantidade);
+            parametros[6] = new SqlParameter("Desconto ", model.Desconto);
+            parametros[7] = new SqlParameter("idCategoria ", model.idCategoria);
             return parametros;
         }
 
@@ -34,6 +36,9 @@ namespace N2_Ecommerce_adventure.DAO
             produto.Nome = registro["Nome"].ToString();
             produto.Preço = Convert.ToDouble(registro["Preco"]);
             produto.Descricao = registro["Descricao"].ToString();
+            produto.Quantidade = Convert.ToInt32(registro["Quantidade"]);
+            produto.QuantidadeEmOrdem = Convert.ToInt32(registro["QuantidadeEmOrdem"]);
+            produto.Desconto = Convert.ToDouble(registro["Desconto"]);
             produto.idCategoria = Convert.ToInt32(registro["idCategoria"]);
 
             if (registro["Foto"] != DBNull.Value)

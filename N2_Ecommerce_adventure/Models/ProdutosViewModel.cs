@@ -12,6 +12,9 @@ namespace N2_Ecommerce_adventure.Models
         public double Preço { get; set; }
         public string Descricao { get; set; }
         public int idCategoria { get; set; }
+        public int QuantidadeEmOrdem { get; set; }
+        public int Quantidade { get; set; }
+        public double Desconto { get; set; } = 0.00;
 
         public CategoriaProdutoViewModel Categoria_Produto { get; set; }
         /// <summary>
