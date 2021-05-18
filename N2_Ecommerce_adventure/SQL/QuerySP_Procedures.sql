@@ -70,6 +70,11 @@ begin
 
 end
 GO
+create procedure spConsultaNomeProduto (@Id int) as
+begin 
+	select Nome from tbProdutos where id=@Id
+end
+GO
 -----------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------Usuarios
 create procedure spInsert_tbUsuario
@@ -123,9 +128,9 @@ begin
 	select * from tbUsuario where email=@login and senha=@senha and statusUsuario=1
 end
 GO
-create procedure spConsultaNomeUsuario (@idUsuario int) as
+create procedure spConsultaDadosUsuario (@idUsuario int) as
 begin
-	select Nome from tbUsuario where id=@idUsuario
+	select id,Nome,email,cpf from tbUsuario where id=@idUsuario
 end
 GO
 create procedure spConsultaEnderecosUsuario (@idUsuario int) as
@@ -185,6 +190,40 @@ begin
 	(@idUsuario,@idEndereco)
 end
 GO
+---------------------------------------------------------------------------------------------Pedidos
+create procedure spInsert_tbPedidos
+(
+	@id int,
+	@idStatus int,
+	@idUsuario int,
+	@idEndereco int,
+	@data smalldatetime
+) as
+begin
+	insert into tbPedidos (idStatus,idUsuario,idEndereco,data) Values 
+	(@idStatus,@idUsuario,@idEndereco,@data)
+
+end
+GO
+create procedure spUpdate_tbPedidos
+(
+	@id int,
+	@idStatus int,
+	@idUsuario int,
+	@idEndereco int,
+	@data smalldatetime
+) as
+begin
+	update tbPedidos set
+
+	idStatus =@idStatus,
+	idUsuario=@idUsuario,
+	idEndereco=@idEndereco,
+	data=@data
+	where id=@id
+end
+GO
+---------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------Procedures genericas
 create procedure spDelete
 (

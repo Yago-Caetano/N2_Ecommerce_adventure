@@ -94,17 +94,25 @@ namespace N2_Ecommerce_adventure.DAO
             else
                 return MontaModel(tabela.Rows[0]);
         }
-        public string GetNome(int idUsuario)
+        public UsuarioSimplificadoViewModel GetSimplifiedUser(int idUsuario)
         {
+            UsuarioSimplificadoViewModel user = new UsuarioSimplificadoViewModel();
             var p = new SqlParameter[]
               {
                  new SqlParameter("idUsuario", idUsuario),
               };
-            var tabela = HelperDAO.ExecutaProcSelect("spConsultaNomeUsuario", p);
+            var tabela = HelperDAO.ExecutaProcSelect("spConsultaDadosUsuario", p);
             if (tabela.Rows.Count == 0)
                 return null;
             else
-                return tabela.Rows[0]["Nome"].ToString();
+            {
+                user.Id = Convert.ToInt32(tabela.Rows[0]["id"]);
+                user.Nome = tabela.Rows[0]["Nome"].ToString();
+                user.Email = tabela.Rows[0]["email"].ToString();
+                user.CPF = tabela.Rows[0]["cpf"].ToString();
+            }
+
+            return user;
 
         }
     }

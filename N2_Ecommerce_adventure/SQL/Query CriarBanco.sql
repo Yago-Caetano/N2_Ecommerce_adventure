@@ -76,7 +76,7 @@ create table tbPedidosxProdutos(
 	idPedido int foreign key references tbPedidos (id) not null,
 	idProduto int foreign key references tbProdutos (id) not null,
 	Quantidade int not null default 1,
-	Disconto real default 0.00 not null,
+	Desconto real default 0.00 not null,
 	Preco money not null,
 
 	primary key (idPedido,idProduto)

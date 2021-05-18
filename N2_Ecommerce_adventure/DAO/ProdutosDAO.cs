@@ -60,5 +60,23 @@ namespace N2_Ecommerce_adventure.DAO
         {
             Tabela = "tbProdutos";
         }
+        public ProdutoSimplificadoViewModel ConsultaNome(int id)
+        {
+            ProdutoSimplificadoViewModel produto = new ProdutoSimplificadoViewModel();
+            var p = new SqlParameter[]
+              {
+                 new SqlParameter("Id", id),
+              };
+            var tabela = HelperDAO.ExecutaProcSelect("spConsultaNomeProduto", p);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+            {
+                produto.Id = Convert.ToInt32(tabela.Rows[0]["id"]);
+                produto.Nome = tabela.Rows[0]["Nome"].ToString();
+
+            }
+            return produto;
+        }
     }
 }
