@@ -29,10 +29,12 @@
     <label for="senha" class="control-label">Senha</label>
     <input type="password" name="senha" class="form-control" />
     <span asp-validation-for="senha" class="text-danger"></span>
+    <br />
 
     <label for="senhaRepetida" class="control-label">Repetir Senha</label>
     <input type="password" name="senhaRepetida" class="form-control" />
     <span asp-validation-for="senhaRepetida" class="text-danger"></span>
+    <br />
 
     <label for="CPF" class="control-label">CPF</label>
     <input type="text" Name="CPF" value="@Model.CPF" class="form-control" />
@@ -46,6 +48,6 @@
 
     <input type="submit" value="Salvar dados" class="btn-info" />
     &nbsp;&nbsp;&nbsp;
-    <a href="/Jogador/index" class="btn-light">Voltar</a>
+    <a href="/Login/index" class="btn-light">Voltar</a>
     <br />
 </form>

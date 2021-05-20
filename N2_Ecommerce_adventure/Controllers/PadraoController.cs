@@ -121,6 +121,12 @@ namespace N2_Ecommerce_adventure.Controllers
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            if (!HelperControllers.VerificaUserLogado(HttpContext.Session) && context.RouteData.Values["action"].ToString() == "Index" && context.RouteData.Values["controller"].ToString() == "Usuario")
+            {
+                context.Result = RedirectToAction("Index", "Login");
+            }
+
+
             if (ExibeAutenticacao && !HelperControllers.VerificaUserLogado(HttpContext.Session))
                 context.Result = RedirectToAction("Index", "Login");
             else
