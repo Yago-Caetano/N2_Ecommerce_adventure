@@ -25,6 +25,7 @@ namespace N2_Ecommerce_adventure.Controllers
             if (user != null)
             {
                 HttpContext.Session.SetString("Logado", user.Id.ToString());
+                HttpContext.Session.SetString("Tipo", user.Tipo_Usuario.Tipo);
                 return RedirectToAction("index", "Produtos");
             }
             else

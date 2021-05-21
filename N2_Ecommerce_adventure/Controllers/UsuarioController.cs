@@ -33,6 +33,7 @@ namespace N2_Ecommerce_adventure.Controllers
         protected override void PreencheDadosParaView(string Operacao, UsuarioViewModel model)
         {
             base.PreencheDadosParaView(Operacao, model);
+            ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
             PreparaListaPosicoesParaCombo();
         }
 
@@ -45,6 +46,9 @@ namespace N2_Ecommerce_adventure.Controllers
 
             if(model.Nascimento == Convert.ToDateTime("01/01/0001"))
                 ModelState.AddModelError("Nascimento", "Preencha a Data!");
+
+            if (model.Nascimento.Year <= 1800)
+                ModelState.AddModelError("Nascimento", "Ano Inválido!");
 
             if (model.Email == null)
                 ModelState.AddModelError("Email", "Preencha o Email!");
