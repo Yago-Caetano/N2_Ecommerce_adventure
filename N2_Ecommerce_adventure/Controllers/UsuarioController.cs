@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace N2_Ecommerce_adventure.Controllers
 {
-    public class UsuarioController:PadraoController<UsuarioViewModel>
+    public class UsuarioController : PadraoController<UsuarioViewModel>
     {
         public UsuarioController()
         {
@@ -41,10 +41,10 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             base.ValidaDados(model, operacao);
 
-            if(model.Nome == null)
+            if (model.Nome == null)
                 ModelState.AddModelError("Nome", "Preencha o Nome!");
 
-            if(model.Nascimento == Convert.ToDateTime("01/01/0001"))
+            if (model.Nascimento == Convert.ToDateTime("01/01/0001"))
                 ModelState.AddModelError("Nascimento", "Preencha a Data!");
 
             if (model.Nascimento.Year <= 1800)
@@ -54,7 +54,7 @@ namespace N2_Ecommerce_adventure.Controllers
                 ModelState.AddModelError("Email", "Preencha o Email!");
 
             if (model.senha == null)
-                ModelState.AddModelError("senha","Preencha a senha!");
+                ModelState.AddModelError("senha", "Preencha a senha!");
             if (model.senhaRepetida == null)
                 ModelState.AddModelError("senhaRepetida", "Preencha a senha!");
 
@@ -89,13 +89,40 @@ namespace N2_Ecommerce_adventure.Controllers
             {
                 EnderecoDAO eDAO = new EnderecoDAO();
                 EnderecoViewModel endereco = new EnderecoViewModel();
-                 endereco = eDAO.Consulta(idEndereco); // retorna todos os registro
+                endereco = eDAO.Consulta(idEndereco); // retorna todos os registro
                 ViewBag.EnderecoDados = endereco;
                 return PartialView("pvEndereco", endereco);
             }
             catch
             {
                 return Json(new { erro = true });
+            }
+        }
+
+        public override IActionResult Save(UsuarioViewModel model, string Operacao)
+        {
+            try
+            {
+                ValidaDados(model, Operacao);
+                if (ModelState.IsValid == false)
+                {
+                    ViewBag.Operacao = Operacao;
+                    PreencheDadosParaView(Operacao, model);
+                    return View(NomeViewForm, model);
+                }
+                else
+                {
+                    if (Operacao == "I")
+                        DAO.Insert(model);
+                    else
+                        DAO.Update(model);
+
+                    return RedirectToAction(NomeViewIndex);
+                }
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
             }
         }
 

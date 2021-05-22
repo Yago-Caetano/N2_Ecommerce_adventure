@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace N2_Ecommerce_adventure.Controllers
 {
-    public class EnderecoController:PadraoController<EnderecoViewModel>
+    public class EnderecoController : PadraoController<EnderecoViewModel>
     {
         public EnderecoController()
         {
@@ -61,8 +61,42 @@ namespace N2_Ecommerce_adventure.Controllers
         private void SetUserData()
         {
             UsuarioDAO userdao = new UsuarioDAO();
-            ViewBag.IDusuario= HelperControllers.GetUserLogadoID(HttpContext.Session);
-            ViewBag.NomeUsuario= userdao.GetNome(ViewBag.IDusuario);
+            ViewBag.IDusuario = HelperControllers.GetUserLogadoID(HttpContext.Session);
+            ViewBag.NomeUsuario = userdao.GetNome(ViewBag.IDusuario);
+        }
+
+        protected override void ValidaDados(EnderecoViewModel model, string operacao)
+        {
+            base.ValidaDados(model, operacao);
+
+            if (model.Rua == null)
+                ModelState.AddModelError("Rua", "Campo Obrigatório!");
+
+            if (model.Complemento == null)
+                ModelState.AddModelError("Complemento", "Campo Obrigatório!");
+
+            if (model.Numero == 0)
+                ModelState.AddModelError("Numero", "Insira um Número maior que Zero!");
+
+            if (model.CEP == null)
+                ModelState.AddModelError("CEP", "Campo Obrigatório!");
+
+            try
+            {
+                string valor = model.CEP.Replace(".", "");
+                valor = valor.Replace("-", "");
+
+                if (!Int32.TryParse(valor, out int j))
+                    ModelState.AddModelError("CEP", "CEP Inválido!");
+            }
+            catch
+            {
+                ModelState.AddModelError("CEP", "Campo Obrigatório!");
+            }
+
+            if (model.Cidade == null)
+                ModelState.AddModelError("Cidade", "Campo Obrigatório!");
+
         }
     }
 }

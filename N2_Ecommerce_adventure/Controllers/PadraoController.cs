@@ -6,6 +6,7 @@ using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Http;
 
 namespace N2_Ecommerce_adventure.Controllers
 {
@@ -121,6 +122,8 @@ namespace N2_Ecommerce_adventure.Controllers
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
+            ViewBag.Logado = HttpContext.Session.GetString("Logado");
             if (!HelperControllers.VerificaUserLogado(HttpContext.Session) && context.RouteData.Values["action"].ToString() == "Index" && context.RouteData.Values["controller"].ToString() == "Usuario")
             {
                 context.Result = RedirectToAction("Index", "Login");

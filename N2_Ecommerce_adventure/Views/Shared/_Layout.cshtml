@@ -15,16 +15,37 @@
                 <a class="navbar-brand">
                     <img src="~/images/logo_1.svg" width="100" />
                 </a>
-                <a class="text-white" asp-area="" asp-controller="CategoriaProduto" asp-action="Index">TESTE CatProdutos</a>
-                <a class="text-white" asp-area="" asp-controller="Produtos" asp-action="Index">TESTE Produtos</a>
-                <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="Index">TESTE Usuario</a>
-                <a class="text-white" asp-area="" asp-controller="Endereco" asp-action="Index">TESTE Endereço</a>
-                <div>
-                    <a class="text-white" href="#">Login</a>
-                    <a>
-                        <img src="~/images/carrinho.svg" width="24" />
-                    </a>
-                </div>
+                @if (ViewBag.Tipo == "Gerente")
+                {
+                    <a class="text-white" asp-area="" asp-controller="CategoriaProduto" asp-action="Index">TESTE CatProdutos</a>
+                    <a class="text-white" asp-area="" asp-controller="Produtos" asp-action="Index">TESTE Produtos</a>
+                    <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Teste Usuario</a>
+                    <a class="text-white" asp-area="" asp-controller="Endereco" asp-action="Index">TESTE Endereço</a>
+                }
+                else if (ViewBag.Tipo == "Normal")
+                {
+                    <a class="text-white" asp-area="" asp-controller="CategoriaProduto" asp-action="Index">TESTE CatProdutos</a>
+                    <a class="text-white" asp-area="" asp-controller="Produtos" asp-action="Index">TESTE Produtos</a>
+                    <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="CarregarPerfil">Usuario</a>
+                    <a class="text-white" asp-area="" asp-controller="Endereco" asp-action="Index">TESTE Endereço</a>
+                }
+
+                @if (ViewBag.Logado == null)
+                {
+                    <div>
+                        <a class="text-white" href="#">Login</a>
+                        <a>
+                            <img src="~/images/carrinho.svg" width="24" />
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div>
+                        <a class="text-white" asp-area="" asp-controller="Login" asp-action="LogOff">LogOff</a>
+                    </div>
+                }
+
 
             </div>
         </nav>

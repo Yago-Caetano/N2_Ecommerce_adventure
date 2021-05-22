@@ -28,12 +28,12 @@
 
     <br />
     <br />
-<section class="editar editarEndereco">
-    @if (Model != null)
-    {
-        <a href="/Endereco/Edit?id=@Model.Id">Editar Endereços</a>
-    }
-</section>
+    <section class="editar editarEndereco">
+        @if (Model != null && Model.Id != 0)
+        {
+            <a href="/Endereco/Edit?id=@Model.Id">Editar Endereços</a>
+        }
+    </section>
 
 </div>
 
