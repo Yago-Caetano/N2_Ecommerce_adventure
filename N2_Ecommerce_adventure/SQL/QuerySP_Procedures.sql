@@ -223,6 +223,46 @@ begin
 	where id=@id
 end
 GO
+---------------------------------------------------------------------------------------------Pedido produto
+create procedure spInsert_tbPedidosxProdutos
+(
+	@idPedido int ,
+	@idProduto int ,
+	@Quantidade int ,
+	@Desconto real ,
+	@Preco money
+)
+as
+begin
+	insert into tbPedidosxProdutos (idPedido,idProduto ,Quantidade,Desconto,Preco) Values
+	(@idPedido,@idProduto ,@Quantidade,@Desconto,@Preco)
+end
+GO
+create procedure spUpdate_tbPedidosxProdutos
+(
+	@idPedido int ,
+	@idProduto int ,
+	@Quantidade int ,
+	@Desconto real ,
+	@Preco money
+)
+as
+begin
+	update tbPedidosxProdutos set
+	Quantidade= @Quantidade ,
+	Desconto= @Desconto ,
+	Preco= @Preco
+	where idPedido =@idPedido and idProduto =@idProduto
+end
+GO
+create procedure splistar_itensPedido
+(
+	@idPedido int
+)
+as begin 
+	select * from tbPedidosxProdutos where idPedido=@idPedido
+end
+Go
 ---------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------Procedures genericas
 create procedure spDelete

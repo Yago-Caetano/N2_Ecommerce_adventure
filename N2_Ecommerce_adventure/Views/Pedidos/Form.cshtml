@@ -1,0 +1,48 @@
+﻿@model PedidosViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Cadastro de Produtos</h2>
+<form asp-action="Save" method="post" enctype="multipart/form-data">
+    <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
+
+
+    <input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
+    <span asp-validation-for="Id" class="text-danger"></span>
+    <br />
+    <label for="status.Id" class="control-label">status.Id</label>
+    <input type="number" Name="status.Id" value="@Model.status.Id" class="form-control" />
+    <span asp-validation-for="status.Id" class="text-danger"></span>
+    <br />
+
+    <label for="endereco.Id" class="control-label">endereco.Id</label>
+    <input type="number" Name="endereco.Id" value="@Model.Cliente.Id" class="form-control" />
+    <span asp-validation-for="endereco.Id" class="text-danger"></span>
+    <br />
+
+    <label for="Cliente.Id" class="control-label">Cliente id</label>
+    <input type="number" Name="Cliente.Id" value="@Model.Cliente.Id" class="form-control" />
+    <span asp-validation-for="Cliente.Id" class="text-danger"></span>
+    <br />
+
+    <label for="data" class="control-label">data</label>
+    <input type="date" name="data" value="@Model.data" class="form-control" />
+    <span asp-validation-for="data" class="text-danger"></span>
+
+
+
+    <input type="submit" value="Salvar dados" class="btn-info" />
+    &nbsp;&nbsp;&nbsp;
+    <a href="/Jogador/index" class="btn-light">Voltar</a>
+    <br />
+</form>
+
+<script>
+    function exibirFoto() {
+        var oFReader = new FileReader();
+        oFReader.readAsDataURL(document.getElementById("Foto").files[0]);
+        oFReader.onload = function (oFREvent) {
+            document.getElementById("imgPreview").src = oFREvent.target.result;
+        };
+    }
+</script>

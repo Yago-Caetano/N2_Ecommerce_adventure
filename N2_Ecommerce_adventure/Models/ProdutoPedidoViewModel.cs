@@ -5,13 +5,15 @@ using System.Threading.Tasks;
 
 namespace N2_Ecommerce_adventure.Models
 {
-    public class ProdutoPedidoViewModel
+    public class ProdutoPedidoViewModel:PadraoViewModel
     {
         public ProdutoPedidoViewModel()
         {
             Produto = new ProdutoSimplificadoViewModel();
         }
         public int idPedido { get; set; }
+
+
 
         public ProdutoSimplificadoViewModel Produto { get; set; }
 
