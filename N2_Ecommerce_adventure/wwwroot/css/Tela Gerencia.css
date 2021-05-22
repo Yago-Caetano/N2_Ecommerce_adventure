@@ -1,0 +1,50 @@
+﻿body {
+    background: #E5E5E5;
+}
+
+.painel {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 97px;
+    height: 64vh;
+    margin: 24px;
+}
+
+.ger-container {
+    padding: 16px;
+    height: 100%;
+    font-family: Roboto;
+}
+
+.ger-container-head{
+    padding:16px;
+}
+
+.ger-container-body {
+    display: flex;
+    flex-direction: row;
+    height: 64%;
+    justify-content: space-around;
+    align-content: center;
+}
+
+.ger-container-item {
+    flex: 1;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    text-align:center;
+    background-color: white;
+    background: #E5E5E5;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 24px;
+    font-size:large;
+    margin:16px;
+}
+
+.ger-container-item:hover {
+     color: #236B56;
+     border: 2px solid #236B56;
+}

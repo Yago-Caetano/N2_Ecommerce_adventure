@@ -2,13 +2,35 @@
 @model N2_Ecommerce_adventure.Views.Gerencia.IndexModel
 @{
 }
+<header>
+    <link rel="stylesheet" href="~/css/Tela Gerencia.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="~/js/TelaGerencia.js"></script>
+</header>
 
 <body>
-    <div class="container bg-primary h-75">
-        <h3>Gerência</h3>
-        <a>Usuários</a>
-        <a>Produtos</a>
-        <a>Pedidos</a>
-        <a>Endereços</a>
-    </div>
+    <section class="painel">
+        <div class="ger-container">
+            <div class="ger-container-head">
+                <h3>Gerência</h3>
+            </div>
+            <div class="ger-container-body">
+                <div class="ger-container-item" id="item-user" onclick="navigateTo(this)">
+                    <p>Usuários</p>
+                </div>
+                <div class="ger-container-item" id="item-prod" onclick="navigateTo(this)">
+                    <p>Produtos</p>
+                </div>
+                <div class="ger-container-item" id="item-ped" onclick="navigateTo(this)">
+                    <p>Pedidos</p>
+                </div>
+                <div class="ger-container-item" id="item-end" onclick="navigateTo(this)">
+                    <p>Endereços</p>
+                </div>
+                </div>
+
+            </div>
+    </section>
+
 </body>
