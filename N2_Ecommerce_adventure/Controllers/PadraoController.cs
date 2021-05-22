@@ -121,13 +121,13 @@ namespace N2_Ecommerce_adventure.Controllers
         }
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (ExibeAutenticacao && !HelperControllers.VerificaUserLogado(HttpContext.Session))
+           /* if (ExibeAutenticacao && !HelperControllers.VerificaUserLogado(HttpContext.Session))
                 context.Result = RedirectToAction("Index", "Login");
             else
-            {
-                ViewBag.Logado = true;
+            {*/
+               // ViewBag.Logado = true;
                 base.OnActionExecuting(context);
-            }
+            //}
         }
     }
 }
