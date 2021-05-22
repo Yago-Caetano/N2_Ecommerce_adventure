@@ -33,6 +33,8 @@
 
                 <h2><b>Meus Endereços</b></h2>
 
+                <a href="/Endereco/Create">Adicionar Endereço</a>
+
                 <select asp-items="ViewBag.Enderecos" id="idEndereco" class="dropdown form-control" onchange="preencherEndereco()"> </select>
                 <br />
                 @{EnderecoViewModel endereco = new EnderecoViewModel(); }

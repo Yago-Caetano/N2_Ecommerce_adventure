@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
 using System;
@@ -45,7 +46,11 @@ namespace N2_Ecommerce_adventure.Controllers
                         (DAO as EnderecoDAO).InsertEndereco(model, HelperControllers.GetUserLogadoID(HttpContext.Session));
                     else
                         DAO.Update(model);
-                    return RedirectToAction(NomeViewIndex);
+
+                    if (HttpContext.Session.GetString("Tipo") == "Gerente")
+                        return RedirectToAction(NomeViewIndex);
+                    else
+                        return RedirectToAction("CarregarPerfil", "Usuario");
                 }
             }
             catch (Exception erro)
@@ -53,6 +58,7 @@ namespace N2_Ecommerce_adventure.Controllers
                 return View("Error", new ErrorViewModel(erro.ToString()));
             }
         }
+
         protected override void PreencheDadosParaView(string Operacao, EnderecoViewModel model)
         {
             base.PreencheDadosParaView(Operacao, model);
@@ -89,7 +95,7 @@ namespace N2_Ecommerce_adventure.Controllers
                 if (!Int32.TryParse(valor, out int j))
                     ModelState.AddModelError("CEP", "CEP Inválido!");
             }
-            catch
+            catch (Exception e)
             {
                 ModelState.AddModelError("CEP", "Campo Obrigatório!");
             }
@@ -98,5 +104,7 @@ namespace N2_Ecommerce_adventure.Controllers
                 ModelState.AddModelError("Cidade", "Campo Obrigatório!");
 
         }
+
     }
+
 }
