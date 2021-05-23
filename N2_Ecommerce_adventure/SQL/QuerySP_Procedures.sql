@@ -305,7 +305,7 @@ begin
 end
 GO
 --Confere os itens em estoque e se possível insere junto com o preço e desconto do momento
-create trigger trg_Update_ItenPedido on tbPedidosxProdutos instead of update as
+alter trigger trg_Update_ItenPedido on tbPedidosxProdutos instead of update as
 begin
 	declare @idPedido int
 	declare @idProduto int 
@@ -342,7 +342,7 @@ begin
 			where idProduto=@idProduto and idPedido=@idPedido
 
 			update tbProdutos set
-			Quantidade=@Estoque-@Quantidade+@QtPedidoAnterior,
+			Quantidade=@Estoque-@Quantidade,
 			QuantidadeEmOrdem=@QuantidadeEmOrdem+@Quantidade
 			where id =@idProduto
 		end
