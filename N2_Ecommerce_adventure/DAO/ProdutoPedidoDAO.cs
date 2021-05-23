@@ -68,6 +68,15 @@ namespace N2_Ecommerce_adventure.DAO
                 return MontaModel(tabela.Rows[0]);
             return pedido;
         }
+        public void Delete(int id, int idProduto)
+        {
+            var p = new SqlParameter[]
+            {
+                 new SqlParameter("idPedido", id),
+                 new SqlParameter("idProduto", idProduto)
+            };
+            HelperDAO.ExecutaProc("spDelete_tbPedidosxProdutos", p);
+        }
         private ProdutoSimplificadoViewModel GetProdutoSimplificado(int id)
         {
             ProdutoSimplificadoViewModel produto = new ProdutoSimplificadoViewModel();

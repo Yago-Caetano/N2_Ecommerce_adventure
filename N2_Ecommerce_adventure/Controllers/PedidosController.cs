@@ -43,7 +43,7 @@ namespace N2_Ecommerce_adventure.Controllers
             }
         }
        
-        public IActionResult DeleteItens(int id)
+        public IActionResult DeleteItens(int id, int idPedido)
         {
             try
             {

@@ -25,7 +25,7 @@
         <tr>
             <td>
                 <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn-info">Editar</a>
-                <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
+                <a href="javascript:apagarItemPedido(@a.idPedido,@a.Id,@a.Produto.Nome)" class="btn btn-danger">Apagar</a>
             </td>
             <td>@a.Id</td>
             <td>@a.Produto.Nome</td>

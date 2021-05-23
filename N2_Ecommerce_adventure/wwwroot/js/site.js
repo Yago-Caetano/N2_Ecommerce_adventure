@@ -16,11 +16,11 @@ function apagarRegistro(id,controller) {
             location.href = '/' + controller+'/Delete?id=' + id;
         });
 }
-function apagarItemPedido(id, controller) {
+function apagarItemPedido(id,idProduto,produto) {
 
     swal({
         title: "Tem certeza?",
-        text: "O item será retirado do pedido",
+        text: "O item: "+ produto+ "será retirado do pedido",
         type: "warning",
         showCancelButton: true,
         confirmButtonClass: "btn-danger",
@@ -30,6 +30,6 @@ function apagarItemPedido(id, controller) {
         closeOnConfirm: false
     },
         function () {
-            location.href = '/' + controller + '/Delete?id=' + id;
+            location.href = '/' + controller + '/DeleteItens?id=' + id + '&idProduto=' + idProduto;
         });
 }
