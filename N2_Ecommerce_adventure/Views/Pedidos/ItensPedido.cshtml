@@ -1,5 +1,7 @@
 ﻿@model PedidosViewModel
-
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 <h2>Relação de Itens</h2>
 <br />
 @Model.Cliente.Nome
@@ -25,7 +27,7 @@
         <tr>
             <td>
                 <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn-info">Editar</a>
-                <a href="javascript:apagarItemPedido(@a.idPedido,@a.Id,@a.Produto.Nome)" class="btn btn-danger">Apagar</a>
+                <a href="javascript:DeletarItemPedido(@a.idPedido, @a.Produto.Id,'@a.Produto.Nome')" class="btn btn-danger">Apagar</a>
             </td>
             <td>@a.Id</td>
             <td>@a.Produto.Nome</td>
@@ -37,3 +39,22 @@
 
 
 </table>
+<script>
+    function DeletarItemPedido(idPedido, IdProduto, nome) {
+
+        swal({
+            title: "Tem certeza?",
+            text: "O item: " + nome + " será retirado do pedido",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            cancelButtonClass: "btn-info",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não!",
+            closeOnConfirm: false
+        },
+            function () {
+                location.href = '/Pedidos/DeleteItens?id=' + idPedido + "&idProduto=" + IdProduto;
+            });
+    }
+</script>

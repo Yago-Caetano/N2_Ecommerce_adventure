@@ -17,6 +17,7 @@ function apagarRegistro(id,controller) {
         });
 }
 
+
 function preencherEndereco() {
 	var idEndereco = $("#idEndereco").val();
 

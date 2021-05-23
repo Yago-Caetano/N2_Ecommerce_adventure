@@ -223,6 +223,60 @@ begin
 	where id=@id
 end
 GO
+create trigger trg_Delete_Pedido on tbPedidos instead of delete
+as
+begin
+	print 'Entrou na trigger'
+	declare @idPedido int;
+	declare @idStatus int;
+	declare @quantidadeAux int;
+	declare @idProdutoAux int;
+
+	set @idPedido = (select id from deleted);
+	set @idStatus = (select idStatus from deleted);
+
+	declare cursorItemPedido cursor for select idProduto,Quantidade from tbPedidosxProdutos where idPedido = @idPedido;
+
+
+	/*
+		Verifica se o pedido está em aberto a fim de corrigir o estoque
+	*/
+	if(@idStatus = 1)
+	begin
+		print 'Entrou no if'
+		open cursorItemPedido;
+
+		fetch next from cursorItemPedido into @idProdutoAux,@quantidadeAux;
+
+		while @@FETCH_STATUS = 0  
+			begin
+				declare @qtdOrdem int;
+				declare @qtdEstoque int;
+
+				set @qtdEstoque = (select Quantidade from tbProdutos where id = @idProdutoAux);
+				set @qtdOrdem = (select QuantidadeEmOrdem from tbProdutos where id = @idProdutoAux);
+
+				 
+				update tbProdutos set Quantidade = @qtdEstoque+@quantidadeAux, QuantidadeEmOrdem = @qtdOrdem-@quantidadeAux where id = @idProdutoAux;
+				
+				fetch next from cursorItemPedido into @idProdutoAux,@quantidadeAux;
+			end
+			close cursorItemPedido;
+			deallocate cursorItemPedido;
+	end
+
+	/*
+		executa os deletes
+	*/
+	
+	delete from tbPedidosxProdutos where idPedido =@idPedido;
+	
+
+	
+	delete from tbPedidos where id = @idPedido;
+	
+end
+Go
 ---------------------------------------------------------------------------------------------Pedido produto
 create procedure spInsert_tbPedidosxProdutos
 (
@@ -247,6 +301,18 @@ begin
 	update tbPedidosxProdutos set
 	Quantidade= @Quantidade
 	where idPedido =@idPedido and idProduto =@idProduto
+end
+GO
+
+create procedure spDelete_tbPedidosxProdutos
+(
+	@idPedido int ,
+	@idProduto int
+)
+as
+begin
+	execute spUpdate_tbPedidosxProdutos @idPedido,@idProduto,0
+	delete tbPedidosxProdutos where idPedido =@idPedido and idProduto =@idProduto
 end
 GO
 create procedure splistar_itensPedido

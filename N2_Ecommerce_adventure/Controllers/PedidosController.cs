@@ -43,12 +43,15 @@ namespace N2_Ecommerce_adventure.Controllers
             }
         }
        
-        public IActionResult DeleteItens(int id, int idPedido)
+        public IActionResult DeleteItens(int id, int idProduto)
         {
             try
             {
-                DAO.Delete(id);
-                return RedirectToAction(NomeViewIndex);
+                ProdutoPedidoDAO dao = new ProdutoPedidoDAO();
+                dao.Delete(id,idProduto);
+                PedidosDAO dao2 = new PedidosDAO();
+                var pedido = dao2.Consulta(id, Model.Completo);
+                return View("ItensPedido", pedido);
             }
             catch (Exception erro)
             {
