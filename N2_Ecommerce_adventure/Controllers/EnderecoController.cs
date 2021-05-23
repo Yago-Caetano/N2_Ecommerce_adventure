@@ -68,7 +68,7 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             UsuarioDAO userdao = new UsuarioDAO();
             ViewBag.IDusuario = HelperControllers.GetUserLogadoID(HttpContext.Session);
-            ViewBag.NomeUsuario = userdao.GetNome(ViewBag.IDusuario);
+            ViewBag.NomeUsuario = userdao.GetSimplifiedUser(ViewBag.IDusuario).Nome;
         }
 
         protected override void ValidaDados(EnderecoViewModel model, string operacao)

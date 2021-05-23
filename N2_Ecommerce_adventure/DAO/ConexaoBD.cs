@@ -14,7 +14,7 @@ namespace N2_Ecommerce_adventure.DAO
         private static string server_password = "123456";
         public static SqlConnection GetConexao()
         {
-            string strCon = "Data Source=DESKTOP-6TEUHKL\\SQLEXPRESS; Database=N2_dudu_Viotti_ecommerce; integrated security=true";
+            string strCon = "Data Source=DESKTOP-H7JQKH4\\SQLEXPRESS; Database=N2_dudu_Viotti_ecommerce; integrated security=true";
             SqlConnection conexao = new SqlConnection(strCon);
             conexao.Open();
             return conexao;
