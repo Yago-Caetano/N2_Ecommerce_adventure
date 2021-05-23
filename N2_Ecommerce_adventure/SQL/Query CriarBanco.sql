@@ -16,18 +16,18 @@ create table tbUsuario(
 	senha varchar(30) not null,
 	cpf varchar(20) not null unique,
 	idTipoUsuario int foreign key references tbTipoUsuario(id),
-	statusUsuario BIT default 1, -- indica se o usuario está ativo ou não
+	statusUsuario BIT default 1, -- indica se o usuario estï¿½ ativo ou nï¿½o
 	primary key(id)
 );
 GO
 create table tbEnderecos(
 	id int identity(1,1) not null,
-	Rua varchar(20) not null,
+	Rua varchar(50) not null,
 	Complemento varchar(20) not null,
 	numero int not null,
 	Cep varchar(10) not null,
-	Cidade varchar(15) not null,
-	statusEnd BIT default 1, -- indica se o endereço está ativo ou não
+	Cidade varchar(50) not null,
+	statusEnd BIT default 1, -- indica se o endereï¿½o estï¿½ ativo ou nï¿½o
 	primary key (id)
 );
 GO

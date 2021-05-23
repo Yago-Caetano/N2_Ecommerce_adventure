@@ -13,6 +13,7 @@ namespace N2_Ecommerce_adventure.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.Tipo = null;
             return View();
         }
         public IActionResult FazLogin(string usuario, string senha)
@@ -25,6 +26,8 @@ namespace N2_Ecommerce_adventure.Controllers
             if (user != null)
             {
                 HttpContext.Session.SetString("Logado", user.Id.ToString());
+                HttpContext.Session.SetString("Tipo", user.Tipo_Usuario.Tipo);
+                ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
                 return RedirectToAction("index", "Produtos");
             }
             else

@@ -1,0 +1,53 @@
+﻿@model UsuarioViewModel
+<head>
+    <link href="~/css/TelaCliente.css" rel="stylesheet" />
+    <script src="~/js/site.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <section class="painelGeral">
+
+
+            <h1>Olá @Model.Nome</h1>
+
+            <section class="painelDados">
+                <h2><b>Meus Dados</b></h2>
+                <dl>
+                    <dt>E-mail: @Model.Email</dt>
+                    <dt>CPF: @Model.CPF</dt>
+                    <dt>Data de Nascimento: @Model.Nascimento.ToShortDateString()</dt>
+                </dl>
+
+            </section>
+
+            <br />
+
+            <section class="editar editarDadosPessoais">
+                <a href="/Usuario/Edit?id=@Model.Id">Editar Dados Pessoais</a>
+            </section>
+
+            <br />
+
+            <section class="enderecos">
+
+                <h2><b>Meus Endereços</b></h2>
+
+                <a href="/Endereco/Create">Adicionar Endereço</a>
+
+                <select asp-items="ViewBag.Enderecos" id="idEndereco" class="dropdown form-control" onchange="preencherEndereco()"> </select>
+                <br />
+                @{EnderecoViewModel endereco = new EnderecoViewModel(); }
+
+                <div id="conteudoEndereco">
+                    @{
+                        Html.RenderPartial("pvEndereco", endereco);
+                    }
+                </div>
+            </section>
+
+        </section>
+    </div>
+
+</body>
+

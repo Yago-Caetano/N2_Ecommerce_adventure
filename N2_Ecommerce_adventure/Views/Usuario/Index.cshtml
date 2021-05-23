@@ -5,6 +5,9 @@
 <br />
 <a href="/Usuario/Create">Novo Registro</a>
 <br />
+<a href="/Usuario/CarregarPerfil">Minha Conta</a>
+<br />
+
 
 
 <table class="table table-responsive table-striped">
@@ -21,27 +24,27 @@
 
     @foreach (UsuarioViewModel a in Model)
     {
-<tr>
-    <td>
-        <a href="Usuario/Edit?id=@a.Id" class="btn-info">Editar</a>
-        <a href="javascript:apagarRegistro(@a.Id, 'Usuario')" class="btn btn-danger">Apagar</a>
-    </td>
-    <td>@a.Id</td>
-    <td>@a.Nome</td>
-    <td>@a.Nascimento</td>
-    <td>@a.Email</td>
-    <td>@a.CPF</td>
-    <td>@a.Tipo_Usuario.Tipo</td>
-    @if (@a.Ativado)
-    {
-        <td>SIM</td>
-    }
-    else
-    {
-        <td>NÃO</td>
-    }
+        <tr>
+            <td>
+                <a href="Usuario/Edit?id=@a.Id" class="btn-info">Editar</a>
+                <a href="javascript:apagarRegistro(@a.Id, 'Usuario')" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@a.Id</td>
+            <td>@a.Nome</td>
+            <td>@a.Nascimento</td>
+            <td>@a.Email</td>
+            <td>@a.CPF</td>
+            <td>@a.Tipo_Usuario.Tipo</td>
+            @if (@a.Ativado)
+            {
+                <td>SIM</td>
+            }
+            else
+            {
+                <td>NÃO</td>
+            }
 
-</tr>
+        </tr>
     }
 
 

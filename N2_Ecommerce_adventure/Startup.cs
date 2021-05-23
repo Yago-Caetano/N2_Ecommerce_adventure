@@ -55,7 +55,7 @@ namespace N2_Ecommerce_adventure
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=TipoUsuario}/{action=Index}/{id?}");
+                    pattern: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }
