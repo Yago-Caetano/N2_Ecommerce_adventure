@@ -116,7 +116,7 @@ begin
 	where id =@id
 end
 GO
-create procedure spDelete_Usuario(@idUsuario int) as -- Usuarios não são realmente deletados, só desativados
+create procedure spDelete_Usuario(@idUsuario int) as -- Usuarios nï¿½o sï¿½o realmente deletados, sï¿½ desativados
 begin
 	update tbUsuario set
 	statusUsuario =0  -- para garantir os dados adequados do pedido mesmo que o usuario seja deletado
@@ -177,7 +177,7 @@ begin
 	where id=@id
 end
 GO
-create procedure spDelete_Enderecos(@idEndereco int) as -- Enderecos não são realmente deletados, só desativados
+create procedure spDelete_Enderecos(@idEndereco int) as -- Enderecos nï¿½o sï¿½o realmente deletados, sï¿½ desativados
 begin
 	update tbEnderecos set
 	statusEnd =0  -- para garantir os dados adequados do pedido mesmo que o usuario seja deletado
@@ -232,7 +232,6 @@ create procedure spInsert_tbPedidosxProdutos
 )
 as
 begin
-	print 'Teste'
 	insert into tbPedidosxProdutos (idPedido,idProduto,Quantidade) Values
 	(@idPedido,@idProduto,@Quantidade)
 end
@@ -268,10 +267,9 @@ begin
 	select * from tbPedidosxProdutos where idPedido=@idPedido and idProduto=@idProduto
 end
 GO
---Confere os itens em estoque e se possível insere junto com o preço e desconto do momento
+--Confere os itens em estoque e se possï¿½vel insere junto com o preï¿½o e desconto do momento
 create trigger trg_Insert_ItenPedido on tbPedidosxProdutos instead of insert as
 begin
-	print 'Entrou na trigger'
 	declare @idPedido int
 	declare @idProduto int 
 	declare @Estoque int
@@ -288,7 +286,6 @@ begin
 
 	if @Estoque>=@Quantidade
 		begin
-			print 'Quantidade: ' + cast(@Quantidade as varchar(5))
 			set @Preco=(select Preco from tbProdutos where id=@idProduto)
 			set @QuantidadeEmOrdem=(select QuantidadeEmOrdem from tbProdutos where id=@idProduto)
 			set @Desconto=(select Desconto from tbProdutos where id=@idProduto)
@@ -304,7 +301,7 @@ begin
 
 end
 GO
---Confere os itens em estoque e se possível insere junto com o preço e desconto do momento
+--Confere os itens em estoque e se possï¿½vel insere junto com o preï¿½o e desconto do momento
 alter trigger trg_Update_ItenPedido on tbPedidosxProdutos instead of update as
 begin
 	declare @idPedido int
@@ -319,20 +316,14 @@ begin
 	set @idPedido = (select idPedido from inserted);
 	set @idProduto = (select idProduto from inserted);
 	set @Quantidade = (select Quantidade from inserted)
-	print 'Quantidade: ' + cast(@Quantidade as varchar(5))
 	set @QtPedidoAnterior=(select Quantidade from tbPedidosxProdutos where idProduto=@idProduto and idPedido=@idPedido)
-	print 'Quantidade pedido anterior: ' + cast(@QtPedidoAnterior as varchar(5))
 	set @Estoque=(select Quantidade from tbProdutos where id=@idProduto)
-	print 'Estoque: ' + cast(@Estoque as varchar(5))
 	set @Estoque=@Estoque+@QtPedidoAnterior
-	print 'Estoque: ' + cast(@Estoque as varchar(5))
 	if @Estoque>=@Quantidade
 		begin
 			set @Preco=(select Preco from tbProdutos where id=@idProduto)
 			set @QuantidadeEmOrdem=(select QuantidadeEmOrdem from tbProdutos where id=@idProduto)
-			print 'Quantidade em Ordem: ' + cast(@QuantidadeEmOrdem as varchar(5))
 			set @QuantidadeEmOrdem=@QuantidadeEmOrdem-@QtPedidoAnterior
-			print 'Quantidade em Ordem: ' + cast(@QuantidadeEmOrdem as varchar(5))
 			set @Desconto=(select Desconto from tbProdutos where id=@idProduto)
 
 			update tbPedidosxProdutos set
