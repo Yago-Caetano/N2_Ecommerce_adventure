@@ -29,23 +29,36 @@
     <label for="senha" class="control-label">Senha</label>
     <input type="password" name="senha" class="form-control" />
     <span asp-validation-for="senha" class="text-danger"></span>
+    <br />
 
     <label for="senhaRepetida" class="control-label">Repetir Senha</label>
     <input type="password" name="senhaRepetida" class="form-control" />
     <span asp-validation-for="senhaRepetida" class="text-danger"></span>
+    <br />
 
     <label for="CPF" class="control-label">CPF</label>
     <input type="text" Name="CPF" value="@Model.CPF" class="form-control" />
     <span asp-validation-for="CPF" class="text-danger"></span>
     <br />
 
-    <label for="idTipoUsuario" class="control-label">Categoria</label>
-    <select asp-for="idTipoUsuario" asp-items="ViewBag.Categorias" class="form-control"> </select>
-    <span asp-validation-for="idTipoUsuario" class="text-danger"></span>
-    <br />
-
+    @if (ViewBag.Tipo == "Gerente")
+    {
+        <label for="idTipoUsuario" class="control-label">Categoria</label>
+        <select asp-for="idTipoUsuario" asp-items="ViewBag.Categorias" class="form-control"> </select>
+        <span asp-validation-for="idTipoUsuario" class="text-danger"></span>
+        <br />
+    }
+    else
+    {
+        <label for="idTipoUsuario" class="control-label" hidden>Categoria</label>
+        <select asp-for="idTipoUsuario" asp-items="ViewBag.Categorias" class="form-control" hidden> </select>
+        <span asp-validation-for="idTipoUsuario" class="text-danger"></span>
+        <br />
+    }
     <input type="submit" value="Salvar dados" class="btn-info" />
     &nbsp;&nbsp;&nbsp;
-    <a href="/Jogador/index" class="btn-light">Voltar</a>
+
+    <a href="#" onclick='javascript:history.back(-1);' class="btn-light">Voltar</a>
+
     <br />
 </form>

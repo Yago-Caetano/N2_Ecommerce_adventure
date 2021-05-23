@@ -1,0 +1,39 @@
+﻿@model EnderecoViewModel
+<div class="enderecoComponentes">
+    @if (Model != null)
+    {
+
+        <dl>
+            <dt>Rua: @Model.Rua</dt>
+            <dt>Número: @Model.Numero</dt>
+            <dt>Complemento: @Model.Complemento</dt>
+            <br />
+            <dt>Cidade: @Model.Cidade</dt>
+            <dt>CEP: @Model.CEP</dt>
+        </dl>
+
+
+    }
+    else
+    {
+        <dl>
+            <dt>Rua: </dt>
+            <dt>Número: </dt>
+            <dt>Complemento: </dt>
+            <br />
+            <dt>Cidade: </dt>
+            <dt>CEP: </dt>
+        </dl>
+    }
+
+    <br />
+    <br />
+    <section class="editar editarEndereco">
+        @if (Model != null && Model.Id != 0)
+        {
+            <a href="/Endereco/Edit?id=@Model.Id">Editar Endereço</a>
+        }
+    </section>
+
+</div>
+
