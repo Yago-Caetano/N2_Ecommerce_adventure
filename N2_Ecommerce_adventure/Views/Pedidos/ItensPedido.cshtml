@@ -1,0 +1,39 @@
+﻿@model PedidosViewModel
+
+<h2>Relação de Itens</h2>
+<br />
+@Model.Cliente.Nome
+<br />
+@Model.data
+<br />
+@Model.endereco.Rua
+<br />
+<a href="/Pedidos/CreateItens?id=@Model.Id">Adicionar Item</a>
+<br />
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>Ações</th>
+        <th>Id</th>
+        <th>Produto</th>
+        <th>Quantidade</th>
+        <th>Preço</th>
+        <th>Desconto</th>
+    </tr>
+
+    @foreach (ProdutoPedidoViewModel a in Model.Itens)
+    {
+        <tr>
+            <td>
+                <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn-info">Editar</a>
+                <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@a.Id</td>
+            <td>@a.Produto.Nome</td>
+            <td>@a.Quantidade</td>
+            <td>@a.Preco</td>
+            <td>@a.Desconto</td>
+        </tr>
+    }
+
+
+</table>

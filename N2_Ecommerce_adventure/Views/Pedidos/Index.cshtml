@@ -11,7 +11,7 @@
         <th>Id</th>
         <th>Nome</th>
         <th>Status</th>
-        <th>CEP</th>
+        <th>CEP</th> 
         <th>Data</th>
     </tr>
 
@@ -21,7 +21,7 @@
     <td>
         <a href="Pedidos/Edit?id=@a.Id" class="btn-info">Editar</a>
         <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
-        <a href="Pedidos/Edit?id=@a.Id" class="btn-info">Itens</a>
+        <a href="Pedidos/VerItens?id=@a.Id" class="btn-info">Itens</a>
     </td>
     <td>@a.Id</td>
     <td>@a.Cliente.Nome</td>

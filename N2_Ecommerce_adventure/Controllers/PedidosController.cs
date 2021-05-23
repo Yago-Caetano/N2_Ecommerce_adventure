@@ -29,5 +29,91 @@ namespace N2_Ecommerce_adventure.Controllers
                 return View("Error", new ErrorViewModel(erro.ToString()));
             }
         }
+        public virtual IActionResult VerItens(int id)
+        {
+            try
+            {
+                PedidosDAO dao = new PedidosDAO();
+                var pedido = dao.Consulta(id, Model.Completo);
+                return View("ItensPedido", pedido);
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
+        }
+       
+        public IActionResult DeleteItens(int id)
+        {
+            try
+            {
+                DAO.Delete(id);
+                return RedirectToAction(NomeViewIndex);
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
+        }
+        public virtual IActionResult CreateItens(int id)
+        {
+            try
+            {
+                ViewBag.Operacao = "I";
+                ProdutoPedidoDAO dao = new ProdutoPedidoDAO();
+                ProdutoPedidoViewModel produto = new ProdutoPedidoViewModel();
+                produto.idPedido = id;              
+                return View("FormItem", produto);
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
+        }
+        public virtual IActionResult EditarItem(int id, int idProduto)
+        {
+            try
+            {
+                ViewBag.Operacao = "A";
+                ProdutoPedidoDAO dao = new ProdutoPedidoDAO();
+                ProdutoPedidoViewModel produto = new ProdutoPedidoViewModel();
+                var model = dao.Consulta(id, idProduto);
+                return View("FormItem", model);
+
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
+        }
+       
+        public virtual IActionResult SaveItens(ProdutoPedidoViewModel model, string Operacao)
+        {
+            try
+            {
+                ProdutoPedidoDAO dao = new ProdutoPedidoDAO();
+                //ValidaDados(model, Operacao);
+                //if (ModelState.IsValid == false)
+               // {
+                  //  ViewBag.Operacao = Operacao;
+                  //  PreencheDadosParaView(Operacao, model);
+                  //  return View(NomeViewForm, model);
+               // }
+               // else
+              //  {
+                    if (Operacao == "I")
+                        dao.Insert(model);
+                    else
+                        dao.Update(model);
+                int id = model.idPedido;
+                    return RedirectToAction("VerItens", new { id=model.idPedido});
+               // }
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
+        }
+
     }
 }

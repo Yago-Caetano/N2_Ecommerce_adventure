@@ -12,12 +12,10 @@ namespace N2_Ecommerce_adventure.DAO
     {
         protected override SqlParameter[] CriaParametros(ProdutoPedidoViewModel model)
         {
-            SqlParameter[] parametros = new SqlParameter[5];
+            SqlParameter[] parametros = new SqlParameter[3];
             parametros[0] = new SqlParameter("idPedido", model.idPedido);
             parametros[1] = new SqlParameter("idProduto ", model.Produto.Id);
             parametros[2] = new SqlParameter("Quantidade ", model.Quantidade);
-            parametros[3] = new SqlParameter("Desconto ", model.Desconto);
-            parametros[4] = new SqlParameter("Preco ", model.Preco);
             return parametros;
         }
 
@@ -44,7 +42,7 @@ namespace N2_Ecommerce_adventure.DAO
             };
             var tabela = HelperDAO.ExecutaProcSelect("splistar_itensPedido", p);
             if (tabela.Rows.Count == 0)
-                return null;
+                return lista;
             else
             {
                 foreach (DataRow registro in tabela.Rows)
@@ -54,6 +52,21 @@ namespace N2_Ecommerce_adventure.DAO
             }
 
             return lista;
+        }
+        public ProdutoPedidoViewModel Consulta(int id, int idProduto)
+        {
+            ProdutoPedidoViewModel pedido = new ProdutoPedidoViewModel();
+            var p = new SqlParameter[]
+            {
+                new SqlParameter("idPedido", id),
+                new SqlParameter("idProduto", idProduto)
+            };
+            var tabela = HelperDAO.ExecutaProcSelect("spConsulta_tbPedidosxProdutos", p);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0]);
+            return pedido;
         }
         private ProdutoSimplificadoViewModel GetProdutoSimplificado(int id)
         {

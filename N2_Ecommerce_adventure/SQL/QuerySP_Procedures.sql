@@ -72,7 +72,7 @@ end
 GO
 create procedure spConsultaNomeProduto (@Id int) as
 begin 
-	select Nome from tbProdutos where id=@Id
+	select id,Nome from tbProdutos where id=@Id
 end
 GO
 -----------------------------------------------------------------------------------------------------
@@ -228,30 +228,25 @@ create procedure spInsert_tbPedidosxProdutos
 (
 	@idPedido int ,
 	@idProduto int ,
-	@Quantidade int ,
-	@Desconto real ,
-	@Preco money
+	@Quantidade int
 )
 as
 begin
-	insert into tbPedidosxProdutos (idPedido,idProduto ,Quantidade,Desconto,Preco) Values
-	(@idPedido,@idProduto ,@Quantidade,@Desconto,@Preco)
+	print 'Teste'
+	insert into tbPedidosxProdutos (idPedido,idProduto,Quantidade) Values
+	(@idPedido,@idProduto,@Quantidade)
 end
 GO
 create procedure spUpdate_tbPedidosxProdutos
 (
 	@idPedido int ,
 	@idProduto int ,
-	@Quantidade int ,
-	@Desconto real ,
-	@Preco money
+	@Quantidade int
 )
 as
 begin
 	update tbPedidosxProdutos set
-	Quantidade= @Quantidade ,
-	Desconto= @Desconto ,
-	Preco= @Preco
+	Quantidade= @Quantidade
 	where idPedido =@idPedido and idProduto =@idProduto
 end
 GO
@@ -263,6 +258,97 @@ as begin
 	select * from tbPedidosxProdutos where idPedido=@idPedido
 end
 Go
+create procedure spConsulta_tbPedidosxProdutos
+(
+	@idPedido int ,
+	@idProduto int
+)
+as
+begin
+	select * from tbPedidosxProdutos where idPedido=@idPedido and idProduto=@idProduto
+end
+GO
+--Confere os itens em estoque e se possível insere junto com o preço e desconto do momento
+create trigger trg_Insert_ItenPedido on tbPedidosxProdutos instead of insert as
+begin
+	print 'Entrou na trigger'
+	declare @idPedido int
+	declare @idProduto int 
+	declare @Estoque int
+	declare @Quantidade int
+	declare @QuantidadeEmOrdem int
+	declare @Preco money
+	declare @Desconto real
+
+	set @idPedido = (select idPedido from inserted);
+	set @idProduto = (select idProduto from inserted);
+	set @Quantidade = (select Quantidade from inserted)
+
+	set @Estoque=(select Quantidade from tbProdutos where id=@idProduto)
+
+	if @Estoque>=@Quantidade
+		begin
+			print 'Quantidade: ' + cast(@Quantidade as varchar(5))
+			set @Preco=(select Preco from tbProdutos where id=@idProduto)
+			set @QuantidadeEmOrdem=(select QuantidadeEmOrdem from tbProdutos where id=@idProduto)
+			set @Desconto=(select Desconto from tbProdutos where id=@idProduto)
+
+			insert into tbPedidosxProdutos (idProduto,idPedido,Quantidade,Preco,Desconto) Values
+			(@idProduto,@idPedido,@Quantidade,@Preco,@Desconto);
+
+			update tbProdutos set
+			Quantidade=@Estoque-@Quantidade,
+			QuantidadeEmOrdem=@QuantidadeEmOrdem+@Quantidade
+			where id =@idProduto
+		end
+
+end
+GO
+--Confere os itens em estoque e se possível insere junto com o preço e desconto do momento
+create trigger trg_Update_ItenPedido on tbPedidosxProdutos instead of update as
+begin
+	declare @idPedido int
+	declare @idProduto int 
+	declare @Estoque int
+	declare @Quantidade int
+	declare @QuantidadeEmOrdem int
+	declare @QtPedidoAnterior int
+	declare @Preco money
+	declare @Desconto real
+
+	set @idPedido = (select idPedido from inserted);
+	set @idProduto = (select idProduto from inserted);
+	set @Quantidade = (select Quantidade from inserted)
+	print 'Quantidade: ' + cast(@Quantidade as varchar(5))
+	set @QtPedidoAnterior=(select Quantidade from tbPedidosxProdutos where idProduto=@idProduto and idPedido=@idPedido)
+	print 'Quantidade pedido anterior: ' + cast(@QtPedidoAnterior as varchar(5))
+	set @Estoque=(select Quantidade from tbProdutos where id=@idProduto)
+	print 'Estoque: ' + cast(@Estoque as varchar(5))
+	set @Estoque=@Estoque+@QtPedidoAnterior
+	print 'Estoque: ' + cast(@Estoque as varchar(5))
+	if @Estoque>=@Quantidade
+		begin
+			set @Preco=(select Preco from tbProdutos where id=@idProduto)
+			set @QuantidadeEmOrdem=(select QuantidadeEmOrdem from tbProdutos where id=@idProduto)
+			print 'Quantidade em Ordem: ' + cast(@QuantidadeEmOrdem as varchar(5))
+			set @QuantidadeEmOrdem=@QuantidadeEmOrdem-@QtPedidoAnterior
+			print 'Quantidade em Ordem: ' + cast(@QuantidadeEmOrdem as varchar(5))
+			set @Desconto=(select Desconto from tbProdutos where id=@idProduto)
+
+			update tbPedidosxProdutos set
+			Preco=@Preco,
+			Desconto=@Desconto,
+			Quantidade=@Quantidade
+			where idProduto=@idProduto and idPedido=@idPedido
+
+			update tbProdutos set
+			Quantidade=@Estoque-@Quantidade+@QtPedidoAnterior,
+			QuantidadeEmOrdem=@QuantidadeEmOrdem+@Quantidade
+			where id =@idProduto
+		end
+
+end
+GO
 ---------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------Procedures genericas
 create procedure spDelete

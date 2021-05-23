@@ -69,6 +69,20 @@ namespace N2_Ecommerce_adventure.DAO
             }
             return pedido;
         }
+
+        public virtual PedidosViewModel Consulta(int id, Model model)
+        {
+            var p = new SqlParameter[]
+            {
+                new SqlParameter("id", id),
+                new SqlParameter("tabela", Tabela)
+            };
+            var tabela = HelperDAO.ExecutaProcSelect("spConsulta", p);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0], model);
+        }
         private UsuarioSimplificadoViewModel GetUsuario(PedidosViewModel pedido)
         {
             UsuarioDAO dao = new UsuarioDAO();
