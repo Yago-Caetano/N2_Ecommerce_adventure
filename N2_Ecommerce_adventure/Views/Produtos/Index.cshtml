@@ -1,39 +1,61 @@
 ﻿@model List<ProdutosViewModel>
 
+
+
 <h2>Relação de Produtos</h2>
 
 <br />
 <a href="/Produtos/Create">Novo Registro</a>
 <br />
+
+
+
 Endereços do usuario: @ViewBag.NomeUsuario
 <table class="table table-responsive table-striped">
-    <tr>
-        <th>Ações</th>
-        <th>Id</th>
-        <th>Nome</th>
-        <th>Preço</th>
-        <th>Desconto</th>
-        <th>Quantidade</th>
-        <th>Ordens</th>
-        <th>Categoria</th>
-    </tr>
+    @*<tr>
+            <th>Ações</th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Desconto</th>
+            <th>Quantidade</th>
+            <th>Quantidade em ordem</th>
+            <th>Categoria</th>
+        </tr>*@
 
     @foreach (ProdutosViewModel a in Model)
     {
-<tr>
-    <td>
-        <a href="Produtos/Edit?id=@a.Id" class="btn-info">Editar</a>
-        <a href="javascript:apagarRegistro(@a.Id, 'Produtos')" class="btn btn-danger">Apagar</a>
-    </td>
-    <td>@a.Id</td>
-    <td>@a.Nome</td>
-    <td>@a.Preço</td>
-    <td>@a.Desconto</td>
-    <td>@a.Quantidade</td>
-    <td>@a.QuantidadeEmOrdem</td>
-    <td>@a.Categoria_Produto.Categoria</td>
+        @*<tr>
+                <td>
+                    <a href="Produtos/Edit?id=@a.Id" class="btn-info">Editar</a>
+                    <a href="javascript:apagarRegistro(@a.Id, 'Produtos')" class="btn btn-danger">Apagar</a>
+                </td>
+                <td>@a.Id</td>
+                <td>@a.Nome</td>
+                <td>@a.Preço</td>
+                <td>@a.Preço</td>
+                <td>@a.Desconto</td>
+                <td>@a.Quantidade</td>
+                <td>@a.QuantidadeEmOrdem</td>
+                <td>@a.Categoria_Produto.Categoria</td>
 
-</tr>
+            </tr>*@
+
+        <div class="container-card">
+            <div id="card" class="card" style="width: 18rem;">
+                <img id="imgPreview" class="image-products" src="data:image/jpeg;base64,@a.FotoEmBase64" class="img-responsive">
+
+                <div class="card-body">
+                    <h6 class="card-title">@a.Nome</h6>
+                    <p class="card-price"><b>R$ @a.Preço,00</b></p>
+
+                    <a href="Detalhes/Index?id=@a.Id" class="btn-detalhes btn btn-secondary">Detalhes</a>
+                    <br />
+                    <a href="Carrinho/Index?id=@a.Id" class="btn-comprar btn btn-success">Comprar</a>
+                </div>
+            </div>
+        </div>
+
     }
 
 

@@ -1,0 +1,31 @@
+﻿@model ProdutosViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+</head>
+
+<body>
+    <div class="container">
+        <div id="relat-topo">
+            <p>Selecionar Tipo de dados</p>
+            <select>
+                <option>Pedidos em Aberto</option>
+                <option>Pedidos Concluido</option>
+                <option>Produtos Cadastrados</option>
+            </select>
+            <input type="date" />
+            <input type="date" />
+        </div>
+
+        <div id="conteudo">
+            @{
+                Html.RenderPartial("pvConteudo", Model);
+            }
+        </div>
+
+    </div>
+</body>
+
+</html>
