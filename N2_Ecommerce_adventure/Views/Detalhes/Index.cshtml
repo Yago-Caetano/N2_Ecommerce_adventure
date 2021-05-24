@@ -1,0 +1,58 @@
+﻿@model ProdutosViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Detalhes do produto</h2>
+
+
+Endereços do usuario: @ViewBag.NomeUsuario
+<table class="table table-responsive table-striped">
+    @*<tr>
+            <th>Ações</th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Desconto</th>
+            <th>Quantidade</th>
+            <th>Quantidade em ordem</th>
+            <th>Categoria</th>
+        </tr>*@
+
+
+
+    @*<tr>
+            <td>
+                <a href="Produtos/Edit?id=@a.Id" class="btn-info">Editar</a>
+                <a href="javascript:apagarRegistro(@a.Id, 'Produtos')" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@a.Id</td>
+            <td>@a.Nome</td>
+            <td>@a.Preço</td>
+            <td>@a.Preço</td>
+            <td>@a.Desconto</td>
+            <td>@a.Quantidade</td>
+            <td>@a.QuantidadeEmOrdem</td>
+            <td>@a.Categoria_Produto.Categoria</td>
+
+        </tr>*@
+
+    <div class="container-detalhes">
+        <img id="imgPreview" class="image-products" src="data:image/jpeg;base64,@Model.FotoEmBase64" class="img-responsive">
+
+        <div class="produto-detalhes">
+            <h6 class="card-title">@Model.Nome</h6>
+            <p class="card-price"><b>R$ @Model.Preço,00</b></p>
+
+            <a href="#" class="btn-detalhes btn btn-secondary">Detalhes</a>
+            <br />
+            <a href="Produtos/Form" class="btn-comprar btn btn-success">Comprar</a>
+        </div>
+    </div>
+
+
+
+
+</table>
