@@ -116,11 +116,63 @@ begin
 	where id =@id
 end
 GO
-create procedure spDelete_Usuario(@idUsuario int) as -- Usuarios n�o s�o realmente deletados, s� desativados
+Create procedure spDelete_Usuario(@idUsuario int) as -- Usuarios n�o s�o realmente deletados, s� desativados
 begin
+	begin transaction
+
+	declare @idPedido int;
+	declare @idEndereco int;
+	declare @idPedidoItem int;
+
 	update tbUsuario set
 	statusUsuario =0  -- para garantir os dados adequados do pedido mesmo que o usuario seja deletado
 	where id =@idUsuario
+	print 'Usuario desabilitado'
+
+	declare cursorEndereco cursor for select id_endereco from tbUsuarioxEnderecos where id_usuario = @idUsuario;
+	open cursorEndereco;
+	fetch next from cursorEndereco into @idEndereco;
+	while @@FETCH_STATUS = 0  
+		begin
+			update tbEnderecos set
+			statusEnd =0  -- para garantir os dados adequados do pedido mesmo que o usuario seja deletado
+			where id =@idEndereco
+			print 'Endereço desabilitado'
+			fetch next from cursorEndereco into @idEndereco;
+		end
+	close cursorEndereco;
+	deallocate cursorEndereco;
+
+	declare cursorPedido cursor for select id from tbPedidos where idUsuario = @idUsuario and idStatus=1;
+
+	open cursorPedido;
+
+	fetch next from cursorPedido into @idPedido
+
+	while @@FETCH_STATUS = 0  
+		begin
+			print 'Pedido encontrado: ' + cast(@idPedido as varchar(5))
+			declare cursorPedidoItem cursor for select idProduto from tbPedidosxProdutos where idPedido = @idPedido;
+			open cursorPedidoItem;
+			fetch next from cursorPedidoItem into @idPedidoItem;
+			while  @@FETCH_STATUS = 0 
+				begin
+					execute spUpdate_tbPedidosxProdutos @idPedido,@idPedidoItem,0
+					fetch next from cursorPedidoItem into @idPedidoItem;
+				end
+			close cursorPedidoItem;
+			deallocate cursorPedidoItem;
+
+			delete from tbPedidosxProdutos where idPedido=@idPedido;
+		
+			delete from tbPedidos where id=@idPedido;
+			fetch next from cursorPedido into @idPedido;
+		end
+	close cursorPedido;
+	deallocate cursorPedido;
+
+	commit
+
 end
 GO
 create procedure spVerificaUsuario(@login varchar(30),@senha  varchar(30)) as
