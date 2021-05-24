@@ -15,6 +15,7 @@ namespace N2_Ecommerce_adventure.Controllers
         protected PadraoDAO<T> DAO { get; set; }
         protected bool GeraProximoId { get; set; }
         protected string NomeViewIndex { get; set; } = "index";
+
         protected string NomeViewForm { get; set; } = "form";
 
         protected bool ExibeAutenticacao { get; set; } = true;
