@@ -39,8 +39,11 @@ create Function fnc_GetAllPedidos( @idstatus int) returns
 		declare @Nome varchar(20);
 		declare @Cidade varchar(50);		declare @CEP varchar(10);
 
-
-		declare CursorPedidos cursor for select* from vw_Pedidos_Em_Aberto;
+		if @idstatus=1
+				declare CursorPedidos cursor for select* from vw_Pedidos_Em_Aberto;
+		else
+				declare CursorPedidos cursor for select* from vw_Pedidos_Concluidos;
+		
 		Open CursorPedidos;
 		fetch next from CursorPedidos into @id,@data,@Nome,@Cidade,@CEP;
 

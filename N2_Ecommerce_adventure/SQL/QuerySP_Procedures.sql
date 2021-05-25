@@ -275,6 +275,7 @@ begin
 	where id=@id
 end
 GO
+create procedure spGetAllPedidosAbertos
 
 ---------------------------------------------------------------------------------------------Pedido produto
 create procedure spInsert_tbPedidosxProdutos
