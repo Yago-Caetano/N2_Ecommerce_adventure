@@ -5,7 +5,7 @@
 <h2>Relação de Produtos</h2>
 
 <br />
-<a href="/Produtos/Create">Novo Registro</a>
+<a href="/Produtos/Create">Cadastrar novo produto</a>
 <br />
 
 
@@ -49,7 +49,7 @@ Endereços do usuario: @ViewBag.NomeUsuario
                     <h6 class="card-title">@a.Nome</h6>
                     <p class="card-price"><b>R$ @a.Preço,00</b></p>
 
-                    <a href="Detalhes/Index?id=@a.Id" class="btn-detalhes btn btn-secondary">Detalhes</a>
+                    <a href="/Produtos/Detalhes?id=@a.Id" class="btn-detalhes btn btn-secondary">Detalhes</a>
                     <br />
                     <a href="Carrinho/Index?id=@a.Id" class="btn-comprar btn btn-success">Comprar</a>
                 </div>

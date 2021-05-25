@@ -40,9 +40,8 @@ Endereços do usuario: @ViewBag.NomeUsuario
         </tr>*@
 
     <div class="container-detalhes">
-        <img id="imgPreview" class="image-products" src="data:image/jpeg;base64,@Model.FotoEmBase64" class="img-responsive">
-
         <div class="produto-detalhes">
+            <img id="imgPreview" class=imagem-detalhes img-responsive" src="data:image/jpeg;base64,@Model.FotoEmBase64" >
             <h6 class="card-title">@Model.Nome</h6>
             <p class="card-price"><b>R$ @Model.Preço,00</b></p>
 

@@ -2,24 +2,22 @@
 
 .container-detalhes {
     position: absolute;
-    width: 1663px;
-    height: 766px;
-    left: 160px;
+    width: 60%;
+    height: 50%;
     background: #FFFDFD;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.25);
-    border-radius: 79px;
-    top: 289px;
+    border-radius: 20px;
+    border-color: red;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagem-detalhes{
+    width: 30%;
+    height: 30%;
 }
 
 .produto-detalhes {
-    position: absolute;
-    width: 1483px;
-    height: 464px;
-    left: 246px;
-    top: 423px;
-    background: #FDFBFB;
-    border: 1px solid #000000;
-    box-sizing: border-box;
     border-radius: 16px;
 }
 
