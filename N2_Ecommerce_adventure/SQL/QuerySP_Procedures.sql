@@ -14,6 +14,7 @@ begin
 	where id=@id
 end
 GO
+
 --------------------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------Categoria de produtos
 create procedure spInsert_tbCategoriaProdutos(@id int, @Categoria varchar(20))as  --as SP podem receber parametros
@@ -31,6 +32,38 @@ end
 GO
 --------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------Produtos
+
+create procedure spFiltro_tbProdutos
+(	@id int, 
+	@Nome varchar(20),
+	@Preco money ,
+	@Descricao varchar(100),
+	@Foto varbinary(max),
+	@Quantidade int,
+	@Desconto real,
+	@idCategoria int,
+	@ordem varchar(max),
+	@PrecoInicial money,
+	@PrecoFinal money
+)as  --as SP podem receber parametros
+	begin
+		declare @sql varchar(max)
+		set @sql =
+		'select * from tbProdutos '+
+		'where tbProdutos.Nome like ''%' + @Nome + '%'' and ' +
+		'tbProdutos.Preco between '+
+		cast(@PrecoInicial as varchar(max)) + 
+		' and '+
+		cast(@PrecoFinal as varchar(max))
+
+		If @ordem<>''
+		set @sql = @sql + ' order by ' + @ordem
+
+		print @sql;
+		exec(@sql);
+		
+	end
+
 create procedure spInsert_tbProdutos
 (	@id int, 
 	@Nome varchar(20),
@@ -77,6 +110,43 @@ end
 GO
 -----------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------Usuarios
+create procedure spFiltro_tbUsuario
+(	@id int, 
+	@Nome varchar(20),
+	@Nascimento smalldatetime ,
+	@email varchar(30),
+	@senha  varchar(30),
+	@cpf  varchar(20),
+	@idTipoUsuario  int,
+	@statusUsuario bit,
+	@ordem varchar(max),
+	@dataInicial date,
+	@dataFinal date
+
+)as  --as SP podem receber parametros
+begin
+	declare @sql varchar(max)
+	set @sql = 
+	   'set dateformat ymd; '+
+	   'select * from tbUsuario '+
+	   'where tbUsuario.Nome like ''%' + @Nome + '%'' and ' +
+	  '      tbUsuario.Nascimento between ' +
+	  QUOTENAME(convert(varchar(max), @dataInicial, 120), '''') + 
+	  ' and ' + 
+	  QUOTENAME(convert(varchar(max), @datafinal, 120), '''')+
+	  ' and '+
+	  'tbUsuario.email like ''%' + @email + '%'' and ' +
+	  'tbUsuario.cpf like ''%' + @cpf + '%'' '
+
+	  If @ordem<>''
+		set @sql = @sql + ' order by ' + @ordem
+
+	print @sql;
+	exec(@sql);
+	
+end
+Go
+
 create procedure spInsert_tbUsuario
 (	@id int, 
 	@Nome varchar(20),
@@ -193,6 +263,36 @@ end
 GO
 -----------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------Enderecos
+alter procedure spFiltro_tbEnderecos
+(	
+	@id int, 
+	@Rua varchar(20),
+	@Complemento varchar(20),
+	@numero int ,
+	@CEP varchar(10),
+	@Cidade varchar(15),
+	@statusEnd BIT,
+	@ordem varchar(max)
+)
+as  --as SP podem receber parametros
+begin
+		declare @sql varchar(max)
+		set @sql = 
+		'select * from tbEnderecos '+
+		' where tbEnderecos.Rua like ''%' + @Rua + '%'' and ' +
+		' tbEnderecos.CEP like ''%' + @CEP + '%'' and ' +
+		' tbEnderecos.Cidade like ''%' + @Cidade + '%'''
+
+	
+	  If @ordem<>''
+		set @sql = @sql + ' order by ' + @ordem
+
+	print @sql;
+	exec(@sql);
+
+end
+Go
+
 create procedure spInsert_tbEnderecos
 (	@id int, 
 	@Rua varchar(20),
@@ -382,4 +482,6 @@ begin
  +@tabela)
 end
 GO
+Create PROCEDURE spFiltro
+
 --------------------------------------------------------------------------------------------------
