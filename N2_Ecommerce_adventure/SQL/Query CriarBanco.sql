@@ -20,6 +20,13 @@ create table tbUsuario(
 	primary key(id)
 );
 GO
+ CREATE NONCLUSTERED INDEX IndicetbUsuario_email
+ ON tbUsuario (email);
+ GO
+ CREATE NONCLUSTERED INDEX IndicetbUsuario_senha
+ ON tbUsuario (senha);
+ GO
+ 
 create table tbEnderecos(
 	id int identity(1,1) not null,
 	Rua varchar(50) not null,
@@ -56,6 +63,9 @@ create table tbProdutos(
 	primary key (id)
 );
 GO
+ CREATE NONCLUSTERED INDEX IndicetbProdutos_Nome
+ ON tbProdutos (Nome);
+ GO
 create table tbStatusPedido(
 	id int identity(1,1) not null,
 	PedidoStatus varchar(20) not null unique,
