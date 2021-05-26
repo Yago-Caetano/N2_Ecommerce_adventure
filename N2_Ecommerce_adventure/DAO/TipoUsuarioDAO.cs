@@ -32,5 +32,6 @@ namespace N2_Ecommerce_adventure.DAO
             Tabela = "tbTipoUsuario";
             // NomeSpListagem = "spListagemJogos";
         }
+
     }
 }

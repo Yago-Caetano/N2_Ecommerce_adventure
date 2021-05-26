@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -70,6 +71,18 @@ namespace N2_Ecommerce_adventure.DAO
             return pedido;
         }
 
+        protected PedidosViewModel MontaModelConsulta(DataRow registro)
+        {
+            PedidosViewModel e = new PedidosViewModel();
+            e.Id = Convert.ToInt32(registro["id"]);
+            e.Cliente.Nome = (registro["Nome"].ToString());
+            e.endereco.Cidade = (registro["Cidade"].ToString());
+            e.endereco.CEP = (registro["CEP"].ToString());
+            e.Valor = Convert.ToDouble(registro["Valor"]);
+            e.data = Convert.ToDateTime(registro["data"]);
+            return e;
+        }
+
         public virtual PedidosViewModel Consulta(int id, Model model)
         {
             var p = new SqlParameter[]
@@ -83,6 +96,23 @@ namespace N2_Ecommerce_adventure.DAO
             else
                 return MontaModel(tabela.Rows[0], model);
         }
+
+        public List<PedidosViewModel> GetAll(int statusPedido)
+        {
+            List<PedidosViewModel> returnList = new List<PedidosViewModel>();
+
+            var p = new SqlParameter[] { new SqlParameter("idstatus", statusPedido) };
+            var tabela  = HelperDAO.ExecutaProcSelect("fnc_GetAllPedidos", p);
+
+            foreach (DataRow registro in tabela.Rows)
+            {
+                 returnList.Add(MontaModelConsulta(registro));
+            }
+            return returnList;
+
+
+        }
+
         private UsuarioSimplificadoViewModel GetUsuario(PedidosViewModel pedido)
         {
             UsuarioDAO dao = new UsuarioDAO();
@@ -113,5 +143,6 @@ namespace N2_Ecommerce_adventure.DAO
         {
             return MontaModel(registro, Model.Completo);
         }
+
     }
 }

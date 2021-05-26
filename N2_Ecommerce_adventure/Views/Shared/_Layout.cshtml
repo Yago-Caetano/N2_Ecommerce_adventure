@@ -19,17 +19,12 @@
                 </a>
                 @if (ViewBag.Tipo == "Gerente")
                 {
-                    <a class="text-white" asp-area="" asp-controller="CategoriaProduto" asp-action="Index">TESTE CatProdutos</a>
-                    <a class="text-white" asp-area="" asp-controller="Produtos" asp-action="Index">TESTE Produtos</a>
-                    <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Teste Usuario</a>
-                    <a class="text-white" asp-area="" asp-controller="Endereco" asp-action="Index">TESTE Endereço</a>
+                    <a class="text-white" href="Usuario/CarregarPerfil">Minha Área</a>
+                    <a class="text-white" asp-area="" asp-controller="Gerencia" asp-action="Index">Gerenciar</a>
                 }
                 else if (ViewBag.Tipo == "Normal")
                 {
-                    <a class="text-white" asp-area="" asp-controller="CategoriaProduto" asp-action="Index">TESTE CatProdutos</a>
-                    <a class="text-white" asp-area="" asp-controller="Produtos" asp-action="Index">TESTE Produtos</a>
-                    <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="CarregarPerfil">Usuario</a>
-                    <a class="text-white" asp-area="" asp-controller="Endereco" asp-action="Index">TESTE Endereço</a>
+                    <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Minha Área</a>
                 }
 
                 @if (ViewBag.Logado == null)

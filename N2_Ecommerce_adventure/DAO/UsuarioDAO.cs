@@ -31,7 +31,7 @@ namespace N2_Ecommerce_adventure.DAO
             UsuarioViewModel user = new UsuarioViewModel();
             user.Id = Convert.ToInt32(registro["id"]);
             user.Nome = registro["Nome"].ToString();
-            user.Nascimento =Convert.ToDateTime(registro["Nascimento"]);
+            user.Nascimento = Convert.ToDateTime(registro["Nascimento"]);
             user.Email = registro["email"].ToString();
             user.senha = registro["senha"].ToString();
             user.CPF = registro["cpf"].ToString();

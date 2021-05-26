@@ -23,6 +23,7 @@ namespace N2_Ecommerce_adventure.Models
 
         public DateTime data { get; set; }
 
+        public Double Valor { get; set; }
 
 
 
