@@ -24,5 +24,11 @@ namespace N2_Ecommerce_adventure.Controllers
             else
                 return Convert.ToInt32(logado);
         }
+
+
+        public static void LimparCarrinho(ISession session)
+        {
+            session.Remove("Carrinho");
+        }
     }
 }

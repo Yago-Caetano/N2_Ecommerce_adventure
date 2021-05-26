@@ -9,13 +9,13 @@ namespace N2_Ecommerce_adventure.Models
     {
         public ProdutoPedidoViewModel()
         {
-            Produto = new ProdutoSimplificadoViewModel();
+            Produto = new ProdutosViewModel();
         }
         public int idPedido { get; set; }
 
 
 
-        public ProdutoSimplificadoViewModel Produto { get; set; }
+        public ProdutosViewModel Produto { get; set; }
 
         public int Quantidade { get; set; }
         public double Desconto { get; set; }= 0.00;
