@@ -41,9 +41,13 @@ Endereços do usuario: @ViewBag.NomeUsuario
 
     <div class="container-detalhes">
         <div class="produto-detalhes">
-            <img id="imgPreview" class=imagem-detalhes img-responsive" src="data:image/jpeg;base64,@Model.FotoEmBase64" >
+            <div class="imagem-detalhes">
+                <img id="imgPreview" src="data:image/jpeg;base64,@Model.FotoEmBase64">
+            </div>
+            
             <h6 class="card-title">@Model.Nome</h6>
             <p class="card-price"><b>R$ @Model.Preço,00</b></p>
+            <p><b>R$ @Model.Desconto,00</b></p>
 
             <a href="#" class="btn-detalhes btn btn-secondary">Detalhes</a>
             <br />
