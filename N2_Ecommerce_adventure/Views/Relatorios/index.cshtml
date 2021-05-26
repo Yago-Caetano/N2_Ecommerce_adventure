@@ -3,26 +3,30 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <script type="text/javascript" src="~/js/TelaRelatorio.js"></script>
 </head>
 
 <body>
     <div class="container">
         <div id="relat-topo">
-            <p>Selecionar Tipo de dados</p>
-            <select>
+            <p>Selecionar o tipo de relatório desejado</p>
+            <select id="select-tipo">
                 <option>Pedidos em Aberto</option>
                 <option>Pedidos Concluido</option>
                 <option>Produtos Cadastrados</option>
+                <option>Estoque</option>
             </select>
-            <input type="date" />
-            <input type="date" />
+            <input id="input-data-ini" type="date" placeholder="Data inicial"/>
+            <input id="input-data-fim" type="date" placeholder="Data final"/>
+            <button id="btn-relat" onclick="efetuaFiltro()">Pesquisar</button>
         </div>
 
         <div id="conteudo">
             @{
-                Html.RenderPartial("pvConteudo", Model);
+                Html.RenderPartial("pvConteudoPedidos");
+                Html.RenderPartial("pvConteudoProdutos");
             }
+
         </div>
 
     </div>

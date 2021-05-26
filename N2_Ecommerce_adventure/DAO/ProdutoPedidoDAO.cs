@@ -89,5 +89,6 @@ namespace N2_Ecommerce_adventure.DAO
         {
             Tabela = "tbPedidosxProdutos";
         }
+
     }
 }

@@ -1,8 +1,8 @@
 ﻿
 
 //gerencia o click nos botões de navegação
-function navigateTo(itemSelected){
-
+function navigateTo(itemSelected) {
+    console.log(itemSelected.id);
     switch (itemSelected.id) {
 
         case "item-user":
@@ -19,6 +19,10 @@ function navigateTo(itemSelected){
 
         case "item-end":
             window.location.href = "/Endereco";
+            break;
+
+        case "item-relat":
+            window.location.href = "/Relatorios";
             break;
     }
 };

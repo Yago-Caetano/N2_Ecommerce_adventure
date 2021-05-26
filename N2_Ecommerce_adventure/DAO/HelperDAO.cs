@@ -17,6 +17,7 @@ namespace N2_Ecommerce_adventure.DAO
             {
                 using (SqlDataAdapter adapter = new SqlDataAdapter(nomeProc, conexao))
                 {
+                    
                     if (parametros != null)
                         adapter.SelectCommand.Parameters.AddRange(parametros);
                     adapter.SelectCommand.CommandType = CommandType.StoredProcedure;

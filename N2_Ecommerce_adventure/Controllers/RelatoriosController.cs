@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -30,41 +33,47 @@ namespace N2_Ecommerce_adventure.Controllers
                 context.Result = RedirectToAction("Index", "Login");
         }
 
-        public IActionResult ConsultaAjax(
-                   string tipo,
-                   DateTime dataInicial,
-                   DateTime dataFinal)
-        {
 
+
+    public IActionResult ConsultaAjax(string tipo,DateTime dataInicial,DateTime dataFinal)
+        {
 
             try
             {
-                switch(tipo)
-                {
-                    case "pedidos_abertos":
-
-                        break;
-
-                    case "pedidos_concluidos":
-
-                        break;
-
-                    case "estoque":
-
-                        break;
-
-                    case "produtos_cadastrados":
-
-                        break;
-                }
-                Thread.Sleep(1000); // para dar tempo de ver o gif na tela..rs
-                /*if (nomeAluno == null)
-                    nomeAluno = "";
-                var lista = (DAO as AlunoDAO).ListagemComFiltro(nomeAluno, cidade, dataInicial, dataFinal); // retorna todos os registro
-                */
-                return PartialView("pvConteudo", null);
+               
+                    if(tipo == "Pedidos em Aberto")
+                    {
+                        PedidosDAO mPedidos = new PedidosDAO();
+                        var lista = mPedidos.GetAll(1);
+                        return PartialView("pvConteudo", lista);
+                    }
+                    else if(tipo == "Pedidos Concluido")
+                    {
+                        PedidosDAO mPedidos = new PedidosDAO();
+                        var lista = mPedidos.GetAll(2);
+                        return PartialView("pvConteudo", lista);
+                    }
+                    else if(tipo == "Produtos Cadastrados")
+                    {
+                        ProdutosViewModel pvModel = new ProdutosViewModel();
+                        ProdutosDAO mProdutos = new ProdutosDAO();
+                        ParametroFiltro param = new ParametroFiltro();
+                        var lista = mProdutos.Filtro(pvModel, param); // retorna todos os registro
+                        ViewBag.TipoRelat = "produtos_cadastrados";
+                        return PartialView("pvConteudo", lista);
+                    }
+                    else
+                    {
+                        ProdutosViewModel pvModel = new ProdutosViewModel();
+                        ProdutosDAO mProdutos = new ProdutosDAO();
+                        ParametroFiltro param = new ParametroFiltro();
+                        var lista = mProdutos.Filtro(pvModel, param); // retorna todos os registro
+                        ViewBag.TipoRelat = "estoque";
+                        return PartialView("pvConteudo", lista);
+                    }
+               
             }
-            catch
+            catch(Exception e)
             {
                 return Json(new { erro = true });
             }

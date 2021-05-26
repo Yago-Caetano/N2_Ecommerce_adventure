@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 using N2_Ecommerce_adventure.Models;
@@ -19,6 +20,7 @@ namespace N2_Ecommerce_adventure.DAO
         protected string NomeSpListagem { get; set; } = "spListagem";
         protected string Chave { get; set; } = "id"; // valor default
         protected abstract SqlParameter[] CriaParametros(T model);
+
         protected abstract T MontaModel(DataRow registro);
         protected abstract void SetTabela();
 
@@ -56,6 +58,19 @@ namespace N2_Ecommerce_adventure.DAO
                 return MontaModel(tabela.Rows[0]);
         }
 
+        public virtual T Filtro(T model, ParametroFiltro parametros)
+        {
+            var p = CriaParametrosFiltro(model, parametros);
+
+            var tabela = HelperDAO.ExecutaProcSelect("spFiltro_" + Tabela, p);
+            if (tabela.Rows.Count == 0)
+                return null;
+            else
+                return MontaModel(tabela.Rows[0]);
+        }
+
+
+
         public virtual int ProximoId()
         {
             var p = new SqlParameter[]
@@ -80,9 +95,35 @@ namespace N2_Ecommerce_adventure.DAO
             {
                 lista.Add(MontaModel(registro));
             }
+
             return lista;
         }
 
-  
+        protected virtual SqlParameter[] CriaParametrosFiltro(T model, ParametroFiltro parametros)
+        {
+            var p = CriaParametros(model);
+            
+            if(parametros.dataIncio != null)
+            {
+                p.Append(new SqlParameter("dataInicio", parametros.dataIncio));
+            }
+
+            if (parametros.dataFim != null)
+            {
+                p.Append(new SqlParameter("dataFim", parametros.dataFim));
+            }
+
+            if (parametros.PrecoFinal != -1)
+            {
+                p.Append(new SqlParameter("PrecoFinal", parametros.PrecoFinal));
+            }
+
+            if (parametros.PrecoInicial != -1)
+            {
+                p.Append(new SqlParameter("PrecoInicial", parametros.PrecoInicial));
+            }
+            return p;
+        }
+
     }
 }
