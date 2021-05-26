@@ -1,0 +1,83 @@
+﻿@model ProdutosViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<h2>Detalhes do produto</h2>
+
+
+Endereços do usuario: @ViewBag.NomeUsuario
+<table class="table table-responsive table-striped">
+    @*<tr>
+            <th>Ações</th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Desconto</th>
+            <th>Quantidade</th>
+            <th>Quantidade em ordem</th>
+            <th>Categoria</th>
+        </tr>*@
+
+
+
+    @*<tr>
+            <td>
+                <a href="Produtos/Edit?id=@a.Id" class="btn-info">Editar</a>
+                <a href="javascript:apagarRegistro(@a.Id, 'Produtos')" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@a.Id</td>
+            <td>@a.Nome</td>
+            <td>@a.Preço</td>
+            <td>@a.Preço</td>
+            <td>@a.Desconto</td>
+            <td>@a.Quantidade</td>
+            <td>@a.QuantidadeEmOrdem</td>
+            <td>@a.Categoria_Produto.Categoria</td>
+
+        </tr>*@
+
+    <div class="row container-detalhes">
+        <div class="col-8 produto-detalhes">
+
+            <img class="imagem-detalhes" src="data:image/jpeg;base64,@Model.FotoEmBase64">
+
+        </div>
+
+        <div class="col-4 descricao-detalhes">
+
+            <h3 style="font-size: 24px">@Model.Nome</h3>
+            <p>@Model.Descricao</p>
+            @*//<p>@Model.idCategoria</p>*@
+
+            @if (@Model.Desconto > 0)
+            {
+                <p style="font-size:30px" class="card-price"> <b> De R$ @Model.Preço, 00</b> </p>
+                <p> Por apenas <b>R$ @Model.Desconto,00</b></p>
+            }
+            else
+            {
+                <p style="font-size:30px" class="card-price"><b>R$ @Model.Preço,00</b></p>
+            }
+
+            <p>Quantidade em estoque:</p> <p style="color: green;"> @Model.Quantidade</p>
+
+
+            <div class="botoes-detalhes">
+                <a href="#" style="position: sticky; margin-top: 60px;" class="btn-detalhes btn btn-secondary">Comprar agora</a>
+                <br />
+                <a href="Produtos/Form" class="btn-comprar btn btn-success">Adicionar ao carrinho</a>
+            </div>
+
+
+        </div>
+    </div>
+
+    
+
+
+
+
+</table>

@@ -29,6 +29,21 @@ namespace N2_Ecommerce_adventure.Controllers
             else
                 return null;
         }
+
+        public IActionResult Detalhes(int id)
+        {
+            try
+            {
+                var model = DAO.Consulta(id);
+
+                return View("Detalhes", model);
+            }
+            catch (Exception erro)
+            {
+                return View("Error", new ErrorViewModel(erro.ToString()));
+            }
+
+        }
         public override IActionResult Save(ProdutosViewModel model, string Operacao)
         {
             try
