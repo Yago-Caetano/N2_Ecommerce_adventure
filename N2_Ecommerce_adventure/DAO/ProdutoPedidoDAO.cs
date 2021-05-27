@@ -29,7 +29,7 @@ namespace N2_Ecommerce_adventure.DAO
             produtoPedido.Preco = Convert.ToDouble(registro["Preco"]);
 
             if (produtoPedido.Produto.Id != 0)
-                produtoPedido.Produto = GetProdutoSimplificado(produtoPedido.Produto.Id);
+                produtoPedido.Produto = GetProduto(produtoPedido.Produto.Id);
 
             return produtoPedido;
         }
@@ -77,11 +77,11 @@ namespace N2_Ecommerce_adventure.DAO
             };
             HelperDAO.ExecutaProc("spDelete_tbPedidosxProdutos", p);
         }
-        private ProdutoSimplificadoViewModel GetProdutoSimplificado(int id)
+        private ProdutosViewModel GetProduto(int id)
         {
-            ProdutoSimplificadoViewModel produto = new ProdutoSimplificadoViewModel();
+            ProdutosViewModel produto = new ProdutosViewModel();
             ProdutosDAO tipoDAO = new ProdutosDAO();
-            produto = tipoDAO.ConsultaNome(id);
+            produto = tipoDAO.Consulta(id);
             return produto;
         }
 
