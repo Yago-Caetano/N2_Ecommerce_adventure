@@ -534,6 +534,10 @@ begin
  +@tabela)
 end
 GO
-Create PROCEDURE spFiltro
+create procedure spGetIdentity
+as
+	begin
+		select isnull(@@IDENTITY,0)
+	end
 
 --------------------------------------------------------------------------------------------------
