@@ -24,9 +24,10 @@ namespace N2_Ecommerce_adventure.DAO
         protected abstract T MontaModel(DataRow registro);
         protected abstract void SetTabela();
 
-        public virtual void Insert(T model)
+        public virtual int Insert(T model,bool getId=false)
         {
-            HelperDAO.ExecutaProc("spInsert_" + Tabela, CriaParametros(model));
+            return HelperDAO.ExecutaProc("spInsert_" + Tabela, CriaParametros(model),getId);
+
         }
 
         public virtual void Update(T model)

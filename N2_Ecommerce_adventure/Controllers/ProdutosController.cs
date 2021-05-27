@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
@@ -100,5 +101,6 @@ namespace N2_Ecommerce_adventure.Controllers
             base.PreencheDadosParaView(Operacao, model);
             PreparaListaCategoriaParaCombo();
         }
+
     }
 }

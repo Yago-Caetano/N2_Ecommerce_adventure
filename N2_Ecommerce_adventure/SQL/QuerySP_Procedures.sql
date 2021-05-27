@@ -63,7 +63,7 @@ create procedure spFiltro_tbProdutos
 		exec(@sql);
 		
 	end
-
+go
 create procedure spInsert_tbProdutos
 (	@id int, 
 	@Nome varchar(20),
@@ -263,7 +263,7 @@ end
 GO
 -----------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------Enderecos
-alter procedure spFiltro_tbEnderecos
+create procedure spFiltro_tbEnderecos
 (	
 	@id int, 
 	@Rua varchar(20),
@@ -427,8 +427,6 @@ begin
 	where id=@id
 end
 GO
-create procedure spGetAllPedidosAbertos
-
 ---------------------------------------------------------------------------------------------Pedido produto
 create procedure spInsert_tbPedidosxProdutos
 (

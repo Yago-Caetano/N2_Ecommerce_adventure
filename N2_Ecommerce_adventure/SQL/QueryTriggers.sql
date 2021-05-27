@@ -89,7 +89,7 @@ begin
 end
 GO
 --Confere os itens em estoque e se poss�vel insere junto com o pre�o e desconto do momento
-alter trigger trg_Update_ItenPedido on tbPedidosxProdutos instead of update as
+create trigger trg_Update_ItenPedido on tbPedidosxProdutos instead of update as
 begin
 	declare @idPedido int
 	declare @idProduto int 

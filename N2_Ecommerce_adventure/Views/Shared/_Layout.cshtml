@@ -27,21 +27,24 @@
                     <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Minha Área</a>
                 }
 
+
+            <div>
                 @if (ViewBag.Logado == null)
                 {
-                    <div>
-                        <a class="text-white" href="#">Login</a>
-                        <a>
-                            <img src="~/images/carrinho.svg" width="24" />
-                        </a>
-                    </div>
+                    <a class="text-white" href="#">Login</a>
+
                 }
                 else
                 {
-                    <div>
+                    
                         <a class="text-white" asp-area="" asp-controller="Login" asp-action="LogOff">LogOff</a>
-                    </div>
                 }
+                <a  asp-area="" asp-controller="Carrinho" asp-action="Visualizar">
+                    <img src="~/images/carrinho.svg" width="20px">
+                </a>
+
+            </div>
+ 
 
 
             </div>

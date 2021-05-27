@@ -4,7 +4,7 @@ create view vw_Pedidos_Em_Aberto  as
 	tbUsuario U on p.idUsuario=U.id inner join
 	tbEnderecos E on P.idEndereco=E.id
 	where P.idStatus=1
-
+go
 create view vw_Pedidos_Concluidos  as
 	select P.id,P.data,U.Nome, E.Cidade,E.Cep from tbPedidos P inner join
 	tbUsuario U on p.idUsuario=U.id inner join

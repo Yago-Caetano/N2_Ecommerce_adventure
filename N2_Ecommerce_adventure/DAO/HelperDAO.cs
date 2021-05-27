@@ -29,8 +29,9 @@ namespace N2_Ecommerce_adventure.DAO
             }
         }
 
-        public static void ExecutaProc(string nomeProc, SqlParameter[] parametros)
+        public static int ExecutaProc(string nomeProc, SqlParameter[] parametros,bool consultaUltimoIdentity = false)
         {
+            int retValue = 0;
             using (SqlConnection conexao = ConexaoBD.GetConexao())
             {
                 using (SqlCommand comando = new SqlCommand(nomeProc, conexao))
@@ -39,8 +40,15 @@ namespace N2_Ecommerce_adventure.DAO
                     if (parametros != null)
                         comando.Parameters.AddRange(parametros);
                     comando.ExecuteNonQuery();
+
+                    if(consultaUltimoIdentity)
+                    {
+                        var data = ExecutaProcSelect("spGetIdentity",null);
+                        retValue = Convert.ToInt32(data.Rows[0][""]);
+                    }
                 }
                 conexao.Close();
+                return retValue;
             }
         }
 

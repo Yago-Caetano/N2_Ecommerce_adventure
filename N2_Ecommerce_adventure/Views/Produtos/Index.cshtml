@@ -12,7 +12,7 @@
 
 Endereços do usuario: @ViewBag.NomeUsuario
 <table class="table table-responsive table-striped">
-    @*<tr>
+    <tr>
             <th>Ações</th>
             <th>Id</th>
             <th>Nome</th>
@@ -21,11 +21,11 @@ Endereços do usuario: @ViewBag.NomeUsuario
             <th>Quantidade</th>
             <th>Quantidade em ordem</th>
             <th>Categoria</th>
-        </tr>*@
+        </tr>
 
     @foreach (ProdutosViewModel a in Model)
     {
-        @*<tr>
+        <tr>
                 <td>
                     <a href="Produtos/Edit?id=@a.Id" class="btn-info">Editar</a>
                     <a href="javascript:apagarRegistro(@a.Id, 'Produtos')" class="btn btn-danger">Apagar</a>
@@ -39,23 +39,7 @@ Endereços do usuario: @ViewBag.NomeUsuario
                 <td>@a.QuantidadeEmOrdem</td>
                 <td>@a.Categoria_Produto.Categoria</td>
 
-            </tr>*@
-
-        <div class="container-card">
-            <div id="card" class="card" style="width: 18rem;">
-                <img id="imgPreview" class="image-products" src="data:image/jpeg;base64,@a.FotoEmBase64" class="img-responsive">
-
-                <div class="card-body">
-                    <h6 class="card-title">@a.Nome</h6>
-                    <p class="card-price"><b>R$ @a.Preço,00</b></p>
-
-                    <a href="/Produtos/Detalhes?id=@a.Id" class="btn-detalhes btn btn-secondary">Detalhes</a>
-                    <br />
-                    <a href="Carrinho/Index?id=@a.Id" class="btn-comprar btn btn-success">Comprar</a>
-                </div>
-            </div>
-        </div>
-
+            </tr>
     }
 
 

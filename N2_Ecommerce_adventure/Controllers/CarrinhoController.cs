@@ -17,15 +17,14 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
-                ProdutosDAO dao = new ProdutosDAO();
-                var listaProd = dao.Listagem();
-                var carrinho = ObtemCarrinhoNaSession();
+
+                List<CarrinhoViewModel> carrinho = ObtemCarrinhoNaSession();
                 //@ViewBag.TotalCarrinho = carrinho.Sum(c => c.Quantidade);
                 @ViewBag.TotalCarrinho = 0;
                 foreach (var c in carrinho)
                     @ViewBag.TotalCarrinho += c.Quantidade;
 
-                return View(listaProd);
+                return View("Index", carrinho);
             }
             catch (Exception erro)
             {
@@ -90,7 +89,7 @@ namespace N2_Ecommerce_adventure.Controllers
                     carrinhoModel.Quantidade = Quantidade;
                 string carrinhoJson = JsonConvert.SerializeObject(carrinho);
                 HttpContext.Session.SetString("carrinho", carrinhoJson);
-                return RedirectToAction("Index");
+                return RedirectToAction("Visualizar");
             }
             catch (Exception erro)
             {
@@ -154,7 +153,7 @@ namespace N2_Ecommerce_adventure.Controllers
                     pedido.endereco = endereco;
 
                     pedido.Cliente = user;
-                    int idNovoPedido = pedidoDAO.Insert(pedido);
+                    int idNovoPedido = pedidoDAO.Insert(pedido,true);
            
                     ProdutoPedidoDAO itemDAO = new ProdutoPedidoDAO();
                     var carrinho = ObtemCarrinhoNaSession();
