@@ -1,0 +1,31 @@
+﻿@model List<PedidosViewModel>
+
+<h2>Histórico de Pedidos</h2>
+
+<table class="table table-responsive table-striped">
+    <tr>
+        <th>Ações</th>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Status</th>
+        <th>CEP</th>
+        <th>Data</th>
+    </tr>
+
+    @foreach (PedidosViewModel a in Model)
+    {
+        <!--<tr>-->
+        <td>
+            <a href="ListaPedidosCliente/Edit?id=@a.Id" class="btn-info">Itens</a>
+        </td>
+        <td>@a.Id</td>
+        <td>@a.Cliente.Nome</td>
+        <td>@a.status.status</td>
+        <td>@a.endereco.CEP</td>
+        <td>@a.data</td>
+        <!--</tr>-->
+
+    }
+
+
+</table>

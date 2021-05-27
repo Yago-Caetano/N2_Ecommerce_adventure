@@ -1,4 +1,5 @@
-﻿using N2_Ecommerce_adventure.Models;
+﻿using Microsoft.AspNetCore.Http;
+using N2_Ecommerce_adventure.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -10,6 +11,8 @@ namespace N2_Ecommerce_adventure.DAO
 {
     public class PedidosDAO : PadraoDAO<PedidosViewModel>
     {
+        public int UserId { get; set; }
+
         public enum Model { Completo, Informacaoes };
         protected override SqlParameter[] CriaParametros(PedidosViewModel model)
         {
@@ -51,6 +54,21 @@ namespace N2_Ecommerce_adventure.DAO
             return lista;
 
         }
+        public virtual List<PedidosViewModel> ListarByCliente(Model model)
+        {
+            var p = new SqlParameter[]
+           {
+                new SqlParameter("idCliente", UserId) 
+           };
+            var tabela = HelperDAO.ExecutaProcSelect("spListaPedidosByCliente", p);
+            List<PedidosViewModel> lista = new List<PedidosViewModel>();
+            foreach (DataRow registro in tabela.Rows)
+            {
+                lista.Add(MontaModel(registro, model));
+            }
+            return lista;
+        }
+
         public PedidosViewModel MontaModelo(PedidosViewModel pedido, Model model)
         {
             if (model == Model.Informacaoes)

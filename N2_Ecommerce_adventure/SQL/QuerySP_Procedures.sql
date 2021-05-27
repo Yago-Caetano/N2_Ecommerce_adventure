@@ -333,6 +333,18 @@ begin
 	select * from tbPedidosxProdutos where idPedido=@idPedido and idProduto=@idProduto
 end
 GO
+
+
+create procedure spListaPedidosByCliente
+(
+	@idCliente int
+)
+as begin 
+	select * from tbPedidos where idUsuario = @idCliente
+end
+Go
+
+
 --Confere os itens em estoque e se poss�vel insere junto com o pre�o e desconto do momento
 create trigger trg_Insert_ItenPedido on tbPedidosxProdutos instead of insert as
 begin
