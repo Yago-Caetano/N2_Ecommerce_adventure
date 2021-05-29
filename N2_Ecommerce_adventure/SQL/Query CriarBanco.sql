@@ -98,6 +98,18 @@ insert into tbTipoUsuario (Tipo) values ('Gerente');
 insert into tbStatusPedido(PedidoStatus) Values ('Pendente');
 insert into tbStatusPedido(PedidoStatus) Values ('Concluido');
 
+insert into tbCategoriaProdutos values ('Barracas');
+insert into tbCategoriaProdutos values ('Lanternas');
+insert into tbCategoriaProdutos values ('Lazer');
+insert into tbCategoriaProdutos values ('Mochilas');
+insert into tbCategoriaProdutos values ('Tático Militar');
+
 set dateformat dmy;
 insert into tbUsuario (Nome,Nascimento,email,senha,cpf,idTipoUsuario) Values
 ('Administrador','15/05/2021','admin','admin','cpf',2);
+
+
+
+
+
+

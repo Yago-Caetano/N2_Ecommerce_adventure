@@ -31,12 +31,12 @@
             <div>
                 @if (ViewBag.Logado == null)
                 {
-                    <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Login</a>
+                    <a class="text-white" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
 
                 }
                 else
                 {
-                    
+                        <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="CarregarPerfil">Meu Perfil</a>
                         <a class="text-white" asp-area="" asp-controller="Login" asp-action="LogOff">LogOff</a>
                 }
                 <a  asp-area="" asp-controller="Carrinho" asp-action="Visualizar">

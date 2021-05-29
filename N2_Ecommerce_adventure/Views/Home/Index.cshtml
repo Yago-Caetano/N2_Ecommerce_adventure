@@ -1,28 +1,18 @@
 ﻿@model List<ProdutosViewModel>
 
+<div id="filtros">
+    <input id="input-val-ini" type="number" placeholder="Valor inicial" />
+    <input id="input-val-fim" type="number" placeholder="Valor final" />
+    <input id="input-txt-nome" type="text" placeholder="Nome" />
+    <button id="btn-relat" onclick="efetuaFiltroProdutos(@ViewBag.catProduto)">Pesquisar</button>
+</div>
 
-<table class="table table-responsive table-striped">
- 
-
-    @foreach (ProdutosViewModel a in Model)
-    {
-        
-        <div class="container-card">
-            <div id="card" class="card" style="width: 18rem;">
-                <img id="imgPreview" class="image-products" src="data:image/jpeg;base64,@a.FotoEmBase64" class="img-responsive">
-
-                <div class="card-body">
-                    <h6 class="card-title">@a.Nome</h6>
-                    <p class="card-price"><b>R$ @a.Preço,00</b></p>
-
-                    <a href="/Produtos/Detalhes?id=@a.Id" class="btn-detalhes btn btn-secondary">Detalhes</a>
-                    <br />
-                    <a href="/Carrinho/AdicionarCarrinho?ProdutoId=@a.Id&Quantidade=1" class="btn-comprar btn btn-success">Comprar</a>
-                </div>
-            </div>
-        </div>
-
+<div id="conteudo">
+    @{
+        Html.RenderPartial("pvHomeProdutos");
     }
+</div>
 
 
-</table>
+
+

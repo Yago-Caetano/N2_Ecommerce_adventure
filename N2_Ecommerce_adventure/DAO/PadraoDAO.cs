@@ -87,6 +87,18 @@ namespace N2_Ecommerce_adventure.DAO
             return returnList;
         }
 
+        public virtual List<T> Filtro(T model, SqlParameter[] parametrosAdcionais)
+        {
+            SqlParameter[] paramsAux = CriaParametros(model);
+            
+            foreach(SqlParameter sql in parametrosAdcionais)
+            {
+                paramsAux.Append(sql);
+            }
+
+            return Filtro(paramsAux);
+        }
+
         public virtual List<T> Filtro(SqlParameter[] parameters)
         {
             List<T> returnList = new List<T>();
@@ -134,31 +146,6 @@ namespace N2_Ecommerce_adventure.DAO
             return lista;
         }
 
-        protected virtual SqlParameter[] CriaParametrosFiltro(T model, ParametroFiltro parametros)
-        {
-            var p = CriaParametros(model);
-            
-            if(parametros.dataIncio != null)
-            {
-                p.Append(new SqlParameter("dataInicio", parametros.dataIncio));
-            }
-
-            if (parametros.dataFim != null)
-            {
-                p.Append(new SqlParameter("dataFim", parametros.dataFim));
-            }
-
-            if (parametros.PrecoFinal != -1)
-            {
-                p.Append(new SqlParameter("PrecoFinal", parametros.PrecoFinal));
-            }
-
-            if (parametros.PrecoInicial != -1)
-            {
-                p.Append(new SqlParameter("PrecoInicial", parametros.PrecoInicial));
-            }
-            return p;
-        }
-
+       
     }
 }

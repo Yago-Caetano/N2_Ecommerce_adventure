@@ -31,6 +31,60 @@ function efetuaFiltro() {
 }
 
 
+function efetuaFiltroUser() {
+	var dataInicial = $("#input-data-ini").val();
+	var dataFinal = $("#input-data-fim").val();
+	var nome = $("#input-txt-nome").val();
+
+	var url = `/Usuario/ConsultaFiltroAjax?dataInicial=${dataInicial}&dataFinal=${dataFinal}&Nome=${nome}` 
+
+	$.ajax({
+		url: url,
+		cache: false,
+		beforeSend: function () {
+
+		},
+		success: function (dados) {
+			//$("#imgWait").hide();
+			if (dados.erro != undefined) {
+				alert('Ocorreu um erro ao processar a sua requisição. Tente novamente mais tarde..');
+			}
+			else {
+				$("#conteudo").html(dados);
+			}
+		}
+	});
+
+}
+
+function efetuaFiltroProdutos(idCategoria) {
+
+	var valorInicial = $("#input-val-ini").val();
+	var valorFinal = $("#input-val-fim").val();
+	var nome = $("#input-txt-nome").val();
+
+
+	var url = `/Home/AplicaFiltro?idCategoria=${idCategoria}&Nome=${nome}` + (valorInicial ? `&precoInicial=${valorInicial}` : '') + (valorFinal ? `&precoFinal=${valorFinal}` : '')
+
+	$.ajax({
+		url: url,
+		cache: false,
+		beforeSend: function () {
+
+		},
+		success: function (dados) {
+			//$("#imgWait").hide();
+			if (dados.erro != undefined) {
+				alert('Ocorreu um erro ao processar a sua requisição. Tente novamente mais tarde..');
+			}
+			else {
+				$("#conteudo").html(dados);
+			}
+		}
+	});
+
+}
+
 function apagarRegistro(id,controller) {
 
     swal({

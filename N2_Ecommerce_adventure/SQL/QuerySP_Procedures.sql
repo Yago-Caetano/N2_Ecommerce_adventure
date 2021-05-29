@@ -33,14 +33,9 @@ GO
 --------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------Produtos
 create procedure spFiltro_tbProdutos
-(	@id int = null, 
+(	
 	@Nome varchar(20) = '',
-	@Preco money = null,
-	@Descricao varchar(100) = null,
-	@Foto varbinary(max) = null,
-	@Quantidade int = null,
-	@Desconto real = null,
-	@idCategoria int = null,
+	@idCategoria int = -1,
 	@ordem varchar(max) = null,
 	@PrecoInicial money = null,
 	@PrecoFinal money =null
@@ -51,6 +46,10 @@ create procedure spFiltro_tbProdutos
 		set @sql =
 		'select * from tbProdutos '+
 		'where tbProdutos.Nome like ''%' + @Nome + '%'''
+		if @idCategoria > 0
+			begin
+				set @sql = @sql + ' and idCategoria=' + CAST(@idCategoria as varchar(max))
+			end
 		if @PrecoInicial is not null and @PrecoFinal is not null 
 			begin 
 				print '@PrecoInicial is not null and @PrecoFinal is not null '
@@ -58,8 +57,8 @@ create procedure spFiltro_tbProdutos
 					cast(@PrecoInicial as varchar(max)) + 
 					' and '+
 					cast(@PrecoFinal as varchar(max))
+
 			end
-		
 		If @ordem<>''
 			begin
 				set @sql = @sql + ' order by ' + @ordem
@@ -117,18 +116,11 @@ GO
 -----------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------Usuarios
 create procedure spFiltro_tbUsuario
-(	@id int, 
+(	 
 	@Nome varchar(20),
-	@Nascimento smalldatetime ,
-	@email varchar(30),
-	@senha  varchar(30),
-	@cpf  varchar(20),
-	@idTipoUsuario  int,
-	@statusUsuario bit,
 	@ordem varchar(max),
 	@dataInicial date,
 	@dataFinal date
-
 )as  --as SP podem receber parametros
 begin
 	declare @sql varchar(max)
@@ -139,10 +131,7 @@ begin
 	  '      tbUsuario.Nascimento between ' +
 	  QUOTENAME(convert(varchar(max), @dataInicial, 120), '''') + 
 	  ' and ' + 
-	  QUOTENAME(convert(varchar(max), @datafinal, 120), '''')+
-	  ' and '+
-	  'tbUsuario.email like ''%' + @email + '%'' and ' +
-	  'tbUsuario.cpf like ''%' + @cpf + '%'' '
+	  QUOTENAME(convert(varchar(max), @datafinal, 120), '''')
 
 	  If @ordem<>''
 		set @sql = @sql + ' order by ' + @ordem

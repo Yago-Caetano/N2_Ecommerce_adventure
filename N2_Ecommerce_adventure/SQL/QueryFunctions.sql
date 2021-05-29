@@ -61,5 +61,3 @@ create function fnc_AllPedidos(@idstatus int) Returns money as
 	end
 Go
 
-
-

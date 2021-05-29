@@ -5,6 +5,7 @@ using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,6 +25,7 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                ViewBag.catProduto = -1;
                 var lista = new ProdutosDAO().Listagem();
                 return View("Index", lista);
             }
@@ -32,6 +34,43 @@ namespace N2_Ecommerce_adventure.Controllers
                 return View("Error", new ErrorViewModel(erro.ToString()));
             }
         }
+
+        public IActionResult AplicaFiltro(int idCategoria=-1,String Nome="",String precoInicial=null, String precoFinal=null)
+        {
+            
+            ProdutosDAO mDAO = new ProdutosDAO();
+            object precoIniAux, precoFinAux;
+            if (precoInicial == null)
+            {
+                precoIniAux = DBNull.Value;
+            }
+            else
+            {
+                precoIniAux = precoInicial;
+            }
+
+            if (precoFinal == null)
+            {
+                precoFinAux = DBNull.Value;
+            }
+            else
+            {
+                precoFinAux = precoFinal;
+            }
+
+            //parametros
+            SqlParameter[] mParams = new SqlParameter[]{
+                                        new SqlParameter("Nome",(Nome == null ? "" : Nome)),
+                                        new SqlParameter("idCategoria", idCategoria),
+                                        new SqlParameter("ordem","Nome asc"),
+                                        new SqlParameter("PrecoInicial", precoIniAux),
+                                        new SqlParameter("PrecoFinal", precoFinAux),
+                                    };
+
+            var lista = mDAO.Filtro(mParams);
+            return PartialView("pvHomeProdutos", lista);
+        }
+
 
         public IActionResult Privacy()
         {
