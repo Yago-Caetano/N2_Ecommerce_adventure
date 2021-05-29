@@ -59,6 +59,14 @@ create procedure spFiltro_tbProdutos
 					cast(@PrecoFinal as varchar(max))
 
 			end
+		if @PrecoInicial is null and @PrecoFinal is not null 
+			begin
+				set @sql = @sql + ' and tbProdutos.Preco <= ' +cast(@PrecoFinal as varchar(max))
+			end
+		if @PrecoFinal is null and @PrecoInicial is not null 
+			begin
+				set @sql = @sql + ' and tbProdutos.Preco >= ' +cast(@PrecoInicial as varchar(max))
+			end
 		If @ordem<>''
 			begin
 				set @sql = @sql + ' order by ' + @ordem
