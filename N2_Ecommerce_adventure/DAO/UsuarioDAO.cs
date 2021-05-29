@@ -52,7 +52,7 @@ namespace N2_Ecommerce_adventure.DAO
             tipo = tipoDAO.Consulta(id);
             return tipo;
         }
-        private List<EnderecoViewModel> GetUsuariosEnderecos(int idUsuario)
+        public List<EnderecoViewModel> GetUsuariosEnderecos(int idUsuario)
         {
             List<EnderecoViewModel> lista = new List<EnderecoViewModel>();
             EnderecoDAO endDao = new EnderecoDAO();

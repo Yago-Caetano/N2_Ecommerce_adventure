@@ -10,7 +10,7 @@
     <div class="container">
         <div id="relat-topo">
             <p>Selecionar o tipo de relatório desejado</p>
-            <select id="select-tipo">
+            <select id="select-tipo" onchange="changeFilter()">
                 <option>Pedidos em Aberto</option>
                 <option>Pedidos Concluido</option>
                 <option>Produtos Cadastrados</option>
@@ -18,6 +18,7 @@
             </select>
             <input id="input-data-ini" type="date" placeholder="Data inicial"/>
             <input id="input-data-fim" type="date" placeholder="Data final"/>
+            <input id="input-txt-nome" type="text" placeholder="Nome" />
             <button id="btn-relat" onclick="efetuaFiltro()">Pesquisar</button>
         </div>
 

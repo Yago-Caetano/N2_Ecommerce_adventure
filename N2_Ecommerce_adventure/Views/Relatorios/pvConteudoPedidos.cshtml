@@ -6,20 +6,26 @@
 
 @if (Model != null)
 {
-    <table>
+<table>
+    <tr>
+        <th>Id Pedido</th>
+        <th>Id Cliente</th>
+        <th>Cliente</th>
+        <th>Data</th>
+        <th>Valor</th>
+    </tr>
+
+    @foreach (PedidosViewModel p in Model)
+    {
         <tr>
-            <th>Id</th>
-            <th>Cliente</th>
-            <th>Data</th>
+            <td>@p.Id</td>
+            <td>@p.Cliente.Id</td>
+            <td>@p.Cliente.Nome</td>
+            <td>@p.data</td>
+            <td>@p.Valor</td>
         </tr>
-        <tr>
-            @foreach (PedidosViewModel p in Model)
-            {
-                <td>@p.Id</td>
-                <td>@p.Cliente</td>
-                <td>@p.data</td>
-            }
-        </tr>
+     }
+        
     </table>
 
 }

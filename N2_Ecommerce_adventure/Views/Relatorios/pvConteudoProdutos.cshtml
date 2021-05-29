@@ -5,22 +5,24 @@
 {
 @if (Model != null)
 {
-    <table>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+    </tr>
+
+    @foreach (ProdutosViewModel p in Model)
+    {
         <tr>
-            <th>Id</th>
-            <th>Nome</th>
-            <th>Preço</th>
-            <th>Quantidade</th>
+            <td>@p.Id</td>
+            <td>@p.Nome</td>
+            <td>@p.Preço</td>
+            <td>@p.Quantidade</td>
         </tr>
-        <tr>
-            @foreach (ProdutosViewModel p in Model)
-            {
-                <td>@p.Id</td>
-                <td>@p.Nome</td>
-                <td>@p.Preço</td>
-                <td>@p.Quantidade</td>
-            }
-        </tr>
+     }
+        
     </table>
 }
 

@@ -12,5 +12,6 @@ create view vw_Pedidos_Concluidos  as
 	where P.idStatus=2
 
 --criar view de estoque
-
-select * from vw_Pedidos_Em_Aberto
+go
+create view view_Estoque as
+	select Nome, Quantidade,QuantidadeEmOrdem from tbProdutos

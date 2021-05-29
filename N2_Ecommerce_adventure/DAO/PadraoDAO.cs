@@ -59,15 +59,48 @@ namespace N2_Ecommerce_adventure.DAO
                 return MontaModel(tabela.Rows[0]);
         }
 
-        public virtual T Filtro(T model, ParametroFiltro parametros)
+        public virtual List<T> ListagemView(String nomeView)
         {
-            var p = CriaParametrosFiltro(model, parametros);
+            List<T> returnList = new List<T>();
+            DataTable table = new DataTable();
 
-            var tabela = HelperDAO.ExecutaProcSelect("spFiltro_" + Tabela, p);
+            using (var connection = ConexaoBD.GetConexao())
+            {
+
+                /* Como requisito do professor Viotti, houve a necessidade de criar uma view para consulta
+                    Por isso, nesse caso tivemos que escrever a query de consulta
+                 */
+                using (var command = new SqlCommand("SELECT * FROM " + nomeView, connection))
+                {
+                    // Loads the query results into the table
+                    table.Load(command.ExecuteReader());
+
+                    foreach (DataRow reg in table.Rows)
+                    {
+                        returnList.Add(MontaModel(reg));
+                    }
+                }
+
+                connection.Close();
+            }
+            return returnList;
+        }
+
+        public virtual List<T> Filtro(SqlParameter[] parameters)
+        {
+            List<T> returnList = new List<T>();
+            var tabela = HelperDAO.ExecutaProcSelect("spFiltro_" + Tabela, parameters);
             if (tabela.Rows.Count == 0)
                 return null;
             else
-                return MontaModel(tabela.Rows[0]);
+            {
+                foreach(DataRow reg in tabela.Rows)
+                {
+                    returnList.Add(MontaModel(reg));
+                }
+                return returnList;
+            }
+                
         }
 
 

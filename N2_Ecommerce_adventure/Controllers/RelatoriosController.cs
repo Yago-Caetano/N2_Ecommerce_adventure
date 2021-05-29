@@ -35,7 +35,7 @@ namespace N2_Ecommerce_adventure.Controllers
 
 
 
-    public IActionResult ConsultaAjax(string tipo,DateTime dataInicial,DateTime dataFinal)
+    public IActionResult ConsultaAjax(string tipo,DateTime dataInicial,DateTime dataFinal,string nome)
         {
 
             try
@@ -45,32 +45,34 @@ namespace N2_Ecommerce_adventure.Controllers
                     {
                         PedidosDAO mPedidos = new PedidosDAO();
                         var lista = mPedidos.GetAll(1);
-                        return PartialView("pvConteudo", lista);
+                        return PartialView("pvConteudoPedidos", lista);
                     }
                     else if(tipo == "Pedidos Concluido")
                     {
                         PedidosDAO mPedidos = new PedidosDAO();
                         var lista = mPedidos.GetAll(2);
-                        return PartialView("pvConteudo", lista);
+                        return PartialView("pvConteudoPedidos", lista);
                     }
                     else if(tipo == "Produtos Cadastrados")
                     {
-                        ProdutosViewModel pvModel = new ProdutosViewModel();
                         ProdutosDAO mProdutos = new ProdutosDAO();
-                        ParametroFiltro param = new ParametroFiltro();
-                        var lista = mProdutos.Filtro(pvModel, param); // retorna todos os registro
+                        SqlParameter[] param = new SqlParameter[4];
+                        param[0] = new SqlParameter("Nome", (nome == null ? "" : nome));
+                        param[1] = new SqlParameter("PrecoInicial", DBNull.Value);
+                        param[2] = new SqlParameter("PrecoFinal", DBNull.Value);
+                        param[3] = new SqlParameter("ordem", "Nome asc");
+                        var lista = mProdutos.Filtro(param); // retorna todos os registro
                         ViewBag.TipoRelat = "produtos_cadastrados";
-                        return PartialView("pvConteudo", lista);
+                        return PartialView("pvConteudoProdutos", lista);
                     }
                     else
                     {
                         ProdutosViewModel pvModel = new ProdutosViewModel();
-                        ProdutosDAO mProdutos = new ProdutosDAO();
+                        EstoqueDAO mEstoques = new EstoqueDAO();
                         ParametroFiltro param = new ParametroFiltro();
-                        var lista = mProdutos.Filtro(pvModel, param); // retorna todos os registro
-                        ViewBag.TipoRelat = "estoque";
-                        return PartialView("pvConteudo", lista);
-                    }
+                        var lista = mEstoques.ListagemView("view_Estoque"); // retorna todos os registro
+                        return PartialView("pvEstoque", lista);
+                }
                
             }
             catch(Exception e)

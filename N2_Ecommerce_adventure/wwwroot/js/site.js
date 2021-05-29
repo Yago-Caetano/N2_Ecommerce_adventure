@@ -4,16 +4,17 @@ function efetuaFiltro() {
 	var selectTipo = $("#select-tipo").val();
 	var dataInicial = $("#input-data-ini").val();
 	var dataFinal = $("#input-data-fim").val();
+	var nome = $("#input-txt-nome").val();
 
 
-
-	var url = `/Relatorios/ConsultaAjax?tipo=${selectTipo}` + (dataInicial.lenght > 1 ? `&dataInicial=${dataInicial}` : '') + (dataFinal.lenght > 1 ? `&dataFinal=${dataFinal}` : '');
+	var url = `/Relatorios/ConsultaAjax?tipo=${selectTipo}` + (dataInicial.lenght > 1 ? `&dataInicial=${dataInicial}` : '') + (dataFinal.lenght > 1 ? `&dataFinal=${dataFinal}` : '')
+				+ (nome.length > 1 ? `&nome=${nome}`: '');
 	
 	$.ajax({
 		url: url,
 		cache: false,
 		beforeSend: function () {
-			$("#imgWait").show();
+			
 		},
 		success: function (dados) {
 			//$("#imgWait").hide();
@@ -23,7 +24,7 @@ function efetuaFiltro() {
 			}
 			else 		   
 			{
-				$("#conteudoGrid").html(dados);
+				$("#conteudo").html(dados);
 			}
 		}
 	});
@@ -70,3 +71,20 @@ function preencherEndereco() {
 	});
 }
 
+function finalizaPed() {
+
+	var endId = $("#idEndereco").val();
+	//verifica se houve seleção de endereço válido
+	if (endId == "-1") {
+		swal({
+			title: "Não há endereço selecionado",
+			text: "Selecione um endereço para prosseguir!",
+			type: "warning"
+
+		});
+	}
+	else {
+		window.location = `/Carrinho/EfetuarPedido?idEndereco=${endId}`;
+    }
+	//	/Carrinho/EfetuarPedido
+}

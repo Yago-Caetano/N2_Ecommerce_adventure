@@ -32,32 +32,38 @@ end
 GO
 --------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------Produtos
-
 create procedure spFiltro_tbProdutos
-(	@id int, 
-	@Nome varchar(20),
-	@Preco money ,
-	@Descricao varchar(100),
-	@Foto varbinary(max),
-	@Quantidade int,
-	@Desconto real,
-	@idCategoria int,
-	@ordem varchar(max),
-	@PrecoInicial money,
-	@PrecoFinal money
+(	@id int = null, 
+	@Nome varchar(20) = '',
+	@Preco money = null,
+	@Descricao varchar(100) = null,
+	@Foto varbinary(max) = null,
+	@Quantidade int = null,
+	@Desconto real = null,
+	@idCategoria int = null,
+	@ordem varchar(max) = null,
+	@PrecoInicial money = null,
+	@PrecoFinal money =null
 )as  --as SP podem receber parametros
 	begin
+		
 		declare @sql varchar(max)
 		set @sql =
 		'select * from tbProdutos '+
-		'where tbProdutos.Nome like ''%' + @Nome + '%'' and ' +
-		'tbProdutos.Preco between '+
-		cast(@PrecoInicial as varchar(max)) + 
-		' and '+
-		cast(@PrecoFinal as varchar(max))
-
+		'where tbProdutos.Nome like ''%' + @Nome + '%'''
+		if @PrecoInicial is not null and @PrecoFinal is not null 
+			begin 
+				print '@PrecoInicial is not null and @PrecoFinal is not null '
+				set @sql =@sql + ' and tbProdutos.Preco between '+
+					cast(@PrecoInicial as varchar(max)) + 
+					' and '+
+					cast(@PrecoFinal as varchar(max))
+			end
+		
 		If @ordem<>''
-		set @sql = @sql + ' order by ' + @ordem
+			begin
+				set @sql = @sql + ' order by ' + @ordem
+			end
 
 		print @sql;
 		exec(@sql);
@@ -354,11 +360,17 @@ create procedure spGetAllPedidos( @idstatus int)
 		declare @id int;
 		declare @data smalldatetime;
 		declare @Nome varchar(20);
-		declare @Cidade varchar(50);		declare @CEP varchar(10);
+		declare @Cidade varchar(50);
+		declare @CEP varchar(10);
 
 		create table #temporaria(
 		id int,
-		data smalldatetime,		Nome varchar(20),		Cidade varchar(50),		CEP varchar(10),		Valor money		)
+		data smalldatetime,
+		Nome varchar(20),
+		Cidade varchar(50),
+		CEP varchar(10),
+		Valor money
+		)
 
 		if @idstatus=1
 				declare CursorPedidos cursor for select* from vw_Pedidos_Em_Aberto;
@@ -535,7 +547,7 @@ GO
 create procedure spGetIdentity
 as
 	begin
-		select isnull(@@IDENTITY,0)
+		select isnull(@@IDENTITY,0) as id
 	end
 
 --------------------------------------------------------------------------------------------------

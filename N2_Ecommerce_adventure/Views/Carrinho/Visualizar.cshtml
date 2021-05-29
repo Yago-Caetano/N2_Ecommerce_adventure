@@ -20,11 +20,23 @@
             </td>
             
             <td>@item.Quantidade</td>
+            <td><a href="/Carrinho/Detalhes/?idProduto=@item.ProdutoId">Editar</td>
         </tr>
     }
 </table>
+
+<div>
+    <section class="enderecos">
+
+        <h2><b>Selecionar Endereço</b></h2>
+
+        <select asp-items="ViewBag.Enderecos" id="idEndereco" class="dropdown form-control"> </select>
+        <br />
+    </section>
+    <br />
+</div>
 <br />
-<a href="/Produtos">Retornar para as compras</a>
+<a href="/">Retornar para as compras</a>
 <br />
 <br />
-<a href="/Carrinho/EfetuarPedido">Finalizar Pedido</a>
+<button onclick="finalizaPed()">Finalizar Pedido</button>
