@@ -59,6 +59,7 @@ namespace N2_Ecommerce_adventure.DAO
                 return MontaModel(tabela.Rows[0]);
         }
 
+
         public virtual List<T> ListagemView(String nomeView)
         {
             List<T> returnList = new List<T>();

@@ -45,12 +45,14 @@ namespace N2_Ecommerce_adventure.Controllers
                     {
                         PedidosDAO mPedidos = new PedidosDAO();
                         var lista = mPedidos.GetAll(1);
+                        ViewBag.Somatoria = mPedidos.GetSomatoriaValor(1);
                         return PartialView("pvConteudoPedidos", lista);
                     }
                     else if(tipo == "Pedidos Concluido")
                     {
                         PedidosDAO mPedidos = new PedidosDAO();
                         var lista = mPedidos.GetAll(2);
+                        ViewBag.Somatoria = mPedidos.GetSomatoriaValor(2);
                         return PartialView("pvConteudoPedidos", lista);
                     }
                     else if(tipo == "Produtos Cadastrados")

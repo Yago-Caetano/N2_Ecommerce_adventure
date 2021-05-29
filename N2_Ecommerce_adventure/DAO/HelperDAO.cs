@@ -33,8 +33,11 @@ namespace N2_Ecommerce_adventure.DAO
         {
 
             SqlConnection con = ConexaoBD.GetConexao();
-            SqlCommand com = new SqlCommand("SELECT dbo."+ Nome + "(1)", con);
-            //com.Parameters.Add(p);
+            /*
+             *  Respeitando os requisitos do Professor Viotti, foi necessário realizar uma consulta
+             *  utilizando functions, por esse motivo precisamos escrever a query 
+             */
+            SqlCommand com = new SqlCommand("SELECT dbo."+ Nome + "(" + p.Value + ")", con);
             return com.ExecuteScalar();
         }
 

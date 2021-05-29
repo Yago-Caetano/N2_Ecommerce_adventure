@@ -164,7 +164,8 @@ namespace N2_Ecommerce_adventure.DAO
 
         public double GetSomatoriaValor(int status)
         {
-            return (double) HelperDAO.ExecuteFunction("fnc_AllPedidos", new SqlParameter("idstatus", status));
+            var temp = HelperDAO.ExecuteFunction("fnc_AllPedidos", new SqlParameter("idstatus", status));
+            return Convert.ToDouble(temp);
         }
     }
 }
