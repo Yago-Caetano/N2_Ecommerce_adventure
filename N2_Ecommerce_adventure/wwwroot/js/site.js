@@ -142,3 +142,4 @@ function finalizaPed() {
     }
 	//	/Carrinho/EfetuarPedido
 }
+
