@@ -1,32 +1,41 @@
 ﻿@model List<CategoriaProdutoViewModel>
+    <head>
+        <link rel="stylesheet" href="~/css/mContainer.css" />
 
-<h2>Relação de Categorias de produto</h2>
+    </head>
+<body>
+    <div class="m-container">
+        <h2>Relação de Categorias de produto</h2>
 
-<br />
-<a href="/CategoriaProduto/Create">Novo Registro</a>
-<br />
-
-
-
-<table class="table table-responsive table-striped">
-
-    <tr>
-        <th>Ações</th>
-        <th>Id</th>
-        <th>Categoria</th>
-    </tr>
-
-    @foreach (CategoriaProdutoViewModel a in Model)
-    {
-        <tr>
-            <td>
-                <a href="CategoriaProduto/Edit?id=@a.Id" class="btn-info">Editar</a>
-                <a href="javascript:apagarRegistro(@a.Id, 'CategoriaProduto')" class="btn btn-danger">Apagar</a>
-            </td>
-            <td>@a.Id</td>
-            <td>@a.Categoria</td>
-        </tr>
-    }
+        <br />
+        <a href="/CategoriaProduto/Create">Novo Registro</a>
+        <br />
 
 
-</table>
+
+        <table class="table table-responsive table-striped">
+
+            <tr>
+                <th>Ações</th>
+                <th>Id</th>
+                <th>Categoria</th>
+            </tr>
+
+            @foreach (CategoriaProdutoViewModel a in Model)
+            {
+                <tr>
+                    <td>
+                        <a href="CategoriaProduto/Edit?id=@a.Id" class="btn-info">Editar</a>
+                        <a href="javascript:apagarRegistro(@a.Id, 'CategoriaProduto')" class="btn btn-danger">Apagar</a>
+                    </td>
+                    <td>@a.Id</td>
+                    <td>@a.Categoria</td>
+                </tr>
+            }
+
+
+        </table>
+
+    </div>
+</body>
+    

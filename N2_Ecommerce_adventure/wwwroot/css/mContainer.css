@@ -1,0 +1,21 @@
+﻿.m-container {
+    margin:16px;
+    background-color: white;
+    border-radius: 32px;
+    padding:16px;
+}
+
+.m-button {
+    border: 1px solid #236B56;
+    border-radius: 8px;
+    margin: 8px;
+}
+
+.m-button:hover {
+   background-color: #236B56;
+   color: white;
+}
+
+.m-container div{
+    margin-top:16px;
+}
