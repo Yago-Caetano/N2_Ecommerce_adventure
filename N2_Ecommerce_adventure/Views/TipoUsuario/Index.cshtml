@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="~/css/mContainer.css" />
 </head>
 <body>
-    <div class="m-container">
+    <div class="m-table-center">
         <h2>Relação de Tipos de Usuario</h2>
 
         <br />
@@ -13,7 +13,7 @@
         <br />
 
 
-        <table class="table table-responsive table-striped">
+        <table class="table table-responsive table-striped m-center">
             <tr>
                 <th>Ações</th>
                 <th>Id</th>
@@ -24,7 +24,7 @@
             {
                 <tr>
                     <td>
-                        <a href="TipoUsuario/Edit?id=@a.Id" class="btn-info">Editar</a>
+                        <a href="TipoUsuario/Edit?id=@a.Id" class="btn btn-info">Editar</a>
                         <a href="javascript:apagarRegistro(@a.Id, 'TipoUsuario')" class="btn btn-danger">Apagar</a>
                     </td>
                     <td>@a.Id</td>

@@ -11,7 +11,7 @@
         <br />
         <a href="/Pedidos/Create">Novo Registro</a>
         <br />
-        <table class="table table-responsive table-striped">
+        <table class="m-table-center">
             <tr>
                 <th>Ações</th>
                 <th>Id</th>
@@ -25,9 +25,9 @@
             {
                 <tr>
                     <td>
-                        <a href="Pedidos/Edit?id=@a.Id" class="btn-info">Editar</a>
+                        <a href="Pedidos/Edit?id=@a.Id" class="btn btn-info">Editar</a>
                         <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
-                        <a href="Pedidos/VerItens?id=@a.Id" class="btn-info">Itens</a>
+                        <a href="Pedidos/VerItens?id=@a.Id" class="btn btn-info">Itens</a>
                     </td>
                     <td>@a.Id</td>
                     <td>@a.Cliente.Nome</td>

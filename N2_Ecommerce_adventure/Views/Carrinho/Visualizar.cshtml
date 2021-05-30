@@ -15,7 +15,7 @@
     <div class="m-container">
         <h2>Carrinho de Compras</h2>
         <br />
-        <table class="table table-responsive">
+        <table class="m-table-center">
             <tr>
                 <th></th>
                 <th>Nome</th>
@@ -30,7 +30,7 @@
                     </td>
                     <td>@item.Nome</td>
                     <td>@item.Quantidade</td>
-                    <td><a href="/Carrinho/Detalhes/?idProduto=@item.ProdutoId">Editar</a></td>
+                    <td><a href="/Carrinho/Detalhes/?idProduto=@item.ProdutoId" class="btn btn-info">Editar</a></td>
                 </tr>
             }
         </table>
@@ -46,7 +46,7 @@
         </div>
 
         <div class="d-flex">
-            <a href="/"><button class="m-button" class="p-1">Continuar Comprando</button></a>
+            <a href="/"><button class="m-button p-1">Continuar Comprando</button></a>
             <button class="m-button" onclick="finalizaPed()">Finalizar Pedido</button>
         </div>
 

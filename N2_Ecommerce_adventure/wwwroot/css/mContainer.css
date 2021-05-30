@@ -1,8 +1,10 @@
 ﻿.m-container {
-    margin:16px;
+    margin: 16px;
     background-color: white;
     border-radius: 32px;
-    padding:16px;
+    padding: 16px;
+    -webkit-box-shadow: 12px 8px 14px -8px rgba(0,0,0,0.66);
+    box-shadow: 12px 8px 14px -8px rgba(0,0,0,0.66);
 }
 
 .m-button {
@@ -20,9 +22,24 @@
     margin-top:16px;
 }
 
-.m-container-center{
-    display:flex;
-    flex-direction:column;
-    align-self:center;
-    justify-content:center;
+.m-container-center {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
+
+.m-table-center {
+    margin: 0 auto;
+}
+
+.m-table-center td, th {
+    padding: 16px;
+    text-align: center;
+    border: 1px solid #236B56;
+}
+
+    .m-table-center th {
+        background-color: #236B56;
+        color:white;
+    }
