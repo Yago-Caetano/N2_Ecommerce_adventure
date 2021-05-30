@@ -25,6 +25,18 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                //verifica se o usuario está logado e o nivel de acesso
+                if (HelperControllers.VerificaUserLogado(HttpContext.Session))
+                {
+                    ViewBag.Logado = true;
+                    ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
+                }
+                else
+                {
+                    ViewBag.Logado = null;
+                    ViewBag.Tipo = "Normal";
+                }
+
                 var lista = DAO.Listagem();
                 return View(NomeViewIndex, lista);
             }
@@ -125,6 +137,13 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
             ViewBag.Logado = HttpContext.Session.GetString("Logado");
+
+            if(context.RouteData.Values["action"].ToString() == "Detalhes" && context.RouteData.Values["controller"].ToString() == "Produtos")
+            {
+                base.OnActionExecuting(context);
+                return;
+            }
+
             if (!HelperControllers.VerificaUserLogado(HttpContext.Session) && context.RouteData.Values["action"].ToString() == "Index" && context.RouteData.Values["controller"].ToString() == "Usuario")
             {
                 context.Result = RedirectToAction("Index", "Login");

@@ -1,6 +1,7 @@
-﻿
-@model List<ProdutosViewModel>
+﻿@model List<ProdutosViewModel>
 
+@if (Model != null)
+{
     <table class="table table-responsive table-striped">
 
         @foreach (ProdutosViewModel a in Model)
@@ -23,3 +24,9 @@
 
         }
     </table>
+}
+else
+{
+    <h2>Não há Itens Disponíveis</h2>
+    <p>Considere alterar os paramêtros de pesquisa</p>
+}

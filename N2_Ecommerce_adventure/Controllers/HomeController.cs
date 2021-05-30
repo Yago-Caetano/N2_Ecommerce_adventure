@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using N2_Ecommerce_adventure.DAO;
@@ -25,6 +26,17 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                //verifica se o usuario está logado e o nivel de acesso
+                if(HelperControllers.VerificaUserLogado(HttpContext.Session))
+                {
+                    ViewBag.Logado = true;
+                    ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
+                }
+                else
+                {
+                    ViewBag.Logado = null;
+                    ViewBag.Tipo = "Normal";
+                }
                 ViewBag.catProduto = -1;
                 var lista = new ProdutosDAO().Listagem();
                 return View("Index", lista);
@@ -35,11 +47,13 @@ namespace N2_Ecommerce_adventure.Controllers
             }
         }
 
-        public IActionResult AplicaFiltro(int idCategoria=-1,String Nome="",String precoInicial=null, String precoFinal=null)
+        
+
+        public IActionResult AplicaFiltro(bool newPage=false,int idCategoria=-1,String Nome="",String precoInicial=null, String precoFinal=null)
         {
-            
             ProdutosDAO mDAO = new ProdutosDAO();
             object precoIniAux, precoFinAux;
+
             if (precoInicial == null)
             {
                 precoIniAux = DBNull.Value;
@@ -68,7 +82,26 @@ namespace N2_Ecommerce_adventure.Controllers
                                     };
 
             var lista = mDAO.Filtro(mParams);
-            return PartialView("pvHomeProdutos", lista);
+            if(!newPage)
+            {
+                return PartialView("pvHomeProdutos", lista);
+            }
+            else
+            {
+                if (HelperControllers.VerificaUserLogado(HttpContext.Session))
+                {
+                    ViewBag.Logado = true;
+                    ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
+                }
+                else
+                {
+                    ViewBag.Logado = null;
+                    ViewBag.Tipo = "Normal";
+                }
+
+                ViewBag.catProduto = idCategoria;
+                return View("Index", lista);
+            }
         }
 
 

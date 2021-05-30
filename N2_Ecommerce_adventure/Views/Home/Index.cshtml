@@ -1,17 +1,34 @@
 ﻿@model List<ProdutosViewModel>
 
-<div id="filtros">
-    <input id="input-val-ini" type="number" placeholder="Valor inicial" />
-    <input id="input-val-fim" type="number" placeholder="Valor final" />
-    <input id="input-txt-nome" type="text" placeholder="Nome" />
-    <button id="btn-relat" onclick="efetuaFiltroProdutos(@ViewBag.catProduto)">Pesquisar</button>
-</div>
+<head>
+        <link rel="stylesheet" href="~/css/Filtro.css" />
+</head>
+<body>
+    <div class="filtros-container">
+        <div class="filtros-title"><p>Filtros</p></div>
+        <div class="filtros-item-group">
+            <div class="filtro-item-subgroup">
+                <label>Valor Inicial:</label>
+                <input id="input-val-ini" type="number" placeholder="10,00" />
+                <label>Valor Final:</label>
+                <input id="input-val-fim" type="number" placeholder="1000,00" />
+            </div>
+            <div class="filtro-item-subgroup">
+                <label>Nome:</label>
+                <input id="input-txt-nome" type="text" placeholder="Barraca Maravilha" />
+            </div>
+            <button id="btn-relat" onclick="efetuaFiltroProdutos(@ViewBag.catProduto)">Pesquisar</button>
 
-<div id="conteudo">
-    @{
-        Html.RenderPartial("pvHomeProdutos");
-    }
-</div>
+        </div>
+
+        </div>
+
+    <div id="conteudo">
+        @{
+            Html.RenderPartial("pvHomeProdutos");
+        }
+    </div>
+</body>
 
 
 

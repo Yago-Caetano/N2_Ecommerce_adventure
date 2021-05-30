@@ -1,27 +1,35 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @model List<EstoqueModel>
-{
+
 @if (Model != null)
 {
-    <table>
-        <tr>
-            <th>Nome</th>
-            <th>Quantidade Total</th>
-            <th>Quantidade em ordem</th>
-        </tr>
-
-        @foreach (EstoqueModel e in Model)
-        {
+    @if (Model.Count > 0)
+    {
+        <table>
             <tr>
-                <td>@e.Nome</td>
-                <td>@e.Quantidade</td>
-                <td>@e.QuantidadeEmOrdem.</td>
+                <th>Nome</th>
+                <th>Quantidade Total</th>
+                <th>Quantidade em ordem</th>
             </tr>
-        }
 
-    </table>
+            @foreach (EstoqueModel e in Model)
+            {
+                <tr>
+                    <td>@e.Nome</td>
+                    <td>@e.Quantidade</td>
+                    <td>@e.QuantidadeEmOrdem.</td>
+                </tr>
+            }
+
+        </table>
+    }
+
+
+    else
+    {
+        <h2>Não há Itens Disponíveis</h2>
+        <p>Considere alterar os paramêtros de pesquisa</p>
+    }
 }
 
-}
+

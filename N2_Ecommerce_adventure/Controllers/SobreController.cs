@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,18 @@ namespace N2_Ecommerce_adventure.Controllers
     {
         public IActionResult Index()
         {
+            //verifica se o usuario está logado e o nivel de acesso
+            if (HelperControllers.VerificaUserLogado(HttpContext.Session))
+            {
+                ViewBag.Logado = true;
+                ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
+            }
+            else
+            {
+                ViewBag.Logado = null;
+                ViewBag.Tipo = "Normal";
+            }
+
             return View();
         }
     }

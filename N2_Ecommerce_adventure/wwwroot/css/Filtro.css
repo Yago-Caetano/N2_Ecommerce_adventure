@@ -1,0 +1,45 @@
+﻿.filtros-container {
+    margin-top: 16px;
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    border: 2px solid #236B56;
+    border-radius:16px;
+}
+
+.filtros-title{
+    display:flex;
+    justify-content:center;
+    align-content:center;
+    font-family:Roboto;
+    font-size:large;
+    padding:8px;
+}
+
+.filtros-item-group {
+    display: flex;
+    flex-direction:row;
+    justify-content: center;
+    align-content: center;
+}
+
+.filtro-item-subgroup{
+    margin-right:8px;
+}
+
+.filtros-item-group label {
+    align-self: center;
+}
+
+    .filtros-item-group input, button, select {
+        border: 1px solid #236B56;
+        border-radius: 8px;
+        margin: 8px;
+    }
+
+.filtros-item-group button:hover {
+     background-color: #236B56;
+     color: white;
+}

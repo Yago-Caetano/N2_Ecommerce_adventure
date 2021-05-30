@@ -1,22 +1,39 @@
 ﻿@model List<UsuarioViewModel>
 
-<h2>Relação de Usuários</h2>
+    <head>
+        <link rel="stylesheet" href="~/css/Filtro.css" />
 
-<br />
-<a href="/Usuario/Create">Novo Registro</a>
-<br />
-<a href="/Usuario/CarregarPerfil">Minha Conta</a>
-<br />
-<div id="div-filtros">
-    <input id="input-data-ini" type="date" placeholder="Data inicial" />
-    <input id="input-data-fim" type="date" placeholder="Data final" />
-    <input id="input-txt-nome" type="text" placeholder="Nome" />
-    <button id="btn-relat" onclick="efetuaFiltroUser()">Pesquisar</button>
-</div>
-<div id="conteudo">
-    @{
-        Html.RenderPartial("pvUsuarios");
-    }
-</div>
+    </head>
+    <body>
+        <h2>Relação de Usuários</h2>
+
+        <br />
+        <a href="/Usuario/Create">Novo Registro</a>
+
+        <div class="filtros-container">
+            <div class="filtros-title">
+                <p>Filtros</p>
+            </div>
+            <div class="filtros-item-group">
+                <div class="filtro-item-subgroup">
+                    <label>Data de Nascimento:</label>
+                    <input id="input-data-ini" type="date" placeholder="Data inicial" />
+                    <label>até</label>
+                    <input id="input-data-fim" type="date" placeholder="Data final" />
+                </div>
+                <div class="filtro-item-subgroup">
+                    <label>Nome:</label>
+                    <input id="input-txt-nome" type="text" placeholder="Nome" />
+                    <button id="btn-relat" onclick="efetuaFiltroUser()">Pesquisar</button>
+                </div>
+              </div>
+            </div>
+        <div id="conteudo">
+            @{
+                Html.RenderPartial("pvUsuarios");
+            }
+        </div>
 
 
+
+    </body>
