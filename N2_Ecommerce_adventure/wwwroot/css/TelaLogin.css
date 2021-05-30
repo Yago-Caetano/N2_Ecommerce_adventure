@@ -65,3 +65,10 @@
 .cadastro a {
     color: #236B56;
 }
+
+.erro{
+    display:block;
+    padding-left:70px;
+    width: 600px;
+    height: 21px;
+}
