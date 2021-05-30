@@ -6,8 +6,9 @@
 
     @foreach (ProdutosViewModel a in Model)
     {
+        
         <div class="container-card">
-            <div  class="card" style="width: 18rem;">
+            <div id="card" class="card" style="width: 18rem;">
                 <img id="imgPreview" class="image-products" src="data:image/jpeg;base64,@a.FotoEmBase64" class="img-responsive">
 
                 <div class="card-body">

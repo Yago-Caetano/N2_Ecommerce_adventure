@@ -5,18 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Barracão Store</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="~/css/produtos.css" />
     <link rel="stylesheet" href="~/css/detalhes.css" />
-
+    <link rel="stylesheet" href="~/css/produtos.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/sweetalert.css" />
 </head>
 <body>
     <header>
         <nav class="navbar navbar-light bg-dark">
             <div class="container">
-                <a href="/Home" class="navbar-brand">
-                    <img href="/Produtos" src="~/images/logo_1.svg" width="100"/>
+                <a class="navbar-brand">
+                    <img src="~/images/logo_1.svg" width="100" />
                 </a>
                 @if (ViewBag.Tipo == "Gerente")
                 {

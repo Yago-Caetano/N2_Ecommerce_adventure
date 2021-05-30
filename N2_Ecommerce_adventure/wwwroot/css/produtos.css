@@ -1,28 +1,27 @@
+@charset "utf-8";
+
+.container {
+    width: 100%;
+}
+
 .card {
     float: left;
     width: 96%;
     height: 320px;
     margin-left: 8px;
-    margin-top: 100px;
+    margin-top: 15px;
     margin-bottom: 5px;
 }
 
-    .card:hover {
-        color: #236B56;
-        border: 2px solid #236B56;
-        transition: 0.2s;
-        height: 320px;
-    }
-
-
-
+    
 @media only screen and (min-width: 769px) {
     .container-card {
         width: 100%;
-        background-color: #E5E5E5;
     }
 
-
+    .container-card {
+        background-color: #E5E5E5;
+    }
 
     .card {
         align-content: center;
@@ -34,24 +33,20 @@
         height: 320px;
         margin-left: 2%;
         margin-right: 3%;
+        margin-top: 15px;
+        margin-bottom:5px;
     }
 
-        .card:hover {
-            transition: linear 0.4s, 0.4s;
-            color: #236B56;
-            border: 2px solid #236B56;
-        }
+   
 
-
-
-        .card:hover {
+        /*.card:hover {
             float: left;
             border-radius: 15px;
             width: 21%;
             height: 302px;
             margin-left: 2%;
             margin-right: 3%;
-        }
+        }*/
 
     .image-products {
         border-radius: 10px;
@@ -87,5 +82,6 @@
     }
 
     .description {
+
     }
 }
