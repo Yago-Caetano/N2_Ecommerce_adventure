@@ -1,4 +1,5 @@
 Use N2_dudu_Viotti_ecommerce;
+go
 create view vw_Pedidos_Em_Aberto  as
 	select P.id,P.data,U.Nome, E.Cidade,E.Cep from tbPedidos P inner join
 	tbUsuario U on p.idUsuario=U.id inner join
@@ -12,5 +13,6 @@ create view vw_Pedidos_Concluidos  as
 	where P.idStatus=2
 
 --criar view de estoque
-
-select * from vw_Pedidos_Em_Aberto
+go
+create view view_Estoque as
+	select Nome, Quantidade,QuantidadeEmOrdem from tbProdutos

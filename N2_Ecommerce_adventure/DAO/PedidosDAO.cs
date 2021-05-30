@@ -120,7 +120,7 @@ namespace N2_Ecommerce_adventure.DAO
             List<PedidosViewModel> returnList = new List<PedidosViewModel>();
 
             var p = new SqlParameter[] { new SqlParameter("idstatus", statusPedido) };
-            var tabela  = HelperDAO.ExecutaProcSelect("fnc_GetAllPedidos", p);
+            var tabela  = HelperDAO.ExecutaProcSelect("spGetAllPedidos", p);
 
             foreach (DataRow registro in tabela.Rows)
             {
@@ -162,5 +162,10 @@ namespace N2_Ecommerce_adventure.DAO
             return MontaModel(registro, Model.Completo);
         }
 
+        public double GetSomatoriaValor(int status)
+        {
+            var temp = HelperDAO.ExecuteFunction("fnc_AllPedidos", new SqlParameter("idstatus", status));
+            return Convert.ToDouble(temp);
+        }
     }
 }

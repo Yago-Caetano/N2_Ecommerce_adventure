@@ -1,51 +1,39 @@
 ﻿@model List<UsuarioViewModel>
 
-<h2>Relação de Usuários</h2>
+    <head>
+        <link rel="stylesheet" href="~/css/Filtro.css" />
 
-<br />
-<a href="/Usuario/Create">Novo Registro</a>
-<br />
-<a href="/Usuario/CarregarPerfil">Minha Conta</a>
-<br />
+    </head>
+    <body>
+        <h2>Relação de Usuários</h2>
 
+        <br />
+        <a href="/Usuario/Create">Novo Registro</a>
 
-
-<table class="table table-responsive table-striped">
-    <tr>
-        <th>Ações</th>
-        <th>Id</th>
-        <th>Nome</th>
-        <th>Data de Nascimento</th>
-        <th>Email</th>
-        <th>CPF</th>
-        <th>Tipo</th>
-        <th>Ativo</th>
-    </tr>
-
-    @foreach (UsuarioViewModel a in Model)
-    {
-        <tr>
-            <td>
-                <a href="Usuario/Edit?id=@a.Id" class="btn-info">Editar</a>
-                <a href="javascript:apagarRegistro(@a.Id, 'Usuario')" class="btn btn-danger">Apagar</a>
-            </td>
-            <td>@a.Id</td>
-            <td>@a.Nome</td>
-            <td>@a.Nascimento</td>
-            <td>@a.Email</td>
-            <td>@a.CPF</td>
-            <td>@a.Tipo_Usuario.Tipo</td>
-            @if (@a.Ativado)
-            {
-                <td>SIM</td>
+        <div class="filtros-container">
+            <div class="filtros-title">
+                <p>Filtros</p>
+            </div>
+            <div class="filtros-item-group">
+                <div class="filtro-item-subgroup">
+                    <label>Data de Nascimento:</label>
+                    <input id="input-data-ini" type="date" placeholder="Data inicial" />
+                    <label>até</label>
+                    <input id="input-data-fim" type="date" placeholder="Data final" />
+                </div>
+                <div class="filtro-item-subgroup">
+                    <label>Nome:</label>
+                    <input id="input-txt-nome" type="text" placeholder="Nome" />
+                    <button id="btn-relat" onclick="efetuaFiltroUser()">Pesquisar</button>
+                </div>
+              </div>
+            </div>
+        <div id="conteudo">
+            @{
+                Html.RenderPartial("pvUsuarios");
             }
-            else
-            {
-                <td>NÃO</td>
-            }
-
-        </tr>
-    }
+        </div>
 
 
-</table>
+
+    </body>

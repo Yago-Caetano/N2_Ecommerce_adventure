@@ -28,7 +28,7 @@ namespace N2_Ecommerce_adventure.Controllers
                 HttpContext.Session.SetString("Logado", user.Id.ToString());
                 HttpContext.Session.SetString("Tipo", user.Tipo_Usuario.Tipo);
                 ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
-                return RedirectToAction("index", "Produtos");
+                return RedirectToAction("index","Home");
             }
             else
             {

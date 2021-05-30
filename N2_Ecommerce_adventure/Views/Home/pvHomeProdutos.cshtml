@@ -1,0 +1,32 @@
+﻿@model List<ProdutosViewModel>
+
+@if (Model != null)
+{
+    <table class="table table-responsive table-striped">
+
+        @foreach (ProdutosViewModel a in Model)
+        {
+
+            <div class="container-card">
+                <div id="card" class="card" style="width: 18rem;">
+                    <img id="imgPreview" class="image-products" src="data:image/jpeg;base64,@a.FotoEmBase64" class="img-responsive">
+
+                    <div class="card-body">
+                        <h6 class="card-title">@a.Nome</h6>
+                        <p class="card-price"><b>R$ @a.Preço,00</b></p>
+
+                        <a href="/Produtos/Detalhes?id=@a.Id" class="btn-detalhes btn btn-secondary">Detalhes</a>
+                        <br />
+                        <a href="/Carrinho/AdicionarCarrinho?ProdutoId=@a.Id&Quantidade=1" class="btn-comprar btn btn-success">Comprar</a>
+                    </div>
+                </div>
+            </div>
+
+        }
+    </table>
+}
+else
+{
+    <h2>Não há Itens Disponíveis</h2>
+    <p>Considere alterar os paramêtros de pesquisa</p>
+}

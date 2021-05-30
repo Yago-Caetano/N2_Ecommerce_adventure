@@ -29,6 +29,36 @@ namespace N2_Ecommerce_adventure.DAO
             }
         }
 
+        public static object ExecuteFunction(string Nome, SqlParameter p)
+        {
+
+            SqlConnection con = ConexaoBD.GetConexao();
+            /*
+             *  Respeitando os requisitos do Professor Viotti, foi necessário realizar uma consulta
+             *  utilizando functions, por esse motivo precisamos escrever a query 
+             */
+            SqlCommand com = new SqlCommand("SELECT dbo."+ Nome + "(" + p.Value + ")", con);
+            return com.ExecuteScalar();
+        }
+
+        public static DataTable ExecutaProcSelect(string nomeProc, SqlParameter[] parametros, SqlConnection conexao)
+        {
+
+                using (SqlDataAdapter adapter = new SqlDataAdapter(nomeProc, conexao))
+                {
+
+                    if (parametros != null)
+                        adapter.SelectCommand.Parameters.AddRange(parametros);
+                    adapter.SelectCommand.CommandType = CommandType.StoredProcedure;
+                    DataTable tabela = new DataTable();
+                    adapter.Fill(tabela);
+                    conexao.Close();
+                    return tabela;
+                }
+            
+        }
+
+
         public static int ExecutaProc(string nomeProc, SqlParameter[] parametros,bool consultaUltimoIdentity = false)
         {
             int retValue = 0;
@@ -43,8 +73,8 @@ namespace N2_Ecommerce_adventure.DAO
 
                     if(consultaUltimoIdentity)
                     {
-                        var data = ExecutaProcSelect("spGetIdentity",null);
-                        retValue = Convert.ToInt32(data.Rows[0][""]);
+                        var data = ExecutaProcSelect("spGetIdentity",null,conexao);
+                        retValue = Convert.ToInt32(data.Rows[0]["id"]);
                     }
                 }
                 conexao.Close();

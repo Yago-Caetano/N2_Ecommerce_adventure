@@ -2,29 +2,61 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Terrenos no carrinho</h2>
+
+<head>
+    <link rel="stylesheet" href="~/css/TelaCarrinho.css" />
+
+</head>
+<body>
+
+</body>
+<h2>Carrinho de Compras</h2>
 <br />
-<table class="table table-responsive">
-    <tr>
-        <th>Cidade</th>
-        <th>Imagem</th>
-        <th>Quantidade</th>
-    </tr>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.ProdutoId - @item.Nome</td>
-            <td>
-                <img id="imgPreview" src="data:image/jpeg;base64,@item.ImagemEmBase64"
-                     class="img-responsive" width="50">
-            </td>
-            
-            <td>@item.Quantidade</td>
-        </tr>
-    }
-</table>
-<br />
-<a href="/Produtos">Retornar para as compras</a>
-<br />
-<br />
-<a href="/Carrinho/EfetuarPedido">Finalizar Pedido</a>
+@if (Model.Count > 0)
+{
+    <div class="m-container">
+        <table class="table table-responsive">
+            <tr>
+                <th></th>
+                <th>Nome</th>
+                <th>Quantidade</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img id="imgPreview" src="data:image/jpeg;base64,@item.ImagemEmBase64"
+                             class="img-responsive" width="50">
+                    </td>
+                    <td>@item.Nome</td>
+                    <td>@item.Quantidade</td>
+                    <td><a href="/Carrinho/Detalhes/?idProduto=@item.ProdutoId">Editar</a></td>
+                </tr>
+            }
+        </table>
+
+        <div>
+            <section class="enderecos">
+
+                <h2><b>Selecionar Endereço</b></h2>
+
+                <select asp-items="ViewBag.Enderecos" id="idEndereco" class="dropdown form-control"> </select>
+                <br />
+            </section>
+            <br />
+        </div>
+        <br />
+        <a href="/">Retornar para as compras</a>
+        <br />
+        <br />
+        <button onclick="finalizaPed()">Finalizar Pedido</button>
+    </div>
+    
+}
+else
+{
+    <h3>Não há itens no seu carrinho :(</h3>
+    <p>Não tenha medo, adcione alguns items aqui</p>
+}
+
+

@@ -1,0 +1,44 @@
+﻿
+@model List<UsuarioViewModel>
+
+    <table class="table table-responsive table-striped">
+    <tr>
+        <th>Ações</th>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Data de Nascimento</th>
+        <th>Email</th>
+        <th>CPF</th>
+        <th>Tipo</th>
+        <th>Ativo</th>
+    </tr>
+
+    @foreach (UsuarioViewModel a in Model)
+    {
+        <tr>
+            <td>
+                <a href="Usuario/Edit?id=@a.Id" class="btn-info">Editar</a>
+                <a href="javascript:apagarRegistro(@a.Id, 'Usuario')" class="btn btn-danger">Apagar</a>
+            </td>
+            <td>@a.Id</td>
+            <td>@a.Nome</td>
+            <td>@a.Nascimento</td>
+            <td>@a.Email</td>
+            <td>@a.CPF</td>
+            <td>@a.Tipo_Usuario.Tipo</td>
+            @if (@a.Ativado)
+            {
+                <td>SIM</td>
+            }
+            else
+            {
+                <td>NÃO</td>
+            }
+
+        </tr>
+    }
+
+
+</table>
+
+

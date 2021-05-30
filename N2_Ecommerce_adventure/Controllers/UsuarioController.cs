@@ -5,6 +5,8 @@ using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Data.SqlTypes;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -94,6 +96,29 @@ namespace N2_Ecommerce_adventure.Controllers
                 return PartialView("pvEndereco", endereco);
             }
             catch
+            {
+                return Json(new { erro = true });
+            }
+        }
+
+        public IActionResult ConsultaFiltroAjax(DateTime dataInicial, DateTime dataFinal,String Nome)
+        {
+            try
+            {
+                UsuarioDAO userDao = new UsuarioDAO();
+                UsuarioViewModel model = new UsuarioViewModel();
+                model.Nome = Nome;
+                //parametros adcionais
+                SqlParameter[] mParams = new SqlParameter[]{ 
+                                        new SqlParameter("Nome", (Nome == null ? "" : Nome)),
+                                        new SqlParameter("ordem","Nome asc"),
+                                        new SqlParameter("dataInicial",(dataInicial == Convert.ToDateTime("01/01/0001") ? new DateTime(1900,01,01): dataInicial)),
+                                        new SqlParameter("dataFinal",(dataFinal == Convert.ToDateTime("01/01/0001") ? DateTime.Now : dataFinal))};
+
+                var lista = userDao.Filtro(mParams);
+                return PartialView("pvUsuarios", lista);
+            }
+            catch(Exception e)
             {
                 return Json(new { erro = true });
             }

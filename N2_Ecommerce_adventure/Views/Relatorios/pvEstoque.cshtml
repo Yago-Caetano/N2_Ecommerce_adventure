@@ -1,4 +1,5 @@
-﻿@model List<ProdutosViewModel>
+﻿
+@model List<EstoqueModel>
 
 @if (Model != null)
 {
@@ -6,30 +7,29 @@
     {
         <table>
             <tr>
-                <th>Id</th>
                 <th>Nome</th>
-                <th>Preço</th>
-                <th>Quantidade</th>
+                <th>Quantidade Total</th>
+                <th>Quantidade em ordem</th>
             </tr>
 
-            @foreach (ProdutosViewModel p in Model)
+            @foreach (EstoqueModel e in Model)
             {
                 <tr>
-                    <td>@p.Id</td>
-                    <td>@p.Nome</td>
-                    <td>@p.Preço</td>
-                    <td>@p.Quantidade</td>
+                    <td>@e.Nome</td>
+                    <td>@e.Quantidade</td>
+                    <td>@e.QuantidadeEmOrdem.</td>
                 </tr>
             }
 
         </table>
     }
+
+
     else
     {
         <h2>Não há Itens Disponíveis</h2>
         <p>Considere alterar os paramêtros de pesquisa</p>
     }
-
 }
 
 

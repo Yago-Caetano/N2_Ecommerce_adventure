@@ -9,53 +9,48 @@
     <link rel="stylesheet" href="~/css/produtos.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/sweetalert.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 </head>
 <body>
     <header>
         <nav class="navbar navbar-light bg-dark">
             <div class="container">
-                <a class="navbar-brand">
+                <a class="navbar-brand" href="/Home">
                     <img src="~/images/logo_1.svg" width="100" />
                 </a>
-                @if (ViewBag.Tipo == "Gerente")
-                {
-                    <a class="text-white" href="Usuario/CarregarPerfil">Minha Área</a>
-                    <a class="text-white" asp-area="" asp-controller="Gerencia" asp-action="Index">Gerenciar</a>
-                }
-                else if (ViewBag.Tipo == "Normal")
-                {
-                    <a class="text-white" asp-area="" asp-controller="Usuario" asp-action="Index">Minha Área</a>
-                }
 
 
-            <div>
-                @if (ViewBag.Logado == null)
-                {
-                    <a class="text-white" href="#">Login</a>
+                <div class="d-flex align-items-center">
+                    @if (ViewBag.Tipo == "Gerente")
+                    {
+                        <a class="text-white p-1" asp-area="" asp-controller="Gerencia" asp-action="Index">Gerenciar</a>
+                    }
+                    @if (ViewBag.Logado == null)
+                    {
+                        <a class="text-white p-1" asp-area="" asp-controller="Login" asp-action="Index">Login</a>
 
-                }
-                else
-                {
-                    
-                        <a class="text-white" asp-area="" asp-controller="Login" asp-action="LogOff">LogOff</a>
-                }
-                <a  asp-area="" asp-controller="Carrinho" asp-action="Visualizar">
-                    <img src="~/images/carrinho.svg" width="20px">
-                </a>
+                    }
+                    else
+                    {
+                        <a class="text-white p-1" asp-area="" asp-controller="Usuario" asp-action="CarregarPerfil">Meu Perfil</a>
+                        
+                        <a class="text-white p-1" asp-area="" asp-controller="Login" asp-action="LogOff">LogOff</a>
+                    }
+                    <a class="p-2" asp-area="" asp-controller="Carrinho" asp-action="Visualizar">
+                        <img src="~/images/carrinho.svg" width="20px">
+                    </a>
 
-            </div>
- 
-
-
+                </div>
             </div>
         </nav>
         <nav class="navbar " style=" background-color: #236B56">
             <div class="container">
-                <a class="text-white">Barracas</a>
-                <a class="text-white">Lanternas</a>
-                <a class="text-white">Lazer</a>
-                <a class="text-white">Mochilas</a>
-                <a class="text-white">Táctico Militares</a>
+                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=1">Barracas</a>
+                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=2">Lanternas</a>
+                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=3">Lazer</a>
+                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=4">Mochilas</a>
+                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=5">Táctico Militares</a>
                 <a class="text-white" asp-area="" asp-controller="Sobre" asp-action="Index">Sobre Nós</a>
             </div>
     </nav>

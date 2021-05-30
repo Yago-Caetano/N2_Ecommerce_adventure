@@ -59,15 +59,61 @@ namespace N2_Ecommerce_adventure.DAO
                 return MontaModel(tabela.Rows[0]);
         }
 
-        public virtual T Filtro(T model, ParametroFiltro parametros)
-        {
-            var p = CriaParametrosFiltro(model, parametros);
 
-            var tabela = HelperDAO.ExecutaProcSelect("spFiltro_" + Tabela, p);
+        public virtual List<T> ListagemView(String nomeView)
+        {
+            List<T> returnList = new List<T>();
+            DataTable table = new DataTable();
+
+            using (var connection = ConexaoBD.GetConexao())
+            {
+
+                /* Como requisito do professor Viotti, houve a necessidade de criar uma view para consulta
+                    Por isso, nesse caso tivemos que escrever a query de consulta
+                 */
+                using (var command = new SqlCommand("SELECT * FROM " + nomeView, connection))
+                {
+                    // Loads the query results into the table
+                    table.Load(command.ExecuteReader());
+
+                    foreach (DataRow reg in table.Rows)
+                    {
+                        returnList.Add(MontaModel(reg));
+                    }
+                }
+
+                connection.Close();
+            }
+            return returnList;
+        }
+
+        public virtual List<T> Filtro(T model, SqlParameter[] parametrosAdcionais)
+        {
+            SqlParameter[] paramsAux = CriaParametros(model);
+            
+            foreach(SqlParameter sql in parametrosAdcionais)
+            {
+                paramsAux.Append(sql);
+            }
+
+            return Filtro(paramsAux);
+        }
+
+        public virtual List<T> Filtro(SqlParameter[] parameters)
+        {
+            List<T> returnList = new List<T>();
+            var tabela = HelperDAO.ExecutaProcSelect("spFiltro_" + Tabela, parameters);
             if (tabela.Rows.Count == 0)
                 return null;
             else
-                return MontaModel(tabela.Rows[0]);
+            {
+                foreach(DataRow reg in tabela.Rows)
+                {
+                    returnList.Add(MontaModel(reg));
+                }
+                return returnList;
+            }
+                
         }
 
 
@@ -100,31 +146,6 @@ namespace N2_Ecommerce_adventure.DAO
             return lista;
         }
 
-        protected virtual SqlParameter[] CriaParametrosFiltro(T model, ParametroFiltro parametros)
-        {
-            var p = CriaParametros(model);
-            
-            if(parametros.dataIncio != null)
-            {
-                p.Append(new SqlParameter("dataInicio", parametros.dataIncio));
-            }
-
-            if (parametros.dataFim != null)
-            {
-                p.Append(new SqlParameter("dataFim", parametros.dataFim));
-            }
-
-            if (parametros.PrecoFinal != -1)
-            {
-                p.Append(new SqlParameter("PrecoFinal", parametros.PrecoFinal));
-            }
-
-            if (parametros.PrecoInicial != -1)
-            {
-                p.Append(new SqlParameter("PrecoInicial", parametros.PrecoInicial));
-            }
-            return p;
-        }
-
+       
     }
 }

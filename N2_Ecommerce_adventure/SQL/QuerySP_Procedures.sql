@@ -32,32 +32,45 @@ end
 GO
 --------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------Produtos
-
 create procedure spFiltro_tbProdutos
-(	@id int, 
-	@Nome varchar(20),
-	@Preco money ,
-	@Descricao varchar(100),
-	@Foto varbinary(max),
-	@Quantidade int,
-	@Desconto real,
-	@idCategoria int,
-	@ordem varchar(max),
-	@PrecoInicial money,
-	@PrecoFinal money
+(	
+	@Nome varchar(20) = '',
+	@idCategoria int = -1,
+	@ordem varchar(max) = null,
+	@PrecoInicial money = null,
+	@PrecoFinal money =null
 )as  --as SP podem receber parametros
 	begin
+		
 		declare @sql varchar(max)
 		set @sql =
 		'select * from tbProdutos '+
-		'where tbProdutos.Nome like ''%' + @Nome + '%'' and ' +
-		'tbProdutos.Preco between '+
-		cast(@PrecoInicial as varchar(max)) + 
-		' and '+
-		cast(@PrecoFinal as varchar(max))
+		'where tbProdutos.Nome like ''%' + @Nome + '%'''
+		if @idCategoria > 0
+			begin
+				set @sql = @sql + ' and idCategoria=' + CAST(@idCategoria as varchar(max))
+			end
+		if @PrecoInicial is not null and @PrecoFinal is not null 
+			begin 
+				print '@PrecoInicial is not null and @PrecoFinal is not null '
+				set @sql =@sql + ' and tbProdutos.Preco between '+
+					cast(@PrecoInicial as varchar(max)) + 
+					' and '+
+					cast(@PrecoFinal as varchar(max))
 
+			end
+		if @PrecoInicial is null and @PrecoFinal is not null 
+			begin
+				set @sql = @sql + ' and tbProdutos.Preco <= ' +cast(@PrecoFinal as varchar(max))
+			end
+		if @PrecoFinal is null and @PrecoInicial is not null 
+			begin
+				set @sql = @sql + ' and tbProdutos.Preco >= ' +cast(@PrecoInicial as varchar(max))
+			end
 		If @ordem<>''
-		set @sql = @sql + ' order by ' + @ordem
+			begin
+				set @sql = @sql + ' order by ' + @ordem
+			end
 
 		print @sql;
 		exec(@sql);
@@ -111,18 +124,11 @@ GO
 -----------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------Usuarios
 create procedure spFiltro_tbUsuario
-(	@id int, 
+(	 
 	@Nome varchar(20),
-	@Nascimento smalldatetime ,
-	@email varchar(30),
-	@senha  varchar(30),
-	@cpf  varchar(20),
-	@idTipoUsuario  int,
-	@statusUsuario bit,
 	@ordem varchar(max),
 	@dataInicial date,
 	@dataFinal date
-
 )as  --as SP podem receber parametros
 begin
 	declare @sql varchar(max)
@@ -133,10 +139,7 @@ begin
 	  '      tbUsuario.Nascimento between ' +
 	  QUOTENAME(convert(varchar(max), @dataInicial, 120), '''') + 
 	  ' and ' + 
-	  QUOTENAME(convert(varchar(max), @datafinal, 120), '''')+
-	  ' and '+
-	  'tbUsuario.email like ''%' + @email + '%'' and ' +
-	  'tbUsuario.cpf like ''%' + @cpf + '%'' '
+	  QUOTENAME(convert(varchar(max), @datafinal, 120), '''')
 
 	  If @ordem<>''
 		set @sql = @sql + ' order by ' + @ordem
@@ -354,11 +357,17 @@ create procedure spGetAllPedidos( @idstatus int)
 		declare @id int;
 		declare @data smalldatetime;
 		declare @Nome varchar(20);
-		declare @Cidade varchar(50);		declare @CEP varchar(10);
+		declare @Cidade varchar(50);
+		declare @CEP varchar(10);
 
 		create table #temporaria(
 		id int,
-		data smalldatetime,		Nome varchar(20),		Cidade varchar(50),		CEP varchar(10),		Valor money		)
+		data smalldatetime,
+		Nome varchar(20),
+		Cidade varchar(50),
+		CEP varchar(10),
+		Valor money
+		)
 
 		if @idstatus=1
 				declare CursorPedidos cursor for select* from vw_Pedidos_Em_Aberto;
@@ -535,7 +544,7 @@ GO
 create procedure spGetIdentity
 as
 	begin
-		select isnull(@@IDENTITY,0)
+		select isnull(@@IDENTITY,0) as id
 	end
 
 --------------------------------------------------------------------------------------------------

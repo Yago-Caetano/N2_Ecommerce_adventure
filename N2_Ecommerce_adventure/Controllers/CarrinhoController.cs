@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using N2_Ecommerce_adventure.DAO;
 using N2_Ecommerce_adventure.Models;
 using Newtonsoft.Json;
@@ -96,6 +97,22 @@ namespace N2_Ecommerce_adventure.Controllers
                 return View("Error", new ErrorViewModel(erro.ToString()));
             }
         }
+
+        private void PreparaListaEnderecosParaCombo(int idUsuario)
+        {
+
+            var enderecos = new UsuarioDAO().GetUsuariosEnderecos(idUsuario);
+
+            List<SelectListItem> listaEnderecos = new List<SelectListItem>();
+            listaEnderecos.Add(new SelectListItem("Selecione um Endereço", "-1"));
+            foreach (var endereco in enderecos)
+            {
+                SelectListItem item = new SelectListItem(endereco.Rua + " " + endereco.Complemento, endereco.Id.ToString());
+                listaEnderecos.Add(item);
+            }
+            ViewBag.Enderecos = listaEnderecos;
+        }
+
         public IActionResult Visualizar()
         {
             try
@@ -107,6 +124,10 @@ namespace N2_Ecommerce_adventure.Controllers
                     var cid = dao.Consulta(item.ProdutoId);
                     item.ImagemEmBase64 = cid.FotoEmBase64;
                 }
+
+
+                PreparaListaEnderecosParaCombo(HelperControllers.GetUserLogadoID(HttpContext.Session));
+
                 return View(carrinho);
             }
             catch (Exception erro)
@@ -127,7 +148,7 @@ namespace N2_Ecommerce_adventure.Controllers
         }
 
 
-        public IActionResult EfetuarPedido()
+        public IActionResult EfetuarPedido(int idEndereco)
         {
             try
             {
@@ -143,7 +164,7 @@ namespace N2_Ecommerce_adventure.Controllers
 
                     //Endereço 
                     EnderecoViewModel endereco = new EnderecoViewModel();
-                    endereco.Id = 1; //verificar como recuperar o endereço selecionado
+                    endereco.Id = idEndereco;
 
                     //Usuario
                     UsuarioSimplificadoViewModel user = new UsuarioSimplificadoViewModel();
