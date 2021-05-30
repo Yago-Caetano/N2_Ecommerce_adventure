@@ -7,6 +7,7 @@ using N2_Ecommerce_adventure.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Http;
+using X.PagedList;
 
 namespace N2_Ecommerce_adventure.Controllers
 {
@@ -21,8 +22,10 @@ namespace N2_Ecommerce_adventure.Controllers
         protected bool ExibeAutenticacao { get; set; } = true;
 
 
-        public virtual IActionResult Index()
+        public virtual IActionResult Index(int? pagina=null)
         {
+            const int ItensPorPagina = 2;
+
             try
             {
                 //verifica se o usuario está logado e o nivel de acesso
@@ -38,7 +41,9 @@ namespace N2_Ecommerce_adventure.Controllers
                 }
 
                 var lista = DAO.Listagem();
-                return View(NomeViewIndex, lista);
+                //return View(NomeViewIndex, lista);
+                int numeroPagina = (pagina ?? 1);
+                return View(NomeViewIndex, lista.ToPagedList(numeroPagina, ItensPorPagina));
             }
             catch (Exception erro)
             {

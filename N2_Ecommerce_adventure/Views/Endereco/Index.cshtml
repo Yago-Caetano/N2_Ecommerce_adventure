@@ -1,4 +1,5 @@
-﻿@model List<EnderecoViewModel>
+﻿@model X.PagedList.IPagedList<EnderecoViewModel>
+@using X.PagedList.Mvc.Core;
 <head>
     <link rel="stylesheet" href="~/css/mContainer.css" />
 </head>
@@ -9,7 +10,6 @@
         <br />
         <a href="/Endereco/Create">Novo Registro</a>
         <br />
-        Endereços do usuario: @ViewBag.NomeUsuario
         <table class="table table-responsive table-striped">
             <tr>
                 <th>Ações</th>
@@ -49,6 +49,6 @@
 
 
         </table>
-
+        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
     </div>
 </body>

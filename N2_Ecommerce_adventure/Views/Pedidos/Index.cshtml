@@ -1,11 +1,12 @@
-﻿@model List<PedidosViewModel>
+﻿@model X.PagedList.IPagedList<PedidosViewModel>
+@using X.PagedList.Mvc.Core;
 
 <head>
     <link rel="stylesheet" href="~/css/mContainer.css" />
 </head>
 <body>
     <div class="m-container">
-        h2>Relação de Pedidos</h2>
+        <h2>Relação de Pedidos</h2>
 
         <br />
         <a href="/Pedidos/Create">Novo Registro</a>
@@ -22,22 +23,21 @@
 
             @foreach (PedidosViewModel a in Model)
             {
-                <!--<tr>-->
-                <td>
-                    <a href="Pedidos/Edit?id=@a.Id" class="btn-info">Editar</a>
-                    <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
-                    <a href="Pedidos/VerItens?id=@a.Id" class="btn-info">Itens</a>
-                </td>
-                <td>@a.Id</td>
-                <td>@a.Cliente.Nome</td>
-                <td>@a.status.status</td>
-                <td>@a.endereco.CEP</td>
-                <td>@a.data</td>
-                <!--</tr>-->
+                <tr>
+                    <td>
+                        <a href="Pedidos/Edit?id=@a.Id" class="btn-info">Editar</a>
+                        <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
+                        <a href="Pedidos/VerItens?id=@a.Id" class="btn-info">Itens</a>
+                    </td>
+                    <td>@a.Id</td>
+                    <td>@a.Cliente.Nome</td>
+                    <td>@a.status.status</td>
+                    <td>@a.endereco.CEP</td>
+                    <td>@a.data</td>
+                </tr>
             }
 
-
         </table>
-
+        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
     </div>
 </body>

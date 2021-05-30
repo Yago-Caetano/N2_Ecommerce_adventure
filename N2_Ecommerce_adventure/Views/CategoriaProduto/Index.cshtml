@@ -1,8 +1,10 @@
-﻿@model List<CategoriaProdutoViewModel>
-    <head>
-        <link rel="stylesheet" href="~/css/mContainer.css" />
+﻿@model X.PagedList.IPagedList<CategoriaProdutoViewModel>
+@using X.PagedList.Mvc.Core;
 
-    </head>
+<head>
+    <link rel="stylesheet" href="~/css/mContainer.css" />
+
+</head>
 <body>
     <div class="m-container">
         <h2>Relação de Categorias de produto</h2>
@@ -35,7 +37,6 @@
 
 
         </table>
-
+        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
     </div>
 </body>
-    

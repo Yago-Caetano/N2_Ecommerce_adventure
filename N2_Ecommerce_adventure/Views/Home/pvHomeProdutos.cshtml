@@ -1,7 +1,12 @@
-﻿@model List<ProdutosViewModel>
+﻿@model X.PagedList.IPagedList<ProdutosViewModel>
+@using X.PagedList.Mvc.Core;
+
 
 @if (Model != null)
 {
+
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+   
     <table class="table table-responsive table-striped">
 
         @foreach (ProdutosViewModel a in Model)
@@ -24,6 +29,7 @@
 
         }
     </table>
+
 }
 else
 {

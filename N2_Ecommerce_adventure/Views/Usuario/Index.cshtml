@@ -1,39 +1,45 @@
-﻿@model List<UsuarioViewModel>
+﻿@model X.PagedList.IPagedList<UsuarioViewModel>
+@using X.PagedList.Mvc.Core;
 
-    <head>
-        <link rel="stylesheet" href="~/css/Filtro.css" />
+<head>
+    <link rel="stylesheet" href="~/css/Filtro.css" />
+    <link rel="stylesheet" href="~/css/mContainer.css" />
 
-    </head>
-    <body>
+</head>
+<body>
+
+
+    <div class="filtros-container">
+        <div class="filtros-title">
+            <p>Filtros</p>
+        </div>
+        <div class="filtros-item-group">
+            <div class="filtro-item-subgroup">
+                <label>Data de Nascimento:</label>
+                <input id="input-data-ini" type="date" placeholder="Data inicial" />
+                <label>até</label>
+                <input id="input-data-fim" type="date" placeholder="Data final" />
+            </div>
+            <div class="filtro-item-subgroup">
+                <label>Nome:</label>
+                <input id="input-txt-nome" type="text" placeholder="Nome" />
+                <button id="btn-relat" onclick="efetuaFiltroUser()">Pesquisar</button>
+            </div>
+        </div>
+    </div>
+    <div id="conteudo" class="m-container">
         <h2>Relação de Usuários</h2>
-
         <br />
         <a href="/Usuario/Create">Novo Registro</a>
-
-        <div class="filtros-container">
-            <div class="filtros-title">
-                <p>Filtros</p>
-            </div>
-            <div class="filtros-item-group">
-                <div class="filtro-item-subgroup">
-                    <label>Data de Nascimento:</label>
-                    <input id="input-data-ini" type="date" placeholder="Data inicial" />
-                    <label>até</label>
-                    <input id="input-data-fim" type="date" placeholder="Data final" />
-                </div>
-                <div class="filtro-item-subgroup">
-                    <label>Nome:</label>
-                    <input id="input-txt-nome" type="text" placeholder="Nome" />
-                    <button id="btn-relat" onclick="efetuaFiltroUser()">Pesquisar</button>
-                </div>
-              </div>
-            </div>
-        <div id="conteudo">
+        <br />
+        <div class="m-container-center">
             @{
                 Html.RenderPartial("pvUsuarios");
             }
         </div>
 
+    </div>
 
 
-    </body>
+
+</body>

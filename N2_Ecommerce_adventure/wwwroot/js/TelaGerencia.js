@@ -24,5 +24,9 @@ function navigateTo(itemSelected) {
         case "item-relat":
             window.location.href = "/Relatorios";
             break;
+
+        case "item-cat":
+            window.location.href = "/CategoriaProduto";
+            break;
     }
 };

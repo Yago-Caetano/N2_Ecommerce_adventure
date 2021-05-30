@@ -33,7 +33,7 @@ namespace N2_Ecommerce_adventure.DAO
             e.Id = Convert.ToInt32(registro["id"]);
             e.status.Id = Convert.ToInt32(registro["idStatus"]);
             e.Cliente.Id = Convert.ToInt32(registro["idUsuario"]);
-            e.endereco.Id = Convert.ToInt32(registro["idUsuario"]);
+            e.endereco.Id = Convert.ToInt32(registro["idEndereco"]);
             e.data = Convert.ToDateTime(registro["data"]);
             MontaModelo(e, model);
             return e;

@@ -1,7 +1,8 @@
-﻿@model List<PedidosViewModel>
-    <head>
-        <link rel="stylesheet" href="~/css/mContainer.css" />
-    </head>
+﻿@model X.PagedList.IPagedList<PedidosViewModel>
+@using X.PagedList.Mvc.Core;
+<head>
+    <link rel="stylesheet" href="~/css/mContainer.css" />
+</head>
 <body>
     <div class="m-container">
         <h2>Histórico de Pedidos</h2>
@@ -33,7 +34,7 @@
 
 
         </table>
-
+        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
     </div>
 </body>
 

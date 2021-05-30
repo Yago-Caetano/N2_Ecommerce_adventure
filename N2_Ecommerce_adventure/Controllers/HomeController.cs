@@ -10,6 +10,7 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace N2_Ecommerce_adventure.Controllers
 {
@@ -22,8 +23,9 @@ namespace N2_Ecommerce_adventure.Controllers
             _logger = logger;
         }
 
-        public  IActionResult Index()
+        public  IActionResult Index(int? pagina=null)
         {
+            const int ItensPorPagina = 25;
             try
             {
                 //verifica se o usuario está logado e o nivel de acesso
@@ -39,7 +41,8 @@ namespace N2_Ecommerce_adventure.Controllers
                 }
                 ViewBag.catProduto = -1;
                 var lista = new ProdutosDAO().Listagem();
-                return View("Index", lista);
+                int numeroPagina = (pagina ?? 1);
+                return View("Index", lista.ToPagedList(numeroPagina, ItensPorPagina));
             }
             catch (Exception erro)
             {
@@ -49,8 +52,10 @@ namespace N2_Ecommerce_adventure.Controllers
 
         
 
-        public IActionResult AplicaFiltro(bool newPage=false,int idCategoria=-1,String Nome="",String precoInicial=null, String precoFinal=null)
+        public IActionResult AplicaFiltro(int? pagina = null, bool newPage=false,int idCategoria=-1,String Nome="",String precoInicial=null, String precoFinal=null)
         {
+            const int ItensPorPagina = 25;
+
             ProdutosDAO mDAO = new ProdutosDAO();
             object precoIniAux, precoFinAux;
 
@@ -82,9 +87,11 @@ namespace N2_Ecommerce_adventure.Controllers
                                     };
 
             var lista = mDAO.Filtro(mParams);
-            if(!newPage)
+            int numeroPagina = (pagina ?? 1);
+
+            if (!newPage)
             {
-                return PartialView("pvHomeProdutos", lista);
+                return PartialView("pvHomeProdutos", lista.ToPagedList(numeroPagina, ItensPorPagina));
             }
             else
             {
@@ -99,8 +106,16 @@ namespace N2_Ecommerce_adventure.Controllers
                     ViewBag.Tipo = "Normal";
                 }
 
+                List<Object> filtros = new List<object>();
+                filtros.Add(newPage);
+                filtros.Add(idCategoria);
+                filtros.Add(Nome);
+                filtros.Add(precoInicial);
+                filtros.Add(precoFinal);
+                ViewBag.Filtros = filtros;
                 ViewBag.catProduto = idCategoria;
-                return View("Index", lista);
+
+                return View("Index", lista.ToPagedList(numeroPagina, ItensPorPagina));
             }
         }
 

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 
 namespace N2_Ecommerce_adventure.Controllers
 {
@@ -16,13 +17,16 @@ namespace N2_Ecommerce_adventure.Controllers
             DAO = new EnderecoDAO();
             GeraProximoId = true;
         }
-        public override IActionResult Index()
+        public override IActionResult Index(int? pagina = null)
         {
+            const int ItensPorPagina = 10;
             try
             {
                 SetUserData();
                 var lista = DAO.Listagem();
-                return View(NomeViewIndex, lista);
+                int numeroPagina = (pagina ?? 1);
+                return View(NomeViewIndex, lista.ToPagedList(numeroPagina, ItensPorPagina));
+
             }
             catch (Exception erro)
             {

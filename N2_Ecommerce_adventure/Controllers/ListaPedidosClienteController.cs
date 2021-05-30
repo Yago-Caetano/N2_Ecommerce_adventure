@@ -17,7 +17,7 @@ namespace N2_Ecommerce_adventure.Controllers
             DAO = new PedidosDAO();
             GeraProximoId = false;       
         }
-        public override IActionResult Index()
+        public override IActionResult Index(int? pagina= null)
         {
             try
             {

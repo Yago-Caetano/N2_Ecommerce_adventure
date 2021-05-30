@@ -1,7 +1,7 @@
-﻿
-@model List<UsuarioViewModel>
+﻿@model X.PagedList.IPagedList<UsuarioViewModel>
+@using X.PagedList.Mvc.Core;
 
-    <table class="table table-responsive table-striped">
+<table class="table table-responsive table-striped">
     <tr>
         <th>Ações</th>
         <th>Id</th>
@@ -40,5 +40,8 @@
 
 
 </table>
+@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+
+
 
 

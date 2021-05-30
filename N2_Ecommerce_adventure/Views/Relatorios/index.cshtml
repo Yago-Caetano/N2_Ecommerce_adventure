@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <script type="text/javascript" src="~/js/TelaRelatorio.js"></script>
     <link rel="stylesheet" href="~/css/Filtro.css" />
+    <link rel="stylesheet" href="~/css/mContainer.css" />
 </head>
 
 <body>
@@ -35,7 +36,7 @@
                 </div>
             </div>
 
-        <div id="conteudo">
+        <div id="conteudo" class="m-container">
             @{
                 Html.RenderPartial("pvConteudoPedidos");
                 Html.RenderPartial("pvConteudoProdutos");

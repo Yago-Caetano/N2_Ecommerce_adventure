@@ -1,28 +1,30 @@
-﻿@model List<ProdutosViewModel>
+﻿@model X.PagedList.IPagedList<ProdutosViewModel>
+@using X.PagedList.Mvc.Core;
+
 
 @if (Model != null)
 {
     @if (Model.Count > 0)
     {
-        <table>
-            <tr>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Preço</th>
-                <th>Quantidade</th>
-            </tr>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+    </tr>
 
-            @foreach (ProdutosViewModel p in Model)
-            {
-                <tr>
-                    <td>@p.Id</td>
-                    <td>@p.Nome</td>
-                    <td>@p.Preço</td>
-                    <td>@p.Quantidade</td>
-                </tr>
-            }
-
-        </table>
+    @foreach (ProdutosViewModel p in Model)
+    {
+        <tr>
+            <td>@p.Id</td>
+            <td>@p.Nome</td>
+            <td>@p.Preço</td>
+            <td>@p.Quantidade</td>
+        </tr>
+    }
+    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+</table>
     }
     else
     {

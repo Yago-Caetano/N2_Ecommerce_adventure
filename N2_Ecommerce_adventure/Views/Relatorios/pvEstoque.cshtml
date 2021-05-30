@@ -1,5 +1,5 @@
-﻿
-@model List<EstoqueModel>
+﻿@model X.PagedList.IPagedList<EstoqueModel>
+@using X.PagedList.Mvc.Core;
 
 @if (Model != null)
 {
@@ -22,6 +22,8 @@
             }
 
         </table>
+        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+
     }
 
 

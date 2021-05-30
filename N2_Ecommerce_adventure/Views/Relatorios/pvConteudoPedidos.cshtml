@@ -1,4 +1,5 @@
-﻿@model List<PedidosViewModel>
+﻿@model X.PagedList.IPagedList<PedidosViewModel>
+@using X.PagedList.Mvc.Core;
 
 @if (Model != null)
 {
@@ -25,7 +26,7 @@
             }
 
         </table>
-
+        @Html.PagedListPager(Model, pagina => Url.Action("ConsultaAjax", new { pagina }))
         <div>
             <p>Somatória Total <b>R$:@ViewBag.Somatoria</b></p>
         </div>
