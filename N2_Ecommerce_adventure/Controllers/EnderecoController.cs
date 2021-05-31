@@ -94,6 +94,8 @@ namespace N2_Ecommerce_adventure.Controllers
 
                 if (!Int32.TryParse(valor, out int j))
                     ModelState.AddModelError("CEP", "CEP Inválido!");
+                
+                
             }
             catch (Exception e)
             {

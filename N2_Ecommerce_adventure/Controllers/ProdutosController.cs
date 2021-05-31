@@ -102,5 +102,25 @@ namespace N2_Ecommerce_adventure.Controllers
             PreparaListaCategoriaParaCombo();
         }
 
+        protected override void ValidaDados(ProdutosViewModel produtos, string operacao)
+        {
+            base.ValidaDados(produtos, operacao);   
+
+            if (string.IsNullOrEmpty(produtos.Nome))
+                ModelState.AddModelError("Nome", "Preencha o nome do produto.");
+            if (produtos.FotoEmBase64 == null)
+                ModelState.AddModelError("Foto", "Campo obrigatório.");
+            if (produtos.Preço <= 0)
+                ModelState.AddModelError("Preço", "Informe o preço.");
+            if (produtos.Quantidade <= 0)
+                ModelState.AddModelError("Quantidade", "Quantidade inválida");
+            if (produtos.Desconto < 0)
+                ModelState.AddModelError("Desconto", "Desconto inválido.");
+            if (string.IsNullOrEmpty(produtos.Descricao))
+                ModelState.AddModelError("Descricao", "Preencha a descrição.");
+            if (produtos.Categoria_Produto == null)
+                ModelState.AddModelError("Categoria_Produto", "Selecione uma categoria.");
+        }
+
     }
 }

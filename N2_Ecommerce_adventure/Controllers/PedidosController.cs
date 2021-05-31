@@ -95,7 +95,7 @@ namespace N2_Ecommerce_adventure.Controllers
             try
             {
                 ProdutoPedidoDAO dao = new ProdutoPedidoDAO();
-                //ValidaDados(model, Operacao);
+                 //ValidaDados(model, Operacao);
                 //if (ModelState.IsValid == false)
                // {
                   //  ViewBag.Operacao = Operacao;
@@ -118,5 +118,6 @@ namespace N2_Ecommerce_adventure.Controllers
             }
         }
 
+        
     }
 }
