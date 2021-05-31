@@ -59,7 +59,7 @@ namespace N2_Ecommerce_adventure.Controllers
         private List<CarrinhoViewModel> ObtemCarrinhoNaSession()
         {
             List<CarrinhoViewModel> carrinho = new List<CarrinhoViewModel>();
-            string carrinhoJson = HttpContext.Session.GetString("carrinho");
+            string carrinhoJson = HttpContext.Session.GetString("Carrinho");
             if (carrinhoJson != null)
                 carrinho = JsonConvert.DeserializeObject<List<CarrinhoViewModel>>(carrinhoJson);
             return carrinho;

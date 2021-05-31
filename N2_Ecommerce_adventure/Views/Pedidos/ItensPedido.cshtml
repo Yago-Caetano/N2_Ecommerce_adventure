@@ -12,33 +12,43 @@
 <br />
 <a href="/Pedidos/CreateItens?id=@Model.Id">Adicionar Item</a>
 <br />
-<table class="m-table-center">
-    <tr>
-        <th>Ações</th>
-        <th>Id</th>
-        <th>Produto</th>
-        <th>Quantidade</th>
-        <th>Preço</th>
-        <th>Desconto</th>
-    </tr>
-
-    @foreach (ProdutoPedidoViewModel a in Model.Itens)
-    {
+@if (Model.Itens.Count > 0)
+{
+    <table class="m-table-center">
         <tr>
-            <td>
-                <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn btn-info">Editar</a>
-                <a href="javascript:DeletarItemPedido(@a.idPedido, @a.Produto.Id,'@a.Produto.Nome')" class="btn btn-danger">Apagar</a>
-            </td>
-            <td>@a.Id</td>
-            <td>@a.Produto.Nome</td>
-            <td>@a.Quantidade</td>
-            <td>@a.Preco</td>
-            <td>@a.Desconto</td>
+            <th>Ações</th>
+            <th>Id</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Preço</th>
+            <th>Desconto</th>
         </tr>
-    }
+
+        @foreach (ProdutoPedidoViewModel a in Model.Itens)
+        {
+            <tr>
+                <td>
+                    <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn btn-info">Editar</a>
+                    <a href="javascript:DeletarItemPedido(@a.idPedido, @a.Produto.Id,'@a.Produto.Nome')" class="btn btn-danger">Apagar</a>
+                </td>
+                <td>@a.Id</td>
+                <td>@a.Produto.Nome</td>
+                <td>@a.Quantidade</td>
+                <td>@a.Preco</td>
+                <td>@a.Desconto</td>
+            </tr>
+        }
 
 
-</table>
+    </table>
+}
+else
+{
+    <div>
+        <h4>Não há dados Disponiveis</h4>
+    </div>
+}
+
 <script>
     function DeletarItemPedido(idPedido, IdProduto, nome) {
 
