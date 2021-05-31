@@ -1,0 +1,74 @@
+﻿@model PedidosViewModel
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+    <link rel="stylesheet" href="~/css/mContainer.css" />
+</head>
+<body>
+    <div class="m-container">
+        <h2>Relação de Itens</h2>
+
+        <br />
+        <a href="/Pedidos/CreateItens?id=@Model.Id">Adicionar Item</a>
+        <br />
+        @if (Model.Itens.Count > 0)
+        {
+            <table class="m-table-center">
+                <tr>
+                    <th>Ações</th>
+                    <th>Id</th>
+                    <th>Produto</th>
+                    <th>Quantidade</th>
+                    <th>Preço</th>
+                    <th>Desconto</th>
+                </tr>
+
+                @foreach (ProdutoPedidoViewModel a in Model.Itens)
+                {
+                    <tr>
+                        <td>
+                            <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn btn-info">Editar</a>
+                            <a href="javascript:DeletarItemPedido(@a.idPedido, @a.Produto.Id,'@a.Produto.Nome')" class="btn btn-danger">Apagar</a>
+                        </td>
+                        <td>@a.Id</td>
+                        <td>@a.Produto.Nome</td>
+                        <td>@a.Quantidade</td>
+                        <td>@a.Preco</td>
+                        <td>@a.Desconto</td>
+                    </tr>
+                }
+
+
+            </table>
+        }
+        else
+        {
+            <div>
+                <h4>Não há dados Disponiveis</h4>
+            </div>
+        }
+    </div>
+</body>
+
+
+<script>
+    function DeletarItemPedido(idPedido, IdProduto, nome) {
+
+        swal({
+            title: "Tem certeza?",
+            text: "O item: " + nome + " será retirado do pedido",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonClass: "btn-danger",
+            cancelButtonClass: "btn-info",
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não!",
+            closeOnConfirm: false
+        },
+            function () {
+                location.href = '/Pedidos/DeleteItens?id=' + idPedido + "&idProduto=" + IdProduto;
+            });
+    }
+</script>
