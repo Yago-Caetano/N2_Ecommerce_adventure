@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using X.PagedList;
 using static N2_Ecommerce_adventure.DAO.PedidosDAO;
 
 namespace N2_Ecommerce_adventure.Controllers
@@ -19,6 +20,7 @@ namespace N2_Ecommerce_adventure.Controllers
         }
         public override IActionResult Index(int? pagina= null)
         {
+            const int ItensPorPagina = 5;
             try
             {
                 PedidosDAO dao = new PedidosDAO();
@@ -29,7 +31,9 @@ namespace N2_Ecommerce_adventure.Controllers
                 dao.UserId = user.Id;
 
                 var lista = dao.ListarByCliente(Model.Informacaoes);
-                return View(NomeViewIndex, lista);
+
+                int numeroPagina = (pagina ?? 1);
+                return View("Index", lista.ToPagedList(numeroPagina, ItensPorPagina));
             }
             catch (Exception erro)
             {

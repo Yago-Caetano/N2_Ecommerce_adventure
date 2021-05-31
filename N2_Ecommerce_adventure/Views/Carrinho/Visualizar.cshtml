@@ -1,5 +1,5 @@
-﻿@model X.PagedList.IPagedList<CarrinhoViewModel>
-@using X.PagedList.Mvc.Core;
+﻿@model List<CarrinhoViewModel>
+
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -34,7 +34,7 @@
                 </tr>
             }
         </table>
-        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+
         <div>
             <section class="enderecos">
 
