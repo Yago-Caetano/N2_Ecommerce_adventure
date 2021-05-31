@@ -11,33 +11,43 @@
         <br />
         <a href="/Pedidos/Create">Novo Registro</a>
         <br />
-        <table class="m-table-center">
-            <tr>
-                <th>Ações</th>
-                <th>Id</th>
-                <th>Nome</th>
-                <th>Status</th>
-                <th>CEP</th>
-                <th>Data</th>
-            </tr>
-
-            @foreach (PedidosViewModel a in Model)
-            {
+        @if (Model.Count > 0)
+        {
+            <table class="m-table-center">
                 <tr>
-                    <td>
-                        <a href="Pedidos/Edit?id=@a.Id" class="btn btn-info">Editar</a>
-                        <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
-                        <a href="Pedidos/VerItens?id=@a.Id" class="btn btn-info">Itens</a>
-                    </td>
-                    <td>@a.Id</td>
-                    <td>@a.Cliente.Nome</td>
-                    <td>@a.status.status</td>
-                    <td>@a.endereco.CEP</td>
-                    <td>@a.data</td>
+                    <th>Ações</th>
+                    <th>Id</th>
+                    <th>Nome</th>
+                    <th>Status</th>
+                    <th>CEP</th>
+                    <th>Data</th>
                 </tr>
-            }
 
-        </table>
-        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+                @foreach (PedidosViewModel a in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="Pedidos/Edit?id=@a.Id" class="btn btn-info">Editar</a>
+                            <a href="javascript:apagarRegistro(@a.Id, 'Pedidos')" class="btn btn-danger">Apagar</a>
+                            <a href="Pedidos/VerItens?id=@a.Id" class="btn btn-info">Itens</a>
+                        </td>
+                        <td>@a.Id</td>
+                        <td>@a.Cliente.Nome</td>
+                        <td>@a.status.status</td>
+                        <td>@a.endereco.CEP</td>
+                        <td>@a.data</td>
+                    </tr>
+                }
+
+            </table>
+            @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+        }
+        else
+        {
+            <div>
+                <h4>Não há dados Disponiveis</h4>
+            </div>
+        }
+
     </div>
 </body>

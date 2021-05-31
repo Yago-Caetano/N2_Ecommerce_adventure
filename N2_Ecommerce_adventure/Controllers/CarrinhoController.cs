@@ -89,7 +89,7 @@ namespace N2_Ecommerce_adventure.Controllers
                 if (carrinhoModel != null)
                     carrinhoModel.Quantidade = Quantidade;
                 string carrinhoJson = JsonConvert.SerializeObject(carrinho);
-                HttpContext.Session.SetString("carrinho", carrinhoJson);
+                HttpContext.Session.SetString("Carrinho", carrinhoJson);
                 return RedirectToAction("Visualizar");
             }
             catch (Exception erro)
