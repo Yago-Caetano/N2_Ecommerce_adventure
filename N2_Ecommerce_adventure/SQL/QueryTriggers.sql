@@ -127,3 +127,36 @@ begin
 
 end
 GO
+create trigger trg_Delete_Produto on tbProdutos instead of delete
+as
+begin
+	print 'Entrou na trigger'
+	declare @idProduto int;
+	declare @idPedido int;
+
+	set @idProduto = (select id from deleted);
+
+	declare cursorItemPedido cursor for select idProduto from tbPedidosxProdutos where idProduto=@idProduto;
+
+
+	open cursorItemPedido;
+
+	fetch next from cursorItemPedido into @idPedido;
+
+		while @@FETCH_STATUS = 0  
+			begin
+				delete from tbPedidosxProdutos where idProduto=@idProduto
+				
+				fetch next from cursorItemPedido into @idPedido;
+			end
+			close cursorItemPedido;
+			deallocate cursorItemPedido;
+
+
+	/*
+		executa os deletes
+	*/
+	delete from tbProdutos where id=@idProduto
+	
+end
+Go
