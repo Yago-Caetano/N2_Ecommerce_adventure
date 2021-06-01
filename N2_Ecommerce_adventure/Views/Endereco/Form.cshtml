@@ -2,79 +2,57 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Cadastro de Endereço</h2>
-Endereço do usuario: @ViewBag.NomeUsuario
-<form asp-action="Save" method="post">
+
+<h2 class="titulo-formularios">Cadastro de Endereço</h2>
+<p><b>Usuário: </b> <i>@ViewBag.NomeUsuario</i></p>
+
+<form class="formulario col-md-8" asp-action="Save" method="post">
     <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
 
+    @*<input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
+        <span asp-validation-for="Id" class="text-danger"></span>*@
 
-    <input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
-    <span asp-validation-for="Id" class="text-danger"></span>
-
-    <label for="CEP" class="control-label">CEP</label>
-    <input type="text" Name="CEP" value="@Model.CEP" class="form-control" id="cep" />
-    <span asp-validation-for="CEP" class="text-danger"></span>
-
-    <input type="button" value="Buscar" class="btn-info" onclick="buscaCEP()" />
-    <br />
-    <br />
-
-    <label for="Rua" class="control-label">Rua</label>
-    <input type="text" Name="Rua" value="@Model.Rua" class="form-control" id="logradouro" />
+    <label for="Rua" class="control-label"><h5>Rua</h5></label>
+    <input type="text" Name="Rua" value="@Model.Rua" class="form-control" />
     <span asp-validation-for="Rua" class="text-danger"></span>
     <br />
 
-    <label for="Numero" class="control-label">Número</label>
-    <input type="number" Name="Numero" value="@Model.Numero" class="form-control" />
-    <span asp-validation-for="Numero" class="text-danger"></span>
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <label for="Numero" class="control-label"><h5>Número</h5></label>
+                <input type="number" Name="Numero" value="@Model.Numero" class="form-control" />
+                <span asp-validation-for="Numero" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label for="Complemento" class="control-label"><h5>Complemento</h5></label>
+                <input type="text" Name="Complemento" value="@Model.Complemento" class="form-control" />
+                <span asp-validation-for="Complemento" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+
+    <br/>
+
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <label for="CEP" class="control-label"><h5>CEP</h5></label>
+                <input type="text" Name="CEP" value="@Model.CEP" class="form-control" />
+                <span asp-validation-for="CEP" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label for="Cidade" class="control-label"><h5>Cidade</h5></label>
+                <input type="text" Name="Cidade" value="@Model.Cidade" class="form-control" />
+                <span asp-validation-for="Cidade" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+   
     <br />
 
-    <label for="Complemento" class="control-label">Complemento</label>
-    <input type="text" Name="Complemento" value="@Model.Complemento" class="form-control" />
-    <span asp-validation-for="Complemento" class="text-danger"></span>
-    <br />
-
-    <label for="Cidade" class="control-label">Cidade</label>
-    <input type="text" Name="Cidade" value="@Model.Cidade" class="form-control" id="localidade" />
-    <span asp-validation-for="Cidade" class="text-danger"></span>
-    <br />
-
-    <input type="submit" value="Salvar dados" class="btn-info" />
+    <input type="submit" value="Salvar dados" class="btn btn-info" />
     &nbsp;&nbsp;&nbsp;
-    <a href="#" onclick='javascript:history.back(-1);' class="btn-light">Voltar</a>
+    <a href="#" onclick='javascript:history.back(-1);' class="btn btn-light">Voltar</a>
     <br />
 </form>
-
-<script>
-    function buscaCEP() {
-        var cep = document.getElementById("cep").value;
-        cep = cep.replace('-', '');
-        if (cep.length > 0) {
-            var linkAPI = 'https://viacep.com.br/ws/' + cep + '/json/';
-
-            $.ajax({
-                type: 'GET',
-                url: linkAPI,
-                datatype: "json",
-                cache: false,
-                beforeSend: function () {
-                    document.getElementById("logradouro").value = '';
-                    document.getElementById("localidade").value = '';
-                },
-                success: function (dados) {
-                    if (dados.erro != undefined)  // quando o CEP não existe...
-                    {
-                        alert('CEP não localizado...');
-                        document.getElementById("logradouro").value = '';
-                        document.getElementById("localidade").value = '';   
-                    }
-                    else // quando o CEP existe			   
-                    {
-                        document.getElementById("logradouro").value = dados.logradouro;
-                        document.getElementById("localidade").value = dados.localidade;
-                    }
-                }
-            });
-        }
-    }
-</script>

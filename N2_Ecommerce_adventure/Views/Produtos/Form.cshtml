@@ -2,53 +2,69 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Cadastro de Produtos</h2>
-<form asp-action="Save" method="post" enctype="multipart/form-data">
+
+
+<h2 class="titulo-formularios">Cadastro de Produtos</h2>
+<form class="formulario col-md-8" asp-action="Save" method="post" enctype="multipart/form-data">
+
     <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
 
+    @*<input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
+        <span asp-validation-for="Id" class="text-danger"></span>*@
 
-    <input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
-    <span asp-validation-for="Id" class="text-danger"></span>
-
-    <label for="Nome" class="control-label">Nome</label>
+    <label for="Nome" class="control-label"><h5>Nome</h5></label>
     <input type="text" Name="Nome" value="@Model.Nome" class="form-control" />
     <span asp-validation-for="Nome" class="text-danger"></span>
     <br />
 
-    <input type="file" name="Foto" id="Foto" onchange="exibirFoto()" class="btn btn-secondary">
-    <img id="imgPreview" src="data:image/jpeg;base64,@Model.FotoEmBase64" class="img-responsive"
-         width="100">
-    <span asp-validation-for="Foto" class="text-danger"></span>
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <label for="Preço" class="control-label"><h5>Preço</h5></label>
+                <input " type="number" step="0.01" Name="Preço" value="@Model.Preço" class="form-control" />
+                <span asp-validation-for="Preço" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label for="Foto" class="control-label"><h5>Foto do produto</h5></label>
+                <input style=" width: 100%; margin-bottom: 10px;" type="file" name="Foto" id="Foto" onchange="exibirFoto()" class="btn btn-secondary">
+                @*<img id="imgPreview" src="data:image/jpeg;base64,@Model.FotoEmBase64" class="img-responsive">*@
+                <span asp-validation-for="Foto" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
 
-    <label for="Preço" class="control-label">Preço</label>
-    <input type="number" step="0.01" Name="Preço" value="@Model.Preço" class="form-control" />
-    <span asp-validation-for="Preço" class="text-danger"></span>
-    <br />
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <label for="Quantidade" class="control-label"><h5>Quantidade</h5></label>
+                <input type="number" step="1" Name="Quantidade" value="@Model.Quantidade" class="form-control" />
+                <span asp-validation-for="Quantidade" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label for="Desconto" class="control-label"><h5>Desconto</h5></label>
+                <input type="number" step="0.01" Name="Desconto" value="@Model.Desconto" class="form-control" />
+                <span asp-validation-for="Desconto" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <br/>
 
-    <label for="Quantidade" class="control-label">Quantidade</label>
-    <input type="number" step="1" Name="Quantidade" value="@Model.Quantidade" class="form-control" />
-    <span asp-validation-for="Quantidade" class="text-danger"></span>
-    <br />
-
-    <label for="Desconto" class="control-label">Desconto</label>
-    <input type="number" step="0.01" Name="Desconto" value="@Model.Desconto" class="form-control" />
-    <span asp-validation-for="Desconto" class="text-danger"></span>
-    <br />
-
-    <label for="Descricao" class="control-label">Descricao</label>
+    <label for="Descricao" class="control-label"><h5>Descricao</h5></label>
     <input type="text" Name="Descricao" value="@Model.Descricao" class="form-control" />
     <span asp-validation-for="Descricao" class="text-danger"></span>
     <br />
 
-    <label for="idCategoria" class="control-label">Categoria</label>
+    <label for="idCategoria" class="control-label"><h5>Categoria</h5></label>
     <select asp-for="idCategoria" asp-items="ViewBag.Categorias" class="form-control"> </select>
     <span asp-validation-for="idCategoria" class="text-danger"></span>
     <br />
 
-
-    <input type="submit" value="Salvar dados" class="btn-light" />
-    &nbsp;&nbsp;&nbsp;
-    <a href="/Produtos" class="btn-light">Voltar</a>
+    <div  class="botoes-formulario">
+        <input style="margin-left: 300px;" type="submit" value="Salvar dados" class="btn btn-info" />
+        &nbsp;&nbsp;&nbsp;
+        <a href="/Produtos" class="btn btn-light">Voltar</a>
+    </div>
+    
     <br />
 </form>
 
@@ -60,4 +76,5 @@
             document.getElementById("imgPreview").src = oFREvent.target.result;
         };
     }
+
 </script>
