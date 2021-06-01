@@ -9,15 +9,23 @@
 <body>
     <div class="m-container">
         <h2>Relação de Itens</h2>
+        <br />
 
+        @if (ViewBag.Tipo == "Gerente")
+        {
+            <a href="/Pedidos/CreateItens?id=@Model.Id">Adicionar Item</a>
+        }
         <br />
-        <a href="/Pedidos/CreateItens?id=@Model.Id">Adicionar Item</a>
-        <br />
+
         @if (Model.Itens.Count > 0)
         {
             <table class="m-table-center">
                 <tr>
-                    <th>Ações</th>
+                    @if (ViewBag.Tipo == "Gerente")
+                    {
+                        <th>Ações</th>
+
+                    }
                     <th>Id</th>
                     <th>Produto</th>
                     <th>Quantidade</th>
@@ -28,10 +36,16 @@
                 @foreach (ProdutoPedidoViewModel a in Model.Itens)
                 {
                     <tr>
-                        <td>
-                            <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn btn-info">Editar</a>
-                            <a href="javascript:DeletarItemPedido(@a.idPedido, @a.Produto.Id,'@a.Produto.Nome')" class="btn btn-danger">Apagar</a>
-                        </td>
+                        @if (ViewBag.Tipo == "Gerente")
+                        {
+                            <td>
+
+                                <a href="/Pedidos/EditarItem?id=@Model.Id&idProduto=@a.Produto.Id" class="btn btn-info">Editar</a>
+                                <a href="javascript:DeletarItemPedido(@a.idPedido, @a.Produto.Id,'@a.Produto.Nome')" class="btn btn-danger">Apagar</a>
+                            </td>
+
+                        }
+
                         <td>@a.Id</td>
                         <td>@a.Produto.Nome</td>
                         <td>@a.Quantidade</td>

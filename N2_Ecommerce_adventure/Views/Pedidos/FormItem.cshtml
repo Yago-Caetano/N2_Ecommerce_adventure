@@ -7,7 +7,7 @@
     <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
 
 
-    <input type="number" Name="idPedido" value="@Model.idPedido" class="form-control disabled" readonly />
+    <input type="hidden" Name="idPedido" value="@Model.idPedido" class="form-control disabled" readonly />
     <span asp-validation-for="idPedido" class="text-danger"></span>
     <br />
     @if (ViewBag.Operacao == "I")
@@ -32,7 +32,7 @@
 
     <input type="submit" value="Salvar dados" class="btn-info" />
     &nbsp;&nbsp;&nbsp;
-    <a href="/Jogador/index" class="btn-light">Voltar</a>
+    <a href="/" class="btn-light">Voltar</a>
     <br />
 </form>
 

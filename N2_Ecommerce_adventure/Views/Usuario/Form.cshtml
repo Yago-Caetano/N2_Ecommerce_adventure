@@ -7,8 +7,8 @@
 <form class="formulario col-md-8" asp-action="Save" method="post">
     <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
 
-    @*<input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
-    <span asp-validation-for="Id" class="text-danger"></span>*@
+    <input type="hidden" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
+    <span asp-validation-for="Id" class="text-danger"></span>
 
     <label for="Nome" class="control-label">Nome</label>
     <input type="text" Name="Nome" value="@Model.Nome" class="form-control" />

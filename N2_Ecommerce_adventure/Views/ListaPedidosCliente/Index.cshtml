@@ -21,7 +21,7 @@
 
                 @foreach (PedidosViewModel a in Model)
                 {
-                    <!--<tr>-->
+                    <tr>
                     <td>
                         <a href="ListaPedidosCliente/VerItens?id=@a.Id" class="btn btn-info">Itens</a>
                     </td>
@@ -30,7 +30,7 @@
                     <td>@a.status.status</td>
                     <td>@a.endereco.CEP</td>
                     <td>@a.data</td>
-                    <!--</tr>-->
+                    </tr>
 
                 }
 
