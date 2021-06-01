@@ -5,7 +5,7 @@
 @if (Model != null)
 {
 
-    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+    <p class="pagination">@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))</p>
    
     <table class="m-table-center">
 
