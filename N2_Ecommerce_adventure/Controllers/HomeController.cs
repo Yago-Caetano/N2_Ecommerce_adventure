@@ -23,13 +23,16 @@ namespace N2_Ecommerce_adventure.Controllers
             _logger = logger;
         }
 
+
+
         public  IActionResult Index(int? pagina=null)
         {
             const int ItensPorPagina = 25;
             try
             {
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
                 //verifica se o usuario está logado e o nivel de acesso
-                if(HelperControllers.VerificaUserLogado(HttpContext.Session))
+                if (HelperControllers.VerificaUserLogado(HttpContext.Session))
                 {
                     ViewBag.Logado = true;
                     ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
@@ -55,6 +58,7 @@ namespace N2_Ecommerce_adventure.Controllers
         public IActionResult AplicaFiltro(int? pagina = null, bool newPage=false,int idCategoria=-1,String Nome="",String precoInicial=null, String precoFinal=null)
         {
             const int ItensPorPagina = 25;
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
 
             ProdutosDAO mDAO = new ProdutosDAO();
             object precoIniAux, precoFinAux;
@@ -114,8 +118,14 @@ namespace N2_Ecommerce_adventure.Controllers
                 filtros.Add(precoFinal);
                 ViewBag.Filtros = filtros;
                 ViewBag.catProduto = idCategoria;
-
-                return View("Index", lista.ToPagedList(numeroPagina, ItensPorPagina));
+                if(lista != null)
+                {
+                    return View("Index", lista.ToPagedList(numeroPagina, ItensPorPagina));
+                }
+                else
+                {
+                    return View("Index", lista);
+                }
             }
         }
 

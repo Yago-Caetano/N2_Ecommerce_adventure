@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
+using N2_Ecommerce_adventure.DAO;
+using N2_Ecommerce_adventure.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,5 +32,14 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             session.Remove("Carrinho");
         }
+
+        public static List<CategoriaProdutoViewModel> CarregaCategoriasCabecalho()
+        {
+            //verifica as categorias cadastradas
+            CategoriaProdutoDAO mDAO = new CategoriaProdutoDAO();
+            var categorias = mDAO.Listagem();
+            return categorias;
+        }
+
     }
 }

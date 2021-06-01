@@ -46,11 +46,39 @@
         </nav>
         <nav class="navbar " style=" background-color: #236B56">
             <div class="container">
-                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=1">Barracas</a>
-                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=2">Lanternas</a>
-                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=3">Lazer</a>
-                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=4">Mochilas</a>
-                <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=5">Táctico Militares</a>
+                @if (ViewBag.CategoriasHeader.Count > 5)
+                {
+                    for (int i = 0; i < 5; i++)
+                    {
+
+                        <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=@ViewBag.CategoriasHeader[i].Id">@ViewBag.CategoriasHeader[i].Categoria</a>
+                    }
+
+
+
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle text-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Outros
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @for (int j = 5; j < ViewBag.CategoriasHeader.Count; j++)
+                            {
+                                <a class="dropdown-item" href="/Home/AplicaFiltro?newPage=true&idCategoria=@ViewBag.CategoriasHeader[j].Id">@ViewBag.CategoriasHeader[j].Categoria</a>
+
+                            }
+                        </div>
+                    </div>
+                }
+                else
+                {
+                    @foreach (CategoriaProdutoViewModel c in ViewBag.CategoriasHeader)
+                    {
+                        <a class="text-white" href="/Home/AplicaFiltro?newPage=true&idCategoria=@c.Id">@c.Categoria</a>
+
+                    }
+                }
+
+
                 <a class="text-white" asp-area="" asp-controller="Sobre" asp-action="Index">Sobre Nós</a>
             </div>
     </nav>

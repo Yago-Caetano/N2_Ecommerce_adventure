@@ -11,6 +11,7 @@ namespace N2_Ecommerce_adventure.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
             //verifica se o usuario está logado e o nivel de acesso
             if (HelperControllers.VerificaUserLogado(HttpContext.Session))
             {

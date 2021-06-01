@@ -10,7 +10,7 @@
         <br />
         <a href="/Endereco/Create">Novo Registro</a>
         <br />
-        <div class="m-container-center">
+        <div class="d-flex flex-column">
             @if (Model.Count > 0)
             {
                 <table class="m-table-center">
@@ -52,8 +52,9 @@
 
 
                 </table>
-
-                @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+                <div>
+                    @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+                </div>
             }
             else
             {

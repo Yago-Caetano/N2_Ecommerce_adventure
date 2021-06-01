@@ -436,6 +436,11 @@ begin
 	where id=@id
 end
 GO
+create procedure spListaPedidosByCliente (@idCliente int) as
+	begin
+		Select* from tbPedidos where idUsuario=@idCliente
+	end
+go
 ---------------------------------------------------------------------------------------------Pedido produto
 create procedure spInsert_tbPedidosxProdutos
 (

@@ -13,11 +13,14 @@ namespace N2_Ecommerce_adventure.Controllers
     {
         public IActionResult Index()
         {
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
             ViewBag.Tipo = null;
             return View();
         }
         public IActionResult FazLogin(string usuario, string senha)
         {
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
             UsuarioDAO dao = new UsuarioDAO();
             UsuarioViewModel user = new UsuarioViewModel();
             user = dao.VerificaUsuario(usuario, senha);
@@ -38,6 +41,7 @@ namespace N2_Ecommerce_adventure.Controllers
         }
         public IActionResult LogOff()
         {
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
             HttpContext.Session.Clear();
             return RedirectToAction("Index");
         }

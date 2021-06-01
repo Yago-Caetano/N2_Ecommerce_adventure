@@ -18,6 +18,7 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
 
                 List<CarrinhoViewModel> carrinho = ObtemCarrinhoNaSession();
                 //@ViewBag.TotalCarrinho = carrinho.Sum(c => c.Quantidade);
@@ -36,6 +37,8 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
                 List<CarrinhoViewModel> carrinho = ObtemCarrinhoNaSession();
                 ProdutosDAO prodDAO = new ProdutosDAO();
                 var modelProduto = prodDAO.Consulta(idProduto);
@@ -68,6 +71,8 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
                 List<CarrinhoViewModel> carrinho = ObtemCarrinhoNaSession();
                 CarrinhoViewModel carrinhoModel = carrinho.Find(c => c.ProdutoId == ProdutoId);
                 if (carrinhoModel != null && Quantidade == 0)
@@ -117,6 +122,8 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
                 ProdutosDAO dao = new ProdutosDAO();
                 var carrinho = ObtemCarrinhoNaSession();
                 foreach (var item in carrinho)
@@ -143,6 +150,8 @@ namespace N2_Ecommerce_adventure.Controllers
             else
             {
                 ViewBag.Logado = true;
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
                 base.OnActionExecuting(context);
             }
         }

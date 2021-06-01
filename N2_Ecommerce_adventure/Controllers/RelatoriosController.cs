@@ -42,6 +42,7 @@ namespace N2_Ecommerce_adventure.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
             if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
                 context.Result = RedirectToAction("Index", "Login");
         }

@@ -1,47 +1,48 @@
 ﻿@model X.PagedList.IPagedList<UsuarioViewModel>
 @using X.PagedList.Mvc.Core;
 
-<table class="m-table-center">
-    <tr>
-        <th>Ações</th>
-        <th>Id</th>
-        <th>Nome</th>
-        <th>Data de Nascimento</th>
-        <th>Email</th>
-        <th>CPF</th>
-        <th>Tipo</th>
-        <th>Ativo</th>
-    </tr>
-
-    @foreach (UsuarioViewModel a in Model)
-    {
+<div class="d-flex flex-column">
+    <table class="m-table-center">
         <tr>
-            <td>
-                <a href="Usuario/Edit?id=@a.Id" class="btn btn-info">Editar</a>
-                <a href="javascript:apagarRegistro(@a.Id, 'Usuario')" class="btn btn-danger">Apagar</a>
-            </td>
-            <td>@a.Id</td>
-            <td>@a.Nome</td>
-            <td>@a.Nascimento</td>
-            <td>@a.Email</td>
-            <td>@a.CPF</td>
-            <td>@a.Tipo_Usuario.Tipo</td>
-            @if (@a.Ativado)
-            {
-                <td>SIM</td>
-            }
-            else
-            {
-                <td>NÃO</td>
-            }
-
+            <th>Ações</th>
+            <th>Id</th>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Email</th>
+            <th>CPF</th>
+            <th>Tipo</th>
+            <th>Ativo</th>
         </tr>
-    }
 
+        @foreach (UsuarioViewModel a in Model)
+        {
+            <tr>
+                <td>
+                    <a href="Usuario/Edit?id=@a.Id" class="btn btn-info">Editar</a>
+                    <a href="javascript:apagarRegistro(@a.Id, 'Usuario')" class="btn btn-danger">Apagar</a>
+                </td>
+                <td>@a.Id</td>
+                <td>@a.Nome</td>
+                <td>@a.Nascimento</td>
+                <td>@a.Email</td>
+                <td>@a.CPF</td>
+                <td>@a.Tipo_Usuario.Tipo</td>
+                @if (@a.Ativado)
+                {
+                    <td>SIM</td>
+                }
+                else
+                {
+                    <td>NÃO</td>
+                }
 
-</table>
-@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
-
+            </tr>
+        }
+    </table>
+    <div>
+        @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+    </div>
+</div>
 
 
 

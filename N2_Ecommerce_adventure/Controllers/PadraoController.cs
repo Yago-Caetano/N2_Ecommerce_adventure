@@ -22,12 +22,15 @@ namespace N2_Ecommerce_adventure.Controllers
         protected bool ExibeAutenticacao { get; set; } = true;
 
 
+
         public virtual IActionResult Index(int? pagina=null)
         {
             const int ItensPorPagina = 2;
 
             try
             {
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
                 //verifica se o usuario está logado e o nivel de acesso
                 if (HelperControllers.VerificaUserLogado(HttpContext.Session))
                 {
@@ -143,7 +146,9 @@ namespace N2_Ecommerce_adventure.Controllers
             ViewBag.Tipo = HttpContext.Session.GetString("Tipo");
             ViewBag.Logado = HttpContext.Session.GetString("Logado");
 
-            if(context.RouteData.Values["action"].ToString() == "Detalhes" && context.RouteData.Values["controller"].ToString() == "Produtos")
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
+            if (context.RouteData.Values["action"].ToString() == "Detalhes" && context.RouteData.Values["controller"].ToString() == "Produtos")
             {
                 base.OnActionExecuting(context);
                 return;

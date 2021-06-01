@@ -16,6 +16,8 @@ namespace N2_Ecommerce_adventure.Controllers
         {
             try
             {
+                ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
                 //verifica se o usuario está logado e o nivel de acesso
                 if (HelperControllers.VerificaUserLogado(HttpContext.Session))
                 {
@@ -38,6 +40,8 @@ namespace N2_Ecommerce_adventure.Controllers
 
         public override void OnActionExecuting(ActionExecutingContext context)
         {
+            ViewBag.CategoriasHeader = HelperControllers.CarregaCategoriasCabecalho();
+
             if (!HelperControllers.VerificaUserLogado(HttpContext.Session))
                 context.Result = RedirectToAction("Index", "Login");
         }

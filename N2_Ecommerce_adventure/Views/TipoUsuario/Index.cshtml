@@ -35,7 +35,9 @@
 
 
             </table>
-            @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+            <div>
+                @Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))
+            </div>
         }
         else
         {
