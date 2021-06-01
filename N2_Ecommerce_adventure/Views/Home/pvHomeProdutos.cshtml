@@ -4,8 +4,9 @@
 
 @if (Model != null)
 {
-
-    <p class="pagination">@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))</p>
+<div class="d-flex flex-column align-items-center">
+    <p class="text-center">@Html.PagedListPager(Model, pagina => Url.Action("Index", new { pagina }))</p>
+</div>
    
     <table class="m-table-center">
 
