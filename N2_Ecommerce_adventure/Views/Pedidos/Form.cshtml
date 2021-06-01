@@ -2,38 +2,53 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Cadastro de Pedidos</h2>
-<form asp-action="Save" method="post" enctype="multipart/form-data">
+
+<h2 class="titulo-formularios">Cadastro de Pedidos</h2>
+<form class="formulario col-md-8" asp-action="Save" method="post" enctype="multipart/form-data">
     <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
+    <br/>
 
+    @*<input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
+        <span asp-validation-for="Id" class="text-danger"></span>
+        <br />*@
 
-    <input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
-    <span asp-validation-for="Id" class="text-danger"></span>
-    <br />
-    <label for="status.Id" class="control-label">status.Id</label>
-    <input type="number" Name="status.Id" value="@Model.status.Id" class="form-control" />
-    <span asp-validation-for="status.Id" class="text-danger"></span>
-    <br />
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <label for="status.Id" class="control-label"><h5>Código status</h5></label>
+                <input type="number" Name="status.Id" value="@Model.status.Id" class="form-control" />
+                <span asp-validation-for="status.Id" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label for="endereco.Id" class="control-label"><h5>Código endereço</h5></label>
+                <input type="number" Name="endereco.Id" value="@Model.Cliente.Id" class="form-control" />
+                <span asp-validation-for="endereco.Id" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
 
-    <label for="endereco.Id" class="control-label">endereco.Id</label>
-    <input type="number" Name="endereco.Id" value="@Model.Cliente.Id" class="form-control" />
-    <span asp-validation-for="endereco.Id" class="text-danger"></span>
-    <br />
+    <br/>
 
-    <label for="Cliente.Id" class="control-label">Cliente id</label>
-    <input type="number" Name="Cliente.Id" value="@Model.Cliente.Id" class="form-control" />
-    <span asp-validation-for="Cliente.Id" class="text-danger"></span>
-    <br />
+    <div>
+        <div class="row">
+            <div class="col-6">
+                <label for="Cliente.Id" class="control-label"><h5>Código cliente</h5></label>
+                <input type="number" Name="Cliente.Id" value="@Model.Cliente.Id" class="form-control" />
+                <span asp-validation-for="Cliente.Id" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label for="data" class="control-label"><h5>Data</h5></label>
+                <input type="date" name="data" value="@Model.data" class="form-control" />
+                <span asp-validation-for="data" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
 
-    <label for="data" class="control-label">data</label>
-    <input type="date" name="data" value="@Model.data" class="form-control" />
-    <span asp-validation-for="data" class="text-danger"></span>
-
-
-
-    <input type="submit" value="Salvar dados" class="btn-info" />
+    <br/>
+    
+    <input type="submit" value="Salvar dados" class="btn btn-info" />
     &nbsp;&nbsp;&nbsp;
-    <a href="/Jogador/index" class="btn-light">Voltar</a>
+    <a href="/Jogador/index" class="btn btn-light">Voltar</a>
     <br />
 </form>
 

@@ -15,9 +15,9 @@
 
     @foreach (UsuarioViewModel a in Model)
     {
-        <tr>
+        <tr class="col-md-12" style="margin: 0 auto;">
             <td>
-                <a href="Usuario/Edit?id=@a.Id" class="btn-info">Editar</a>
+                <a href="Usuario/Edit?id=@a.Id" class="btn btn-info">Editar</a>
                 <a href="javascript:apagarRegistro(@a.Id, 'Usuario')" class="btn btn-danger">Apagar</a>
             </td>
             <td>@a.Id</td>

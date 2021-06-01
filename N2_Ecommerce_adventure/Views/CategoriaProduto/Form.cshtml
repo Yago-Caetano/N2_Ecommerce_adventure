@@ -2,23 +2,21 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Cadastro de Categorias de Produto</h2>
 
-<form asp-action="Save" method="post">
+<h2 class="titulo-formularios">Cadastro de Categorias de Produto</h2>
+<form class="formulario col-md-8" asp-action="Save" method="post">
     <input type="hidden" name="Operacao" value="@ViewBag.Operacao" />
 
+    @*<input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
+    <span asp-validation-for="Id" class="text-danger"></span>*@
 
-  
- <input type="number" Name="Id" value="@Model.Id" class="form-control disabled" readonly />
- <span asp-validation-for="Id" class="text-danger"></span>
-
-<label for="Categoria" class="control-label">Tipo de Usuário</label>
+    <label for="Categoria" class="control-label">Tipo de Usuário</label>
     <input type="text" Name="Categoria" value="@Model.Categoria" class="form-control" />
     <span asp-validation-for="Categoria" class="text-danger"></span>
 
     <br />
-    <input type="submit" value="Salvar dados" class="btn-info" />
+    <input type="submit" value="Salvar dados" class="btn btn-info" />
     &nbsp;&nbsp;&nbsp;
-    <a href="/Jogador/index" class="btn-light">Voltar</a>
+    <a href="/Jogador/index" class="btn btn-light">Voltar</a>
     <br />
 </form>
